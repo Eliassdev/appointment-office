@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import CreationNav from '../components/CreationNav/CreationNav';
+import React, { useState } from "react";
+import CreationNav from "../components/CreationNav/CreationNav";
+import BranchForm from "../components/BranchForm/BranchForm.component";
 
 const Dashboard = () => {
-  const [Step, setStep] = useState('overview');
+  const [Step, setStep] = useState("overview");
   function renderSwitch(step) {
     switch (step) {
-      case 'branch':
-        return <div>Branch Form</div>;
-      case 'stylist':
+      case "branch":
+        return (
+          <div>
+            <BranchForm />
+          </div>
+        );
+      case "stylist":
         return <div>Stylist Form</div>;
-      case 'services':
+      case "services":
         return <div>Services Form</div>;
       default:
         return <div>overview</div>;
