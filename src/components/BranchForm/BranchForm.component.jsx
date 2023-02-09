@@ -10,6 +10,10 @@ function BranchForm() {
     setStates(regionData[0].states);
   }, []);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <form action="">
@@ -74,9 +78,16 @@ function BranchForm() {
               required
             />
             <label htmlFor="business _phone">Telefono</label>
-            <input name="business_phone" type="tel" id="business_phone" />
+            <input
+              name="business_phone"
+              type="tel"
+              id="business_phone"
+              required
+            />
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" />
+            <input type="email" name="email" id="email" required />
+            <br />
+            <button onClick={handleSubmit}>Enviar</button>
           </div>
         </fieldset>
       </form>
