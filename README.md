@@ -6,7 +6,7 @@ Aplicacion para las organizaciones que brindan servicios operando en **Appointme
 ## Glosario
 - [Primeros Pasos](#primeros-pasos)
 - [Entorno de desarrollo](#entorno-de-desarrollo)
-- Git
+- [Git-Flow](#git-flow)
 - Estructura
 
 <br/>
@@ -46,3 +46,6 @@ Ejemplo:
 import {axios} from 'axios';
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3001 '
 ```
+<br/>
+
+# Git-Flow
