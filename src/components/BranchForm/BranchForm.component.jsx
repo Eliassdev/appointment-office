@@ -16,7 +16,7 @@ function BranchForm() {
 
   return (
     <div>
-      <form style={{ width: "min-content" }}>
+      <form>
         <fieldset>
           <legend>Branch Form</legend>
           <div
@@ -87,9 +87,7 @@ function BranchForm() {
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" required />
             <br />
-            <button style={{ alignSelf: "center" }} onClick={handleSubmit}>
-              Enviar
-            </button>
+            <button onClick={handleSubmit}>Enviar</button>
           </div>
         </fieldset>
       </form>
