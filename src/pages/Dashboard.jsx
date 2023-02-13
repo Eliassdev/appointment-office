@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import CreationNav from "../components/CreationNav/CreationNav";
 import BranchForm from "../components/BranchForm/BranchForm.component";
+import OrganizationForm from "../components/OrganizacionForm/OrganizacionForm.component";
+import StylistsForm from "../components/StylistsForm/StylistsForm.component";
+import ServicesForm from "../components/ServicesForm/ServicesForm.component";
 
 const Dashboard = () => {
   const [Step, setStep] = useState("overview");
@@ -13,9 +16,23 @@ const Dashboard = () => {
           </div>
         );
       case "stylist":
-        return <div>Stylist Form</div>;
+        return (
+          <div>
+            <StylistsForm />
+          </div>
+        );
       case "services":
-        return <div>Services Form</div>;
+        return (
+          <div>
+            <ServicesForm />
+          </div>
+        );
+      case "organization":
+        return (
+          <div>
+            <OrganizationForm />
+          </div>
+        );
       default:
         return <div>overview</div>;
     }
