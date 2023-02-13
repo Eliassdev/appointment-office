@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../../assets/logo.png';
 const CreationNav = ({ setStep }) => {
   const options = [
     { name: 'overview', title: 'Vista General', key: '1' },
@@ -10,7 +9,11 @@ const CreationNav = ({ setStep }) => {
   ];
   return (
     <div className="bg-neutral-900 w-60 h-screen pt-8">
-      <img src={Logo} alt="logo" className="mb-4" />
+      <img
+        src="https://res.cloudinary.com/duilsmrmx/image/upload/v1676288009/x1hvcivkowplk4kmfyxn.png"
+        alt="logo"
+        className="mb-4"
+      />
       <h1></h1>
       {options.map((opt) => {
         return (
