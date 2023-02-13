@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import regionData from "../../utils/listOfCountries_States_Cities.json";
+import { useState, useEffect } from 'react';
+import regionData from '../../utils/listOfCountries_States_Cities.json';
 
 const BranchForm = () => {
   const [countries, setCountries] = useState(null);
@@ -10,20 +10,20 @@ const BranchForm = () => {
     setStates(regionData[0].states);
   }, []);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
-    <div>
+    <div className="grid-span-2">
       <form>
         <fieldset>
           <legend>Branch Form</legend>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
             }}
           >
             <label htmlFor="organization_id">ID</label>

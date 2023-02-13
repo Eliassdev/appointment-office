@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
 function StylistsForm() {
   return (
-    <div>
+    <div className="grid-span-2">
       <form className="form">
         <fieldset>
           <legend>Stylists Form</legend>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
             }}
           >
             <label for="stylist_firstname">Nombre</label>
@@ -111,7 +111,7 @@ function StylistsForm() {
               id="business_phone"
               name="business_phone"
               required=""
-            />{" "}
+            />{' '}
             <br />
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required="" />
