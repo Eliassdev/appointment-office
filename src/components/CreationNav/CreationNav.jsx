@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const CreationNav = ({ setStep }) => {
   const options = [
-    { name: 'overview', key: '1' },
-    { name: 'branch', key: '2' },
-    { name: 'stylist', key: '3' },
-    { name: 'services', key: '4' },
+    { name: "overview", key: "1" },
+    { name: "branch", key: "2" },
+    { name: "stylist", key: "3" },
+    { name: "services", key: "4" },
+    { name: "organization", key: "5" },
   ];
   return (
     <div>
-      {options.map((opt) => {
+      {options.map(opt => {
         return (
           <button
             onClick={() => {

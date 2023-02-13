@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import regionData from "../../utils/listOfCountries_States_Cities.json";
 
-function BranchForm() {
+const BranchForm = () => {
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
 
@@ -93,6 +93,6 @@ function BranchForm() {
       </form>
     </div>
   );
-}
+};
 
 export default BranchForm;
