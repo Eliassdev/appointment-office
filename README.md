@@ -28,7 +28,7 @@ git remote add origin https://github.com/Appointment-Army/appointment-office
 <br/>
 
 # Entorno de Desarrollo
-<p>Vite.js no tiene compatibilidad con dotenv para manejo de variables de entorno, pero tiene su propio sistema para gestionar los mismo. En la carpeta root de nuestro proyecto, crearemos un archivo con el nombre **".env.local"**.</p>
+Vite.js no tiene compatibilidad con dotenv para manejo de variables de entorno, pero tiene su propio sistema para gestionar los mismo. En la carpeta root de nuestro proyecto, crearemos un archivo con el nombre **.env.local**
 <p>Este mismo es el que alojara las variables de entorno, que deben empezar como un "VITE" como prefijo de la misma. Ejemplo:</p>
 
 <br/>
