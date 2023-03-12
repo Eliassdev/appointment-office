@@ -11,7 +11,7 @@ const Dashboard = () => {
     switch (step) {
       case 'branch':
         return (
-          <div>
+          <div className="w-3/4">
             <BranchForm />
           </div>
         );
@@ -38,7 +38,7 @@ const Dashboard = () => {
     }
   }
   return (
-    <div className="bg-neutral-400 container-xl w-screen h-screen grid grid-cols-2">
+    <div className="bg-neutral-700 container-xl w-screen h-screen flex">
       <CreationNav setStep={setStep} />
       {renderSwitch(Step)}
     </div>
