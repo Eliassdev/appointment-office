@@ -4,6 +4,7 @@ import CreationNav from '../components/CreationNav/CreationNav';
 import OrganizationForm from '../components/OrganizacionForm/OrganizacionForm.component';
 import ServicesForm from '../components/ServicesForm/ServicesForm.component';
 import StylistsForm from '../components/StylistsForm/StylistsForm.component';
+import { StylistTable } from '../components/StylistsForm/StylistTable';
 
 const Dashboard = () => {
   const [Step, setStep] = useState('overview');
@@ -34,7 +35,7 @@ const Dashboard = () => {
           </div>
         );
       default:
-        return <div className="grid-span-2">overview</div>;
+        return <div className="grid-span-2"><StylistTable/></div>;
     }
   }
   return (
