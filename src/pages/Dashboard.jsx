@@ -4,7 +4,6 @@ import CreationNav from '../components/CreationNav/CreationNav';
 import OrganizationForm from '../components/OrganizacionForm/OrganizacionForm.component';
 import ServicesForm from '../components/ServicesForm/ServicesForm.component';
 import StylistsForm from '../components/StylistsForm/StylistsForm.component';
-import { StylistTable } from '../components/StylistsForm/StylistTable';
 
 const Dashboard = () => {
   const [Step, setStep] = useState('overview');
@@ -12,7 +11,7 @@ const Dashboard = () => {
     switch (step) {
       case 'branch':
         return (
-          <div>
+          <div className="w-3/4">
             <BranchForm />
           </div>
         );
@@ -39,7 +38,7 @@ const Dashboard = () => {
     }
   }
   return (
-    <div className="bg-neutral-400 container-xl w-screen h-screen grid grid-cols-2">
+    <div className="bg-neutral-700 container-xl w-screen h-screen flex">
       <CreationNav setStep={setStep} />
       {renderSwitch(Step)}
     </div>
