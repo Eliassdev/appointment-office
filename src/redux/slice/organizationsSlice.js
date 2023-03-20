@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import apiURL from "../../utils/apiURL";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import apiURL from '../../utils/apiURL';
 
 // Initial state
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
 
 // Async thunk
 export const fetchOrganizations = createAsyncThunk(
-  "organizations/fetchOrganizations",
+  'organizations/fetchOrganizations',
   async () => {
     const response = await axios.get(apiURL);
     return response.data;
@@ -21,12 +21,14 @@ export const fetchOrganizations = createAsyncThunk(
 // Slice
 
 export const organizationsSlice = createSlice({
-  name: "organizations",
+  name: 'organizations',
   initialState,
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchOrganizations.pending, state => {
+      .addCase(fetchOrganizations.pending, (state) => {
         state.loading = true;
+        //Micro correccion: Siempre que esta"Pending" aprovechamos para limpiar los errores que pueden haberse generado en los fetchs
+        state.error = null;
       })
       .addCase(fetchOrganizations.fulfilled, (state, action) => {
         state.organizations = action.payload;

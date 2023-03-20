@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
 function ServicesForm() {
   return (
-    <div>
+    <div className="grid-span-2">
       <form className="form">
         <fieldset>
           <legend>Services Form</legend>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
             }}
           >
             <label htmlFor="service_name">Nombre del Servicio</label>
