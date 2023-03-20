@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import postsReducer from "../slice/organizationsSlice";
+import organizationsReducer from "../slice/organizationsSlice";
+import { fetchOrganizations } from "../slice/organizationsSlice";
 
 //Store
 
@@ -10,3 +11,6 @@ export const store = configureStore({
 });
 
 export default store;
+
+store.dispatch(fetchOrganizations());
+console.log(store.getState());

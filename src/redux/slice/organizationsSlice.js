@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Initial state
 const initialState = {
-  posts: [],
+  organizations: [],
   loading: false,
   error: null,
 };
@@ -40,6 +40,6 @@ export const organizationsSlice = createSlice({
 });
 
 // Generate reducer
-const postsReducer = postsSlice.reducer;
+const organizationsReducer = organizationsSlice.reducer;
 
-export default postsReducer;
+export default organizationsReducer;
