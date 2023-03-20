@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, Provider } from 'react-redux';
-import store from './redux/store/store';
+import { Provider } from 'react-redux';
 //Local Imports
 import App from './App';
-import store from './redux/modular/store';
+import store from './redux/store/store';
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
