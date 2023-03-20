@@ -10,8 +10,8 @@ const initialState = {
 };
 
 // Async thunk
-export const fetchOrganizations = createAsyncThunk(
-  "organizations/fetchOrganizations",
+export const getOrganizations = createAsyncThunk(
+  "organizations/getOrganizations",
   async () => {
     const response = await axios.get(apiURL);
     return response.data;
@@ -25,14 +25,14 @@ export const organizationsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(fetchOrganizations.pending, state => {
+      .addCase(getOrganizations.pending, state => {
         state.loading = true;
       })
-      .addCase(fetchOrganizations.fulfilled, (state, action) => {
+      .addCase(getOrganizations.fulfilled, (state, action) => {
         state.organizations = action.payload;
         state.loading = false;
       })
-      .addCase(fetchOrganizations.rejected, (state, action) => {
+      .addCase(getOrganizations.rejected, (state, action) => {
         state.error = action.error.message;
         state.loading = false;
       });

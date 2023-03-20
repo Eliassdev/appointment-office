@@ -1,4 +1,20 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrganizations } from "../../redux/slice/organizationsSlice.js";
+
 const OrganizationForm = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrganizations());
+  }, []);
+
+  const { organizations, loading, error } = useSelector(
+    state => state.organizations
+  );
+
+  console.log(organizations);
+
   return (
     <div>
       <form className="form">
@@ -11,7 +27,7 @@ const OrganizationForm = () => {
               alignItems: "flex-start",
             }}
           >
-            <label for="organization_id">ID</label>
+            <label htmlFor="organization_id">ID</label>
             <input
               type="text"
               id="organization_id"
@@ -19,20 +35,20 @@ const OrganizationForm = () => {
               required=""
               disabled
             />
-            <label for="short_name">Nombre corto</label>
+            <label htmlFor="short_name">Nombre corto</label>
             <input type="text" id="short_name" name="short_name" required="" />
-            <label for="business_name">Nombre completo</label>
+            <label htmlFor="business_name">Nombre completo</label>
             <input
               type="text"
               id="business_name"
               name="business_name"
               required=""
             />
-            <label for="country">País</label>
+            <label htmlFor="country">País</label>
             <select name="country" id="country" required="">
               <option value="country">Argentina</option>
             </select>
-            <label for="state">Provincia</label>
+            <label htmlFor="state">Provincia</label>
             <select name="state" id="state" required="">
               <option value="state">Buenos Aires</option>
               <option value="state">Catamarca</option>
@@ -58,27 +74,27 @@ const OrganizationForm = () => {
               <option value="state">Tierra del Fuego</option>
               <option value="state">Tucumán</option>
             </select>
-            <label for="city">Ciudad</label>
+            <label htmlFor="city">Ciudad</label>
             <input type="text" id="city" name="city" required="" />
-            <label for="street">Calle</label>
+            <label htmlFor="street">Calle</label>
             <input type="text" id="street" name="street" required="" />
-            <label for="address">Dirección</label>
+            <label htmlFor="address">Dirección</label>
             <input type="text" id="address" name="address" required="" />
-            <label for="postal_code">CP</label>
+            <label htmlFor="postal_code">CP</label>
             <input
               type="text"
               id="postal_code"
               name="postal_code"
               required=""
             />
-            <label for="address_references">Otras Referencias</label>
+            <label htmlFor="address_references">Otras Referencias</label>
             <input
               type="text"
               id="address_references"
               name="address_references"
               required=""
             />
-            <label for="business_phone">Teléfono</label>
+            <label htmlFor="business_phone">Teléfono</label>
             <input
               type="tel"
               id="business_phone"
@@ -86,7 +102,7 @@ const OrganizationForm = () => {
               required=""
             />{" "}
             <br />
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" required="" />
             <button>Enviar</button>
           </div>
