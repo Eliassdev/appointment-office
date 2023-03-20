@@ -34,12 +34,14 @@ const Dashboard = () => {
             <OrganizationForm />
           </div>
         );
-      default:
+      case 'overview':
         return (
-          <div className="grid-span-2">
+          <div>
             <StylistTable />
           </div>
         );
+      default:
+        return <div className="grid-span-2">{/* <StylistTable /> */}</div>;
     }
   }
   return (

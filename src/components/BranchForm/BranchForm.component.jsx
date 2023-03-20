@@ -13,21 +13,14 @@ const BranchForm = () => {
   const allCountries = Country.getAllCountries();
 
   const postBranch = async (data) => {
-    const info = await axios.post('/branches', data, {
-      mode: 'no-cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers':
-          'POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin',
-      },
-    });
+    const info = await axios.post('/branches', data);
     return info.data;
   };
 
   const formik = useFormik({
     initialValues: {
-      short_name: '',
-      business_name: '',
+      branch_name: '',
+      organization_id: 1,
       country: '',
       state: '',
       city: '',
@@ -37,9 +30,12 @@ const BranchForm = () => {
       address_references: '',
       business_phone: '',
       email: '',
-      organization_id: 1,
+      latitude: 39.0,
+      longitude: -12.0,
+      created_by: 1,
+      updated_by: 1,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       let body = values;
       let countryName = countries.find(
         (country) => country.isoCode === body.country
@@ -47,7 +43,8 @@ const BranchForm = () => {
       let stateName = states.find((state) => state.isoCode === body.state);
       body.country = countryName.name;
       body.state = stateName.name;
-      const res = postBranch(body);
+      console.log(body);
+      const res = await postBranch(body);
       console.log(res);
     },
     validate: (values) => {
@@ -89,35 +86,18 @@ const BranchForm = () => {
                 Nombre Corto
               </label>
               <input
-                name="short_name"
+                name="branch_name"
                 type="text"
-                id="short_name"
+                id="branch_name"
                 className=" bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.short_name}
+                value={formik.values.branch_name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
 
-              {formik.touched.short_name && formik.errors.short_name ? (
-                <span className="text-red-600">{formik.errors.short_name}</span>
-              ) : null}
-            </div>
-            <div className="flex flex-col px-4 mb-2">
-              <label className="mb-1 text-neutral-100" htmlFor="business_name">
-                Nombre
-              </label>
-              <input
-                name="business_name"
-                type="text"
-                id="business_name"
-                className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.business_name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.business_name && formik.errors.business_name ? (
+              {formik.touched.branch_name && formik.errors.branch_name ? (
                 <span className="text-red-600">
-                  {formik.errors.business_name}
+                  {formik.errors.branch_name}
                 </span>
               ) : null}
             </div>
