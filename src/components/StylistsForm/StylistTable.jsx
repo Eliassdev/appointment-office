@@ -7,48 +7,51 @@ const StylistTable = () => {
   console.log(stylists);
 
   return (
-    <div>StylistTable
-        <table>
+    <div class= "text-center">
+       <h1 class= "font-serif text-2xl mx-5 my-5 text-fuchsia-400">
+            StylistTable
+        </h1> 
+      <table class= "mx-6">
             <thead>
                 <tr>
-                    <td>Nombre</td>
-                    <td>Address</td>
-                    <td>City</td>
-                    <td>Country</td>
-                    <td>Gender</td>
-                    {/* <td></td>
-                    <td></td>
-                    <td></td> */}
-                    <td>Marital Status</td>
+                    <th class="border border-slate-300 text-neutral-50">Name</th>
+                    <th class="border border-slate-300 text-neutral-50">Address</th>
+                    <th class="border border-slate-300 text-neutral-50">City</th>
+                    <th class="border border-slate-300 text-neutral-50">State</th>
+                    <th class="border border-slate-300 text-neutral-50">Country</th>
+                    <th class="border border-slate-300 text-neutral-50">Gender</th>
+                    <th class="border border-slate-300 text-neutral-50">Email</th>
+                    <th class="border border-slate-300 text-neutral-50">Edit</th>
+
                 </tr>
             </thead>
-            <tbody>
-                  {stylists.map((sti) => {
-                    console.log(sti)
-                    return(
 
-                        <tr>
-                        <td>{sti.stylist_firstname} </td>
-                        <td>{sti.address} </td>
-                        <td>{sti.city} </td>
-                        <td>{sti.country} </td>
-                        <td>{sti.gender} </td>
-                        {/* <td>{sti.is_active} </td> */}
-                        {/* <td>{sti.latitude} </td>
-                        <td>{sti.longitude} </td> */}
-                        <td>{sti.marital_status} </td>
-                        <button type='submit'>Upgrade </button>
-                        <button type='reset'>Delete </button>
+            <tbody>
+                {stylists?.map((sti) => {
+                    console.log(sti);
+                    return (
+                    <tr class="border border-slate-300 ...">
+                        <td class="border border-slate-300 text-amber-500">{sti.stylist_firstname} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.address} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.city} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.state} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.country} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.gender} </td>
+                        <td class="border border-slate-300 text-amber-500">{sti.email} </td>
+                        <button className='text-sky-400 mx-2' type='submit'>Upgrade</button> <button className='text-red-400 mx-2' type='reset'>Delete</button>
+                        
+
+                        {/* // <td>{sti} </td>
+                        // <td>{sti} </td>
+                        // <td>{sti} </td>
+                        // <td>{sti} </td> */}
                     </tr>
-                    )       
+                    );
                 })}
             </tbody>
-                
-                
-            
-        </table>
+      </table>
     </div>
-  );
+    );
 };
 
 export default StylistTable;
