@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getOrganizations } from "../../redux/slice/organizationsSlice.js";
+import { useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrganizations } from '../../redux/slice/organizationsSlice.js';
 
 const OrganizationForm = () => {
   const dispatch = useDispatch();
@@ -10,10 +11,53 @@ const OrganizationForm = () => {
   }, []);
 
   const { organizations, loading, error } = useSelector(
-    state => state.organizations
+    (state) => state.organizations
   );
 
   console.log(organizations);
+
+  const formik = useFormik({
+    initialValues: {
+      branch_name: '',
+      organization_id: 1,
+      country: '',
+      state: '',
+      city: '',
+      street: '',
+      address: '',
+      postal_code: '',
+      address_references: '',
+      business_phone: '',
+      email: '',
+      latitude: 39.0,
+      longitude: -12.0,
+      created_by: 1,
+      updated_by: 1,
+    },
+    onSubmit: async (values) => {
+      let body = values;
+      let countryName = countries.find(
+        (country) => country.isoCode === body.country
+      );
+      let stateName = states.find((state) => state.isoCode === body.state);
+      body.country = countryName.name;
+      body.state = stateName.name;
+      console.log(body);
+      const res = await postBranch(body);
+      console.log(res);
+    },
+    validate: (values) => {
+      const result = branchValidation.safeParse(values);
+      if (result.success) return;
+      if (result.error.issues) {
+        const errors = {};
+        result.error.issues.map((err) => {
+          errors[err.path[0]] = err.message;
+        });
+        return errors;
+      }
+    },
+  });
 
   return (
     <div className="grid-span-2">
@@ -22,9 +66,9 @@ const OrganizationForm = () => {
           <legend>Organizations Formulario</legend>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
             }}
           >
             <label htmlFor="organization_id">ID</label>
@@ -100,7 +144,7 @@ const OrganizationForm = () => {
               id="business_phone"
               name="business_phone"
               required=""
-            />{" "}
+            />{' '}
             <br />
             <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" required="" />

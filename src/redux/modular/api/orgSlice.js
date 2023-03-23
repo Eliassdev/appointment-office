@@ -11,6 +11,11 @@ export const organizationsSlice = createApi({
         return '/organizations';
       },
     }),
+    fetchOrganizationById: builder.query({
+      query(id) {
+        return `/organizations/${id}`;
+      },
+    }),
     fetchBranches: builder.query({
       query(limit = 10) {
         return '/branches';
@@ -29,4 +34,5 @@ export const organizationsSlice = createApi({
   }),
 });
 
-export const { useFetchStylistQuery } = organizationsSlice;
+export const { useFetchStylistQuery, useFetchOrganizationByIdQuery } =
+  organizationsSlice;
