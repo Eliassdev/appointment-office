@@ -1,41 +1,49 @@
-import axios from 'axios';
 import { City, Country, State } from 'country-state-city';
 import { useFormik } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCreateBranchMutation } from '../../redux/modular/api/orgSlice';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useGetBranchByIdQuery,
+  useUpdateBranchMutation,
+} from '../../redux/modular/api/orgSlice';
 import { branchValidation } from '../../schemas/branch.schema';
-import { handleChange } from '../../utils/fomHandlers';
-import regionData from '../../utils/listOfCountries_States_Cities.json';
 import CreationNav from '../CreationNav/CreationNav';
 
-const BranchForm = () => {
+export const BranchUpdate = () => {
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
   const navigate = useNavigate();
+  const { id } = useParams();
   const allCountries = Country.getAllCountries();
 
-  const [CreateBranch, { isLoading, isError, isSuccess, data }] =
-    useCreateBranchMutation();
+  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id);
+  const [
+    UpdateBranch,
+    {
+      isLoading: isLoadingUpdate,
+      isError: isErrorUpdate,
+      isSuccess: isSuccessUpdate,
+    },
+  ] = useUpdateBranchMutation();
 
   const formik = useFormik({
     initialValues: {
-      branch_name: '',
-      organization_id: 1,
-      country: '',
-      state: '',
-      city: '',
-      street: '',
-      address: '',
-      postal_code: '',
-      address_references: '',
-      business_phone: '',
-      email: '',
-      latitude: 39.0,
-      longitude: -12.0,
-      created_by: 1,
-      updated_by: 1,
+      branch_name: bra?.branch_name,
+      organization_id: bra?.organization_id,
+      country: bra?.country,
+      state: bra?.state,
+      city: bra?.city,
+      street: bra?.street,
+      address: bra?.address,
+      postal_code: bra?.postal_code,
+      address_references: bra?.address_references,
+      business_phone: bra?.business_phone,
+      email: bra?.email,
+      latitude: bra?.latitude,
+      longitude: bra?.longitude,
+      created_by: bra?.created_by,
+      updated_by: bra?.updated_by,
     },
     onSubmit: async (values) => {
       let body = values;
@@ -45,9 +53,12 @@ const BranchForm = () => {
       let stateName = states.find((state) => state.isoCode === body.state);
       body.country = countryName.name;
       body.state = stateName.name;
-      console.log(body);
-      CreateBranch(body);
-      console.log(data);
+      const request = {
+        id: id,
+        info: body,
+      };
+
+      UpdateBranch(request);
     },
     validate: (values) => {
       const result = branchValidation.safeParse(values);
@@ -73,13 +84,12 @@ const BranchForm = () => {
       let countryStates = State.getStatesOfCountry(selectedCountry);
       setStates(countryStates);
     }
-    if (isSuccess) {
+    if (isSuccessUpdate) {
       setTimeout(() => {
         navigate('/dashboard/branches');
       }, 1000);
     }
   }, [formik.values.country, selectedCountry, isSuccess]);
-
   return (
     <div className=" bg-neutral-800 h-screen w-full flex px-12">
       <CreationNav />
@@ -89,7 +99,7 @@ const BranchForm = () => {
           className="w-full flex flex-col h-auto px-10 pt-4 pb-4 bg-neutral-900"
         >
           <legend className="font-bold text-2xl text-center pl-4 text-purple-500">
-            Agrega tu sucursal al sistema
+            Editar datos de la sucursal
           </legend>
           <div className=" grid grid-cols-2 mt-2">
             <div>
@@ -325,11 +335,13 @@ const BranchForm = () => {
         </form>
         <div
           className={`w-full flex flex-col h-auto px-10 pt-4 pb-4 mt-4 ${
-            !isLoading && !isSuccess ? 'transparent' : ' bg-neutral-900'
+            !isLoadingUpdate && !isSuccessUpdate
+              ? 'transparent'
+              : ' bg-neutral-900'
           }`}
         >
-          {isLoading ? <p className="text-yellow-300">Enviando</p> : null}
-          {isSuccess ? (
+          {isLoadingUpdate ? <p className="text-yellow-300">Enviando</p> : null}
+          {isSuccessUpdate ? (
             <p className="text-green-500">Creado con exito</p>
           ) : null}
         </div>
@@ -337,5 +349,3 @@ const BranchForm = () => {
     </div>
   );
 };
-
-export default BranchForm;
