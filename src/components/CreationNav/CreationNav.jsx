@@ -21,11 +21,11 @@ const CreationNav = ({ setStep }) => {
         return (
           <button
             onClick={() => {
-              if (opt.name === 'branch') {
-                setStep(opt.name);
+              if (opt.name === 'branches') {
                 navigate(`/dashboard/${opt.name}`);
               } else {
                 setStep(opt.name);
+                //navigate(`/dashboard/${opt.name}`);
               }
             }}
             key={opt.key}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BranchForm from '../components/BranchForm/BranchForm.component';
+import BranchForm from '../components/BranchPanel/BranchForm';
 import { BranchPanel } from '../components/BranchPanel/BranchPanel';
 import CreationNav from '../components/CreationNav/CreationNav';
 import OrganizationForm from '../components/OrganizacionForm/OrganizacionForm.component';
@@ -13,7 +13,7 @@ const Dashboard = () => {
     switch (step) {
       case 'branch':
         return (
-          <div className="w-full px-8 py-12 ">
+          <div className="w-full px-  8 py-12 ">
             <BranchPanel />
           </div>
         );

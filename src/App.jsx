@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import BranchForm from './components/BranchForm/BranchForm.component';
 import { BranchDelete } from './components/BranchPanel/BranchDelete';
 import { BranchDetail } from './components/BranchPanel/BranchDetail';
+import BranchForm from './components/BranchPanel/BranchForm';
+
 import { BranchPanel } from './components/BranchPanel/BranchPanel';
 import { BranchUpdate } from './components/BranchPanel/BranchUpdate';
+import StylistTable from './components/StylistsForm/StylistTable';
 //Local Imports
 import './index.css';
 import { AboutUs } from './pages/AboutUs';
@@ -19,6 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/overview" element={<StylistTable />} />
         <Route path="/dashboard/branches" element={<BranchPanel />} />
         <Route path="/dashboard/branch/create" element={<BranchForm />} />
         <Route path="/dashboard/branch/update/:id" element={<BranchUpdate />} />

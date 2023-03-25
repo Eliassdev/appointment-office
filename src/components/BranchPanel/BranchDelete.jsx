@@ -30,7 +30,7 @@ export const BranchDelete = () => {
         <h4 className="text-amber-500 text-lg mt-2">Direccion</h4>
         <p className="text-white text-md mt-1">{bra.address}</p>
         <h4 className="text-amber-500 text-lg mt-2">Referencia</h4>
-        <p className="text-white text-md mt-1">{bra.address_reference}</p>
+        <p className="text-white text-md mt-1">{bra.address_references}</p>
         <h4 className="text-amber-500 text-lg mt-2">Ciudad</h4>
         <p className="text-white text-md mt-1">{bra.city}</p>
         <h4 className="text-amber-500 text-lg mt-2">Provincia</h4>
@@ -44,7 +44,7 @@ export const BranchDelete = () => {
         <h4 className="text-amber-500 text-lg mt-2">E-mail</h4>
         <p className="text-white text-md mt-1">{bra.email}</p>
         {isSuccessDeletion === false && isLoadingDeletion === false ? (
-          <div className="flex flex-row justify-start space-x-5 mt-10">
+          <div className="flex flex-row justify-start space-x-5 mt-5">
             <h1 className="text-purple-500 text-lg mt-2">
               ¿Esta seguro que desea eliminar esta sucursal?
             </h1>
