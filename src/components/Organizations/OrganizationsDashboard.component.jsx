@@ -4,19 +4,23 @@ import { Link } from "react-router-dom";
 
 const OrganizationsDashboard = () => {
   return (
-    <>
-      <div>
-        <h1>Organizations Dashboard</h1>
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl">Organizations Dashboard</h1>
+      <div
+        id="organizationsDazhboard_container"
+        className="flex flex-col items-center rounded-md border-solid border-2 border-purple-400 w-1/2 h-1/2 m-auto p-8"
+      >
         <div>
-          <Button buttonType={"main"}>Find Organization</Button>
+          <form action="submit" className="flex flex-col items-center">
+            <input type="text" name="organization_name" id="" />
+            <Button buttonType={"main"}>Find Organization</Button>
+          </form>
           <Link to="/dashboard/organizations/register">
-            <button className="bg-neutral-800 w-56 h-12 m-2 text-purple-400 rounded-md">
-              Register new Organization
-            </button>
+            <Button buttonType={"main"}>Register new Organization</Button>
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

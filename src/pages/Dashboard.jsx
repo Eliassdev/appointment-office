@@ -12,31 +12,27 @@ const Dashboard = () => {
     switch (step) {
       case "branch":
         return (
-          <div className="w-3/4">
+          <div className="w-full h-screen">
             <BranchForm />
           </div>
         );
       case "stylist":
         return (
-          <div>
+          <div className="w-full h-screen">
             <StylistsForm />
           </div>
         );
       case "services":
         return (
-          <div>
+          <div className="w-full h-screen">
             <ServicesForm />
           </div>
         );
       case "organization":
-        return (
-          <div>
-            <OrganizationsDashboard />
-          </div>
-        );
+        return <OrganizationsDashboard />;
       case "overview":
         return (
-          <div>
+          <div className="w-full h-screen">
             <StylistTable />
           </div>
         );
@@ -45,7 +41,7 @@ const Dashboard = () => {
     }
   }
   return (
-    <div className="bg-neutral-700 container-xl w-screen h-screen flex">
+    <div className="bg-neutral-700 container-xl w-full h-screen flex">
       <CreationNav setStep={setStep} />
       {renderSwitch(Step)}
     </div>
