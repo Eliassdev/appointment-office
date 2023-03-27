@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import Button from "../Buttons/Button.component";
+import { Link } from "react-router-dom";
 
 const OrganizationsDashboard = () => {
   return (
@@ -7,6 +8,7 @@ const OrganizationsDashboard = () => {
       <div>
         <h1>Organizations Dashboard</h1>
         <div>
+          <Button buttonType={"main"}>Find Organization</Button>
           <Link to="/dashboard/organizations/register">
             <button className="bg-neutral-800 w-56 h-12 m-2 text-purple-400 rounded-md">
               Register new Organization
