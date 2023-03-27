@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useGetBranchesQuery } from '../../redux/modular/api/orgSlice';
-import { BranchCard } from './BranchCard';
-import { BranchPagination } from './BranchPagination';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useGetBranchesQuery } from "../../redux/modular/api/orgSlice";
+import { BranchCard } from "./BranchCard";
+import { BranchPagination } from "./BranchPagination";
 
 export const BranchList = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const BranchList = () => {
         Sucursales
       </h1>
       <div className="w-full h-auto mt-6 flex flex-wrap justify-center  gap-7">
-        {pageData?.map((bra) => {
+        {pageData?.map(bra => {
           console.log(bra);
           return (
             // <div className="w-3/12 h-60 rounded-lg bg-neutral-700 py-2">

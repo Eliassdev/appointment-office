@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import BranchForm from "../components/BranchForm/BranchForm.component";
+import BranchForm from "../components/BranchPanel/BranchForm";
 import CreationNav from "../components/CreationNav/CreationNav";
-import OrganizationForm from "../components/OrganizacionForm/OrganizacionForm.component";
+import OrganizationsDashboard from "../components/Organizations/OrganizationsDashboard.component";
 import ServicesForm from "../components/ServicesForm/ServicesForm.component";
 import StylistsForm from "../components/StylistsForm/StylistsForm.component";
 import StylistTable from "../components/StylistsForm/StylistTable";
 
 const Dashboard = () => {
   const [Step, setStep] = useState("branch");
-  const [Step, setStep] = useState("overview");
   function renderSwitch(step) {
     switch (step) {
       case "branch":

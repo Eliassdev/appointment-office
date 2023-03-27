@@ -1,8 +1,7 @@
-import { Button } from 'bootstrap';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import CreationNav from '../CreationNav/CreationNav';
-import { BranchList } from './BranchList';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import CreationNav from "../CreationNav/CreationNav";
+import { BranchList } from "./BranchList";
 
 export const BranchPanel = () => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ export const BranchPanel = () => {
         <BranchList />
         <button
           onClick={() => {
-            navigate('/dashboard/branch/create');
+            navigate("/dashboard/branch/create");
           }}
           className="bg-neutral-900 px-4 py-2 rounded-full border-2 border-purple-600 text-purple-600 absolute bottom-12 right-32"
         >
