@@ -1,13 +1,11 @@
 import React from 'react';
 import NavBar from '../components/NavBar/NavBar';
 
-const Register = () => {
+export const AboutUs = () => {
   return (
     <div className="w-full h-screen bg-slate-700">
       <NavBar />
-      Register
+      AboutUs
     </div>
   );
 };
-
-export default Register;

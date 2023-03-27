@@ -5,7 +5,7 @@ function ServicesForm() {
     <div className="grid-span-2">
       <form className="form">
         <fieldset>
-          <legend>Services Form</legend>
+          <legend>Services Formulario</legend>
           <div
             style={{
               display: 'flex',
