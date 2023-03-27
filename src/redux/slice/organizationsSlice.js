@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import apiURL from '../../utils/apiURL';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import apiURL from "../../utils/apiURL";
 
 // Initial state
 const initialState = {
@@ -9,11 +9,23 @@ const initialState = {
   error: null,
 };
 
-// Async thunk
+// Async thunks
+// Get all organizations
 export const getOrganizations = createAsyncThunk(
-  'organizations/getOrganizations',
+  "organizations/getOrganizations",
   async () => {
-    const response = await axios.get(apiURL);
+    const response = await axios.get(apiURL.organizations.get);
+    console.log("getOrganizations data: ", response.data);
+    return response.data;
+  }
+);
+
+// Post organization
+export const postOrganization = createAsyncThunk(
+  "organizations/postOrganization",
+  async organization => {
+    const response = await axios.post(apiURL.organizations.get, organization);
+    console.log("postOrganization data: ", response.data);
     return response.data;
   }
 );
@@ -21,13 +33,13 @@ export const getOrganizations = createAsyncThunk(
 // Slice
 
 export const organizationsSlice = createSlice({
-  name: 'organizations',
+  name: "organizations",
   initialState,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(getOrganizations.pending, (state) => {
+      // Get all organizations
+      .addCase(getOrganizations.pending, state => {
         state.loading = true;
-        //Micro correccion: Siempre que esta"Pending" aprovechamos para limpiar los errores que pueden haberse generado en los fetchs
         state.error = null;
       })
       .addCase(getOrganizations.fulfilled, (state, action) => {
@@ -35,6 +47,19 @@ export const organizationsSlice = createSlice({
         state.loading = false;
       })
       .addCase(getOrganizations.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      // Post organization
+      .addCase(postOrganization.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(postOrganization.fulfilled, (state, action) => {
+        state.organizations = action.payload;
+        state.loading = false;
+      })
+      .addCase(postOrganization.rejected, (state, action) => {
         state.error = action.error.message;
         state.loading = false;
       });

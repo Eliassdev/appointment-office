@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import BranchForm from '../components/BranchForm/BranchForm.component';
-import CreationNav from '../components/CreationNav/CreationNav';
-import OrganizationForm from '../components/OrganizacionForm/OrganizacionForm.component';
-import ServicesForm from '../components/ServicesForm/ServicesForm.component';
-import StylistsForm from '../components/StylistsForm/StylistsForm.component';
-import StylistTable from '../components/StylistsForm/StylistTable';
+import React, { useState } from "react";
+import BranchForm from "../components/BranchForm/BranchForm.component";
+import CreationNav from "../components/CreationNav/CreationNav";
+import OrganizationsDashboard from "../components/Organizations/OrganizationsDashboard.component";
+import ServicesForm from "../components/ServicesForm/ServicesForm.component";
+import StylistsForm from "../components/StylistsForm/StylistsForm.component";
+import StylistTable from "../components/StylistsForm/StylistTable";
 
 const Dashboard = () => {
-  const [Step, setStep] = useState('overview');
+  const [Step, setStep] = useState("overview");
   function renderSwitch(step) {
     switch (step) {
-      case 'branch':
+      case "branch":
         return (
           <div className="w-3/4">
             <BranchForm />
           </div>
         );
-      case 'stylist':
+      case "stylist":
         return (
           <div>
             <StylistsForm />
           </div>
         );
-      case 'services':
+      case "services":
         return (
           <div>
             <ServicesForm />
           </div>
         );
-      case 'organization':
+      case "organization":
         return (
           <div>
-            <OrganizationForm />
+            <OrganizationsDashboard />
           </div>
         );
-      case 'overview':
+      case "overview":
         return (
           <div>
             <StylistTable />
