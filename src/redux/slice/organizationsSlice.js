@@ -30,8 +30,27 @@ export const postOrganization = createAsyncThunk(
   }
 );
 
-// Slice
+// Put organization
+export const putOrganization = createAsyncThunk(
+  "organizations/putOrganization",
+  async organization => {
+    const response = await axios.put(apiURL.organizations.get, organization);
+    console.log("putOrganization data: ", response.data);
+    return response.data;
+  }
+);
 
+// Delete organization
+export const deleteOrganization = createAsyncThunk(
+  "organizations/deleteOrganization",
+  async organization => {
+    const response = await axios.delete(apiURL.organizations.get, organization);
+    console.log("deleteOrganization data: ", response.data);
+    return response.data;
+  }
+);
+
+// Slices
 export const organizationsSlice = createSlice({
   name: "organizations",
   initialState,
@@ -60,6 +79,32 @@ export const organizationsSlice = createSlice({
         state.loading = false;
       })
       .addCase(postOrganization.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      // Put organization
+      .addCase(putOrganization.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(putOrganization.fulfilled, (state, action) => {
+        state.organizations = action.payload;
+        state.loading = false;
+      })
+      .addCase(putOrganization.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+      })
+      // Delete organization
+      .addCase(deleteOrganization.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteOrganization.fulfilled, (state, action) => {
+        state.organizations = action.payload;
+        state.loading = false;
+      })
+      .addCase(deleteOrganization.rejected, (state, action) => {
         state.error = action.error.message;
         state.loading = false;
       });
