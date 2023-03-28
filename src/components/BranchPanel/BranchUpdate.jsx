@@ -1,23 +1,23 @@
-import { City, Country, State } from 'country-state-city';
-import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { City, Country, State } from 'country-state-city'
+import { useFormik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
   useGetBranchByIdQuery,
   useUpdateBranchMutation,
-} from '../../redux/modular/api/orgSlice';
-import { branchValidation } from '../../schemas/branch.schema';
-import CreationNav from '../CreationNav/CreationNav';
+} from '../../redux/modular/api/orgSlice'
+import { branchValidation } from '../../schemas/branch.schema'
+import CreationNav from '../CreationNav/CreationNav'
 
 export const BranchUpdate = () => {
-  const [countries, setCountries] = useState(null);
-  const [states, setStates] = useState(null);
-  const [selectedCountry, selectedCountrySet] = useState(null);
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const allCountries = Country.getAllCountries();
+  const [countries, setCountries] = useState(null)
+  const [states, setStates] = useState(null)
+  const [selectedCountry, selectedCountrySet] = useState(null)
+  const navigate = useNavigate()
+  const { id } = useParams()
+  const allCountries = Country.getAllCountries()
 
-  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id);
+  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id)
   const [
     UpdateBranch,
     {
@@ -25,7 +25,7 @@ export const BranchUpdate = () => {
       isError: isErrorUpdate,
       isSuccess: isSuccessUpdate,
     },
-  ] = useUpdateBranchMutation();
+  ] = useUpdateBranchMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -46,64 +46,64 @@ export const BranchUpdate = () => {
       updated_by: bra?.updated_by,
     },
     onSubmit: async (values) => {
-      let body = values;
+      let body = values
       let countryName = countries.find(
         (country) => country.isoCode === body.country
-      );
-      let stateName = states.find((state) => state.isoCode === body.state);
-      body.country = countryName.name;
-      body.state = stateName.name;
+      )
+      let stateName = states.find((state) => state.isoCode === body.state)
+      body.country = countryName.name
+      body.state = stateName.name
       const request = {
         id: id,
         info: body,
-      };
+      }
 
-      UpdateBranch(request);
+      UpdateBranch(request)
     },
     validate: (values) => {
-      const result = branchValidation.safeParse(values);
-      if (result.success) return;
+      const result = branchValidation.safeParse(values)
+      if (result.success) return
       if (result.error.issues) {
-        const errors = {};
+        const errors = {}
         result.error.issues.map((err) => {
-          errors[err.path[0]] = err.message;
-        });
-        return errors;
+          errors[err.path[0]] = err.message
+        })
+        return errors
       }
     },
-  });
+  })
 
   useEffect(() => {
     if (!countries) {
-      setCountries(allCountries);
+      setCountries(allCountries)
     }
     if (formik.values.country !== null) {
       setTimeout(() => {
-        selectedCountrySet(formik.values.country);
-      }, 500);
-      let countryStates = State.getStatesOfCountry(selectedCountry);
-      setStates(countryStates);
+        selectedCountrySet(formik.values.country)
+      }, 500)
+      let countryStates = State.getStatesOfCountry(selectedCountry)
+      setStates(countryStates)
     }
     if (isSuccessUpdate) {
       setTimeout(() => {
-        navigate('/dashboard/branches');
-      }, 1000);
+        navigate('/dashboard/branches')
+      }, 1000)
     }
-  }, [formik.values.country, selectedCountry, isSuccess]);
+  }, [formik.values.country, selectedCountry, isSuccess])
   return (
-    <div className=" bg-neutral-800 h-screen w-full flex px-12">
+    <div className=" flex h-screen w-full bg-neutral-800 px-12">
       <CreationNav />
-      <div className="w-full  ml-56 py-8">
+      <div className="ml-56  w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
-          className="w-full flex flex-col h-auto px-10 pt-4 pb-4 bg-neutral-900"
+          className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
         >
-          <legend className="font-bold text-2xl text-center pl-4 text-purple-500">
+          <legend className="pl-4 text-center text-2xl font-bold text-purple-500">
             Editar datos de la sucursal
           </legend>
-          <div className=" grid grid-cols-2 mt-2">
+          <div className=" mt-2 grid grid-cols-2">
             <div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="short_name">
                   Nombre Corto
                 </label>
@@ -111,7 +111,7 @@ export const BranchUpdate = () => {
                   name="branch_name"
                   type="text"
                   id="branch_name"
-                  className=" bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.branch_name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -123,14 +123,14 @@ export const BranchUpdate = () => {
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="country">
                   Pais
                 </label>
                 <select
                   name="country"
                   id="country"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.country}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -151,14 +151,14 @@ export const BranchUpdate = () => {
                   <span className="text-red-600">{formik.errors.country}</span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="state">
                   Provincia
                 </label>
                 <select
                   name="state"
                   id="state"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.state}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -178,7 +178,7 @@ export const BranchUpdate = () => {
                   <span className="text-red-600">{formik.errors.state}</span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="city">
                   Ciudad
                 </label>
@@ -186,7 +186,7 @@ export const BranchUpdate = () => {
                   name="city"
                   id="city"
                   type="text"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.city}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -195,7 +195,7 @@ export const BranchUpdate = () => {
                   <span className="text-red-600">{formik.errors.city}</span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="street">
                   Calle
                 </label>
@@ -203,7 +203,7 @@ export const BranchUpdate = () => {
                   name="street"
                   type="text"
                   id="street"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.street}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -214,7 +214,7 @@ export const BranchUpdate = () => {
               </div>
             </div>
             <div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="address">
                   Direccion
                 </label>
@@ -222,7 +222,7 @@ export const BranchUpdate = () => {
                   name="address"
                   type="text"
                   id="address"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.address}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -231,7 +231,7 @@ export const BranchUpdate = () => {
                   <span className="text-red-600">{formik.errors.address}</span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="postal_code">
                   CP
                 </label>
@@ -239,7 +239,7 @@ export const BranchUpdate = () => {
                   name="postal_code"
                   type="text"
                   id="postal_code"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.postal_code}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -250,7 +250,7 @@ export const BranchUpdate = () => {
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label
                   className="mb-1 text-neutral-100"
                   htmlFor="address_references"
@@ -261,7 +261,7 @@ export const BranchUpdate = () => {
                   name="address_references"
                   type="text"
                   id="address_references"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.address_references}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -273,7 +273,7 @@ export const BranchUpdate = () => {
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label
                   className="mb-1 text-neutral-100"
                   htmlFor="business _phone"
@@ -284,7 +284,7 @@ export const BranchUpdate = () => {
                   name="business_phone"
                   type="tel"
                   id="business_phone"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.business_phone}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -296,7 +296,7 @@ export const BranchUpdate = () => {
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col px-4 mb-2">
+              <div className="mb-2 flex flex-col px-4">
                 <label className="mb-1 text-neutral-100" htmlFor="email">
                   Email
                 </label>
@@ -304,7 +304,7 @@ export const BranchUpdate = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-neutral-700 border-transparent text-white outline-transparent ring-transparent  w-full h-8 rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -317,16 +317,16 @@ export const BranchUpdate = () => {
           </div>
           <div className="flex flex-row">
             <button
-              className="border border-purple-600 px-4 py-2 text-purple-600 text-md rounded-full w-32 ml-4 mt-4  disabled:border-neutral-400 disabled:text-neutral-400"
+              className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600  disabled:border-neutral-400 disabled:text-neutral-400"
               disabled={!formik.isValid}
               type={'submit'}
             >
               Enviar
             </button>
             <button
-              className="border border-purple-600 px-4 py-2 text-purple-600 text-md rounded-full w-32 ml-4 mt-4 disabled:bg-slate-600"
+              className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600 disabled:bg-slate-600"
               onClick={() => {
-                navigate(-1);
+                navigate(-1)
               }}
             >
               Regresar
@@ -334,7 +334,7 @@ export const BranchUpdate = () => {
           </div>
         </form>
         <div
-          className={`w-full flex flex-col h-auto px-10 pt-4 pb-4 mt-4 ${
+          className={`mt-4 flex h-auto w-full flex-col px-10 pt-4 pb-4 ${
             !isLoadingUpdate && !isSuccessUpdate
               ? 'transparent'
               : ' bg-neutral-900'
@@ -347,5 +347,5 @@ export const BranchUpdate = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

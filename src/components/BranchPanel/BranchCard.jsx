@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDeleteBranchMutation } from "../../redux/modular/api/orgSlice";
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDeleteBranchMutation } from '../../redux/modular/api/orgSlice'
 
 export const BranchCard = ({ bra }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div className="max-w-md basis-1/2 overflow-hidden rounded bg-neutral-800   ">
@@ -15,11 +15,11 @@ export const BranchCard = ({ bra }) => {
           <h4 className="text-purple-600">Ubicacion</h4>
           <p className="text-sm text-white">
             {bra.address +
-              ", " +
+              ', ' +
               bra.city +
-              ", " +
+              ', ' +
               bra.state +
-              ", " +
+              ', ' +
               bra.country}
           </p>
           <h4 className="text-purple-600">Telefono</h4>
@@ -32,7 +32,7 @@ export const BranchCard = ({ bra }) => {
         <button
           className="w-28 rounded-full border-2 border-purple-600 bg-neutral-800 py-2 px-4 text-purple-600"
           onClick={() => {
-            navigate(`/dashboard/branch/${bra.branch_id}`);
+            navigate(`/dashboard/branch/${bra.branch_id}`)
           }}
         >
           Detalles
@@ -40,7 +40,7 @@ export const BranchCard = ({ bra }) => {
         <button
           className="w-28 rounded-full border-2 border-amber-500 bg-neutral-800 py-2 px-4 text-amber-500"
           onClick={() => {
-            navigate(`/dashboard/branch/update/${bra.branch_id}`);
+            navigate(`/dashboard/branch/update/${bra.branch_id}`)
           }}
         >
           Editar
@@ -48,7 +48,7 @@ export const BranchCard = ({ bra }) => {
         <button
           id={bra.branch_id}
           onClick={(e) => {
-            navigate(`/dashboard/branch/delete/${bra.branch_id}`);
+            navigate(`/dashboard/branch/delete/${bra.branch_id}`)
           }}
           className="w-28 rounded-full border-2 border-red-600 bg-neutral-800 py-2 px-4 text-red-600"
         >
@@ -114,5 +114,5 @@ export const BranchCard = ({ bra }) => {
         ) : null} 
       </div> */}
     </div>
-  );
-};
+  )
+}
