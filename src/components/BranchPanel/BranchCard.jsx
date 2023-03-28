@@ -6,14 +6,14 @@ export const BranchCard = ({ bra }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-md rounded overflow-hidden basis-1/2 bg-neutral-800   ">
+    <div className="max-w-md basis-1/2 overflow-hidden rounded bg-neutral-800   ">
       <div className="px-6 py-4">
-        <div className="font-bold text-xl text-left text-amber-500 mb-2">
+        <div className="mb-2 text-left text-xl font-bold text-amber-500">
           {bra.branch_name}
         </div>
-        <div className="flex flex-col justify-start text-left mt-2">
+        <div className="mt-2 flex flex-col justify-start text-left">
           <h4 className="text-purple-600">Ubicacion</h4>
-          <p className="text-white text-sm">
+          <p className="text-sm text-white">
             {bra.address +
               ", " +
               bra.city +
@@ -23,14 +23,14 @@ export const BranchCard = ({ bra }) => {
               bra.country}
           </p>
           <h4 className="text-purple-600">Telefono</h4>
-          <p className="text-white text-sm">{bra.business_phone}</p>
+          <p className="text-sm text-white">{bra.business_phone}</p>
           <h4 className="text-purple-600">Email</h4>
-          <p className="text-white text-sm">{bra.email}</p>
+          <p className="text-sm text-white">{bra.email}</p>
         </div>
       </div>
-      <div className="px-6 pb-2 space-x-3">
+      <div className="space-x-3 px-6 pb-2">
         <button
-          className="w-28 py-2 px-4 bg-neutral-800 rounded-full border-2 border-purple-600 text-purple-600"
+          className="w-28 rounded-full border-2 border-purple-600 bg-neutral-800 py-2 px-4 text-purple-600"
           onClick={() => {
             navigate(`/dashboard/branch/${bra.branch_id}`);
           }}
@@ -38,7 +38,7 @@ export const BranchCard = ({ bra }) => {
           Detalles
         </button>
         <button
-          className="w-28 py-2 px-4 bg-neutral-800 rounded-full border-2 border-amber-500 text-amber-500"
+          className="w-28 rounded-full border-2 border-amber-500 bg-neutral-800 py-2 px-4 text-amber-500"
           onClick={() => {
             navigate(`/dashboard/branch/update/${bra.branch_id}`);
           }}
@@ -47,10 +47,10 @@ export const BranchCard = ({ bra }) => {
         </button>
         <button
           id={bra.branch_id}
-          onClick={e => {
+          onClick={(e) => {
             navigate(`/dashboard/branch/delete/${bra.branch_id}`);
           }}
-          className="w-28 py-2 px-4 bg-neutral-800 rounded-full border-2 border-red-600 text-red-600"
+          className="w-28 rounded-full border-2 border-red-600 bg-neutral-800 py-2 px-4 text-red-600"
         >
           Eliminar
         </button>

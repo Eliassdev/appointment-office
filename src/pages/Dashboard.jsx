@@ -7,44 +7,14 @@ import StylistsForm from "../components/StylistsForm/StylistsForm.component";
 import StylistTable from "../components/StylistsForm/StylistTable";
 
 const Dashboard = () => {
-  const [Step, setStep] = useState("branch");
-  function renderSwitch(step) {
-    switch (step) {
-      case "branch":
-        return (
-          <div className="w-full h-screen">
-            <BranchForm />
-          </div>
-        );
-      case "stylist":
-        return (
-          <div className="w-full h-screen">
-            <StylistsForm />
-          </div>
-        );
-      case "services":
-        return (
-          <div className="w-full h-screen">
-            <ServicesForm />
-          </div>
-        );
-      case "organization":
-        return <OrganizationsDashboard />;
-      case "overview":
-        return (
-          <div className="w-full h-screen">
-            <StylistTable />
-          </div>
-        );
-      default:
-        return <div className="grid-span-2">{/* <StylistTable /> */}</div>;
-    }
-  }
   return (
-    <div className="bg-neutral-700 container-xl w-full h-screen flex">
-      <CreationNav setStep={setStep} />
-      <StylistTable />
-      {Step === "branch" ? null : renderSwitch(Step)}
+    <div className="container-xl flex h-screen w-full bg-neutral-700">
+      <CreationNav />
+      <div className="ml-56  w-full py-8">
+        <p className="text-lg text-white">
+          Aca veriamos el panel general de informacion
+        </p>
+      </div>
     </div>
   );
 };

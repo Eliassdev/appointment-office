@@ -26,12 +26,12 @@ export const BranchList = () => {
   console.log(pageData);
 
   return (
-    <div className="w-full h-full text-center px-16 pt-2 bg-neutral-900">
-      <h1 className="font-serif text-3xl mt-4 uppercase text-purple-600">
+    <div className="h-full w-full bg-neutral-900 px-16 pt-2 text-center">
+      <h1 className="mt-4 font-serif text-3xl uppercase text-purple-600">
         Sucursales
       </h1>
-      <div className="w-full h-auto mt-6 flex flex-wrap justify-center  gap-7">
-        {pageData?.map(bra => {
+      <div className="mt-6 flex h-auto w-full flex-wrap justify-center gap-7">
+        {pageData?.map((bra) => {
           console.log(bra);
           return (
             // <div className="w-3/12 h-60 rounded-lg bg-neutral-700 py-2">
@@ -48,7 +48,7 @@ export const BranchList = () => {
           );
         })}
       </div>
-      <div className="absolute w-4/6 bottom-12">
+      <div className="absolute bottom-12 w-4/6">
         <BranchPagination
           total={total}
           limit={limit}
