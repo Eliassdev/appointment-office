@@ -22,18 +22,28 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/register" element={<OrganizationForm />} />
-        <Route path="/organizations" element={<OrganizationsDashboard />} />
-        <Route path="/dashboard/overview" element={<StylistTable />} />
-        <Route path="/dashboard/branches" element={<BranchPanel />} />
-        <Route path="/dashboard/branch/create" element={<BranchForm />} />
-        <Route path="/dashboard/branch/update/:id" element={<BranchUpdate />} />
-        <Route path="/dashboard/branch/:id" element={<BranchDetail />} />
-        <Route path="/dashboard/branch/delete/:id" element={<BranchDelete />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<OrganizationForm />} />
+          <Route
+            path="/dashboard/organizations"
+            element={<OrganizationsDashboard />}
+          />
+          <Route path="/dashboard/overview" element={<StylistTable />} />
+          <Route path="/dashboard/branches" element={<BranchPanel />} />
+          <Route path="/dashboard/branch/create" element={<BranchForm />} />
+          <Route
+            path="/dashboard/branch/update/:id"
+            element={<BranchUpdate />}
+          />
+          <Route path="/dashboard/branch/:id" element={<BranchDetail />} />
+          <Route
+            path="/dashboard/branch/delete/:id"
+            element={<BranchDelete />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/about-us" element={<AboutUs />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

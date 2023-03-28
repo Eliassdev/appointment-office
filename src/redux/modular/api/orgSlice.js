@@ -6,7 +6,7 @@ export const organizationsSlice = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
     mode: "cors",
   }),
-  tagTypes: ["branches"],
+  tagTypes: ["branches", "branch"],
   endpoints: builder => ({
     fetchOrganizations: builder.query({
       query(limit = 10) {
@@ -29,13 +29,8 @@ export const organizationsSlice = createApi({
       query(id) {
         return `/branches/${id}`;
       },
-      providesTags: ["branches"],
+      providesTags: ["branch"],
       keepUnusedDataFor: 0,
-    }),
-    getBranchById: builder.query({
-      query(id) {
-        return `/branches/${id}`;
-      },
     }),
     createBranch: builder.mutation({
       query(input) {
@@ -55,7 +50,7 @@ export const organizationsSlice = createApi({
           body: input.info,
         };
       },
-      invalidatesTags: ["branches"],
+      invalidatesTags: ["branches", "branch"],
     }),
     deleteBranch: builder.mutation({
       query(input) {

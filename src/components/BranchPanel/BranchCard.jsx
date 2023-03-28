@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDeleteBranchMutation } from '../../redux/modular/api/orgSlice';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDeleteBranchMutation } from "../../redux/modular/api/orgSlice";
 
 export const BranchCard = ({ bra }) => {
   const navigate = useNavigate();
 
   return (
-    <div class="max-w-md rounded overflow-hidden basis-1/2 bg-neutral-800   ">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl text-left text-amber-500 mb-2">
+    <div className="max-w-md rounded overflow-hidden basis-1/2 bg-neutral-800   ">
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl text-left text-amber-500 mb-2">
           {bra.branch_name}
         </div>
         <div className="flex flex-col justify-start text-left mt-2">
           <h4 className="text-purple-600">Ubicacion</h4>
-          <p class="text-white text-sm">
+          <p className="text-white text-sm">
             {bra.address +
-              ', ' +
+              ", " +
               bra.city +
-              ', ' +
+              ", " +
               bra.state +
-              ', ' +
+              ", " +
               bra.country}
           </p>
           <h4 className="text-purple-600">Telefono</h4>
-          <p class="text-white text-sm">{bra.business_phone}</p>
+          <p className="text-white text-sm">{bra.business_phone}</p>
           <h4 className="text-purple-600">Email</h4>
-          <p class="text-white text-sm">{bra.email}</p>
+          <p className="text-white text-sm">{bra.email}</p>
         </div>
       </div>
-      <div class="px-6 pb-2 space-x-3">
+      <div className="px-6 pb-2 space-x-3">
         <button
           className="w-28 py-2 px-4 bg-neutral-800 rounded-full border-2 border-purple-600 text-purple-600"
           onClick={() => {
@@ -47,7 +47,7 @@ export const BranchCard = ({ bra }) => {
         </button>
         <button
           id={bra.branch_id}
-          onClick={(e) => {
+          onClick={e => {
             navigate(`/dashboard/branch/delete/${bra.branch_id}`);
           }}
           className="w-28 py-2 px-4 bg-neutral-800 rounded-full border-2 border-red-600 text-red-600"

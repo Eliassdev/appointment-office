@@ -27,7 +27,7 @@ const OrganizationsDashboard = () => {
             />
             <Button
               buttonType={organizationName === "" ? "disabled" : "main"}
-              OnClick={handleFindOrganization}
+              onClick={handleFindOrganization}
               disabled={organizationName === ""}
             >
               Buscar Empresa

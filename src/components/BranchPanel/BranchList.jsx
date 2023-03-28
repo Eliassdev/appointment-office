@@ -44,7 +44,7 @@ export const BranchList = () => {
 
             //   </div>
             // </div>
-            <BranchCard bra={bra} />
+            <BranchCard key={bra.branch_id} bra={bra} />
           );
         })}
       </div>
