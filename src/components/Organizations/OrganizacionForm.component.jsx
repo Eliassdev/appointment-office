@@ -14,7 +14,7 @@ const OrganizationForm = () => {
     (state) => state.organizations
   );
 
-  console.log(organizations);
+  console.log("organizations: ", organizations);
 
   const formik = useFormik({
     initialValues: {
@@ -66,9 +66,9 @@ const OrganizationForm = () => {
           <legend>Organizations Formulario</legend>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
             }}
           >
             <label htmlFor="organization_id">ID</label>
@@ -144,7 +144,7 @@ const OrganizationForm = () => {
               id="business_phone"
               name="business_phone"
               required=""
-            />{' '}
+            />{" "}
             <br />
             <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" required="" />
