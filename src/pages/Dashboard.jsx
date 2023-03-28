@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import BranchForm from "../components/BranchPanel/BranchForm";
 import CreationNav from "../components/CreationNav/CreationNav";
 import OrganizationsDashboard from "../components/Organizations/OrganizationsDashboard.component";
@@ -10,11 +11,7 @@ const Dashboard = () => {
   return (
     <div className="container-xl flex h-screen w-full bg-neutral-700">
       <CreationNav />
-      <div className="ml-56  w-full py-8">
-        <p className="text-lg text-white">
-          Aca veriamos el panel general de informacion
-        </p>
-      </div>
+      <Outlet/>
     </div>
   );
 };

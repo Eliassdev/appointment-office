@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import CreationNav from "../CreationNav/CreationNav";
 import { BranchList } from "./BranchList";
 
@@ -7,7 +7,6 @@ export const BranchPanel = () => {
   const navigate = useNavigate();
   return (
     <div className="bg-neutral-800 h-screen w-full flex px-12">
-      <CreationNav />
       <div className="w-full  ml-56 py-8">
         <BranchList />
         <button
@@ -19,6 +18,7 @@ export const BranchPanel = () => {
           Crear Sucursal
         </button>
       </div>
+      <Outlet/>
     </div>
   );
 };
