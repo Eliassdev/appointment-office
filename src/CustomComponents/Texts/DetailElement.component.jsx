@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DetailElement({ title, value }) {
+function DetailElement({ title, value, id }) {
   return (
     <div>
       <h4 className="mt-6 text-lg text-amber-500">{title}</h4>

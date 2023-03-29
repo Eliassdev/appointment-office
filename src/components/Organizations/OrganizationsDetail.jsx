@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDeleteOrganizationMutation } from '../../redux/modular/api/organizations.slice';
 import Button from '../../CustomComponents/Button/Button.component';
 import DetailElement from '../../CustomComponents/Texts/DetailElement.component';
 
 function OrganizationsDetail({ data }) {
+  const [borrar, setBorrar] = useState(false);
+  const navigate = useNavigate();
   const {
     organization_id,
     short_name,
@@ -69,6 +73,22 @@ function OrganizationsDetail({ data }) {
     },
   ];
 
+  const [
+    DeleteOrganization,
+    { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
+  ] = useDeleteOrganizationMutation(organization_id);
+
+  const handleBorrar = () => setBorrar(!borrar);
+  const handleDeleteOrganization = () => {
+    const target = { id: organization_id };
+    DeleteOrganization(target);
+    isSuccessDeletion &&
+      localStorage.clear() &&
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+  };
+
   return (
     <div className="flex h-full w-full flex-col">
       <h1 className="mt-6 text-3xl text-purple-500">
@@ -81,17 +101,42 @@ function OrganizationsDetail({ data }) {
         id="organizations_detail_elements_container"
         className="flex h-3/4 w-full flex-col flex-wrap py-8 text-left"
       >
-        {organizationsDetailElements.map((element) => (
-          <DetailElement title={element.title} value={element.value} />
+        {organizationsDetailElements.map((element, index) => (
+          <DetailElement
+            key={`${index}-${element.title}`}
+            title={element.title}
+            value={element.value}
+          />
         ))}
       </div>
-      <div
-        id="organizations_detail_button_container"
-        className="flex h-full w-full items-end justify-center"
-      >
-        <Button buttonType="main">Editar</Button>
-        <Button buttonType="warning">Borrar</Button>
-      </div>
+      {!borrar ? (
+        <div
+          id="organizations_detail_button_container"
+          className="flex h-full w-full items-end justify-center"
+        >
+          <Button buttonType="main">Editar</Button>
+          <Button buttonType="warning" onClick={handleBorrar}>
+            Borrar
+          </Button>
+        </div>
+      ) : (
+        <div className="flex h-full w-full flex-col justify-center">
+          <p className="text-purple-500">
+            ¿Esta seguro que desea eliminar esta empresa?
+          </p>
+          <div
+            id="organizations_detail_button_container"
+            className="flex h-full w-full items-end justify-center"
+          >
+            <Button buttonType="green" onClick={handleBorrar}>
+              Cancelar
+            </Button>
+            <Button buttonType="warning" onClick={handleDeleteOrganization}>
+              Borrar
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
