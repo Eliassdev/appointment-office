@@ -8,12 +8,12 @@ export const organizationsSlice = createApi({
   }),
   tagTypes: ['branches', 'branch'],
   endpoints: (builder) => ({
-    fetchOrganizations: builder.query({
+    getOrganizations: builder.query({
       query(limit = 10) {
         return '/organizations';
       },
     }),
-    fetchOrganizationById: builder.query({
+    getOrganizationById: builder.query({
       query(id) {
         return `/organizations/${id}`;
       },
@@ -21,5 +21,5 @@ export const organizationsSlice = createApi({
   }),
 });
 
-export const { useFetchOrganizationsQuery, useFetchOrganizationByIdQuery } =
+export const { useGetOrganizationsQuery, useGetOrganizationByIdQuery } =
   organizationsSlice;

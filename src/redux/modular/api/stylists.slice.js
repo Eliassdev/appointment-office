@@ -8,7 +8,7 @@ export const stylistsSlice = createApi({
   }),
   tagTypes: ['branches', 'branch'],
   endpoints: (builder) => ({
-    fetchStylist: builder.query({
+    getStylist: builder.query({
       query(limit = 10) {
         return '/stylists';
       },
@@ -16,4 +16,4 @@ export const stylistsSlice = createApi({
   }),
 });
 
-export const { useFetchStylistQuery } = stylistsSlice;
+export const { useGetStylistQuery } = stylistsSlice;

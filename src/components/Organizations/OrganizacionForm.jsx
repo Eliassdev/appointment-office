@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Redux
-import { useCreateBranchMutation } from '../../redux/modular/api/branches.slice';
+import { useGetOrganizationByIdQuery } from '../../redux/modular/api/organizations.slice';
 
 //Formik
 import { useFormik } from 'formik';
@@ -18,14 +18,17 @@ import { handleChange } from '../../utils/fomHandlers';
 import Button from '../../CustomComponents/Button/Button.component';
 
 const OrganizationForm = () => {
+  const organizationId = 1;
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
   const navigate = useNavigate();
   const allCountries = Country.getAllCountries();
 
-  const [CreateBranch, { isLoading, isError, isSuccess, data }] =
-    useCreateBranchMutation();
+  const { data, isLoading, isSuccess } =
+    useGetOrganizationByIdQuery(organizationId);
+
+  console.log(data);
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +57,7 @@ const OrganizationForm = () => {
       body.country = countryName.name;
       body.state = stateName.name;
       console.log(body);
-      CreateBranch(body);
+      // CreateBranch(body);
       console.log(data);
     },
     validate: (values) => {
@@ -81,11 +84,11 @@ const OrganizationForm = () => {
       let countryStates = State.getStatesOfCountry(selectedCountry);
       setStates(countryStates);
     }
-    if (isSuccess) {
-      setTimeout(() => {
-        navigate('/dashboard/branches');
-      }, 1000);
-    }
+    // if (isSuccess) {
+    //   setTimeout(() => {
+    //     navigate('/dashboard/branches');
+    //   }, 1000);
+    // }
   }, [formik.values.country, selectedCountry, isSuccess]);
 
   return (

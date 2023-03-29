@@ -65,8 +65,6 @@ export const branchesSlice = createApi({
 });
 
 export const {
-  useFetchStylistQuery,
-  useFetchOrganizationByIdQuery,
   useGetBranchesQuery,
   useCreateBranchMutation,
   useDeleteBranchMutation,

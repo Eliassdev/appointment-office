@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React from 'react';
-import { useFetchStylistQuery } from '../../redux/modular/api/branches.slice';
+import { useGetStylistQuery } from '../../redux/modular/api/stylists.slice.js';
 
 const StylistTable = () => {
-  const { data: stylists = [], isLoading } = useFetchStylistQuery();
+  const { data: stylists = [], isLoading } = useGetStylistQuery();
   console.log(stylists);
 
   return (

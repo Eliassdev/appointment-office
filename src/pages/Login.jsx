@@ -2,8 +2,6 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/LogoTitle.png';
-import NavBar from '../components/NavBar/NavBar';
-import { useFetchOrganizationByIdQuery } from '../redux/modular/api/branches.slice';
 
 export const Login = () => {
   const navigate = useNavigate();
