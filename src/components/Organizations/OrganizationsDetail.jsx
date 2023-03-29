@@ -1,7 +1,10 @@
 import React from 'react';
+import Button from '../../CustomComponents/Button/Button.component';
+import DetailElement from '../../CustomComponents/Texts/DetailElement.component';
 
 function OrganizationsDetail({ data }) {
   const {
+    organization_id,
     short_name,
     business_name,
     country,
@@ -15,38 +18,79 @@ function OrganizationsDetail({ data }) {
     email,
   } = data;
 
+  const organizationsDetailElements = [
+    {
+      title: 'ID',
+      value: organization_id,
+    },
+    {
+      title: 'Nombre de la Empresa',
+      value: business_name,
+    },
+    {
+      title: 'Nombre Corto',
+      value: short_name,
+    },
+    {
+      title: 'Pais',
+      value: country,
+    },
+    {
+      title: 'Provincia',
+      value: state,
+    },
+    {
+      title: 'Ciudad',
+      value: city,
+    },
+    {
+      title: 'Calle',
+      value: street,
+    },
+    {
+      title: 'Direccion',
+      value: address,
+    },
+    {
+      title: 'Codigo Postal',
+      value: postal_code,
+    },
+    {
+      title: 'Referencia',
+      value: address_references,
+    },
+    {
+      title: 'Telefono',
+      value: business_phone,
+    },
+    {
+      title: 'E-mail',
+      value: email,
+    },
+  ];
+
   return (
-    <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <div className="  w-full py-8 px-12">
-        <p className="mt-6 text-3xl text-purple-500">
-          Detalles de la sucursal{' '}
-          <span className="text-amber-500 underline underline-offset-8">
-            {business_name}
-          </span>
-        </p>
-        <h4 className="mt-6 text-lg text-amber-500">Nombre de la Empresa</h4>
-        <p className="text-md mt-1 text-white">{business_name}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Nombre Corto</h4>
-        <p className="text-md mt-1 text-white">{short_name}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Pais</h4>
-        <p className="text-md mt-1 text-white">{country}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Provincia</h4>
-        <p className="text-md mt-1 text-white">{state}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Ciudad</h4>
-        <p className="text-md mt-1 text-white">{city}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Calle</h4>
-        <p className="text-md mt-1 text-white">{street}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Direccion</h4>
-        <p className="text-md mt-1 text-white">{address}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Referencia</h4>
-        <p className="text-md mt-1 text-white">{address_references}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Codigo Postal</h4>
-        <p className="text-md mt-1 text-white">{postal_code}</p>
-        <h4 className="mt-2 text-lg text-amber-500">Telefono</h4>
-        <p className="text-md mt-1 text-white">{business_phone}</p>
-        <h4 className="mt-2 text-lg text-amber-500">E-mail</h4>
-        <p className="text-md mt-1 text-white">{email}</p>
-        <div className="mt-5 flex flex-row justify-start space-x-5"></div>
+    <div className="flex h-full w-full flex-col">
+      <h1 className="mt-6 text-3xl text-purple-500">
+        Detalles de la Empresa -{' '}
+        <span className="text-amber-500 underline underline-offset-8">
+          {business_name}
+        </span>
+      </h1>
+      <div
+        id="organizations_detail_elements_container"
+        className="flex h-3/4 w-full flex-col flex-wrap py-8 text-left"
+      >
+        {organizationsDetailElements.map((element) => (
+          <DetailElement title={element.title} value={element.value} />
+        ))}
+      </div>
+      <div
+        id="organizations_detail_button_container"
+        className="flex h-full w-full items-end justify-center"
+      >
+        <Button buttonType="main">Editar</Button>
+        <Button buttonType="warning">Borrar</Button>
       </div>
     </div>
   );

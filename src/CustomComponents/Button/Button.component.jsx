@@ -1,5 +1,5 @@
 export const BUTTON_TYPE_CLASSES = {
-  main: 'bg-neutral-800 text-purple-400',
+  main: 'bg-neutral-800 text-purple-400 hover:bg-purple-400 hover:text-neutral-800',
   inverted: 'bg-purple-400 text-neutral-800',
   disabled: 'bg-neutral-800 text-purple-400 opacity-50',
   warning: 'bg-red-400 text-neutral-800',

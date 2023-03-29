@@ -18,10 +18,16 @@ const OrganizationsPanel = () => {
 
   if (isSuccess) {
     return (
-      <div>
-        {console.log('Organization: ', org)}
-        <h1 className="text-white">Organization Name: {org.business_name}</h1>
-        <OrganizationsDetail data={org} />
+      <div
+        id="organization_detail-bg"
+        className="flex h-full w-full px-12 py-8"
+      >
+        <div
+          id="organization_detail-container"
+          className="h-full w-full bg-neutral-900 px-16 py-6 text-center"
+        >
+          <OrganizationsDetail data={org} />
+        </div>
       </div>
     );
   }
