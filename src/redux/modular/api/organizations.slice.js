@@ -36,21 +36,21 @@ export const organizationsSlice = createApi({
     updateOrganization: builder.mutation({
       query(input) {
         return {
-          url: `/branches/${input.id}`,
+          url: `/organizations/${input.id}`,
           method: 'PATCH',
           body: input.info,
         };
       },
-      invalidatesTags: ['branches', 'branch'],
+      invalidatesTags: ['organizations', 'organization'],
     }),
     deleteOrganization: builder.mutation({
       query(input) {
         return {
-          url: `/branches/${input.id}`,
+          url: `/organizations/${input.id}`,
           method: 'DELETE',
         };
       },
-      invalidatesTags: ['branches'],
+      invalidatesTags: ['organizations'],
     }),
   }),
 });
