@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BranchList } from './BranchList';
 
 export const BranchPanel = () => {
@@ -17,7 +17,6 @@ export const BranchPanel = () => {
           Crear Sucursal
         </button>
       </div>
-      <Outlet />
     </div>
   );
 };
