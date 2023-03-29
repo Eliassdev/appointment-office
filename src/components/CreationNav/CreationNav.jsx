@@ -1,44 +1,67 @@
-import React from "react";
-import Button from "../../CustomComponents/Button/Button.component";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import Button from '../../CustomComponents/Button/Button.component';
+import { useNavigate } from 'react-router-dom';
 const CreationNav = () => {
-  const options = [
-    { name: "", title: "Vista General", key: "1" },
-    { name: "organizations", title: "Empresa", key: "2" },
-    { name: "branches", title: "Sucursales", key: "3" },
-    { name: "stylists", title: "Estilistas", key: "4" },
-    { name: "services", title: "Servicios", key: "5" },
+  const navButtons = [
+    {
+      name: 'general',
+      title: 'Vista General',
+      key: '1',
+      path: '/dashboard/',
+    },
+    {
+      name: 'organizations',
+      title: 'Empresa',
+      key: '2',
+      path: '/dashboard/organizations',
+    },
+    {
+      name: 'branches',
+      title: 'Sucursales',
+      key: '3',
+      path: '/dashboard/branches',
+    },
+    {
+      name: 'stylists',
+      title: 'Estilistas',
+      key: '4',
+      path: '/dashboard/stylists',
+    },
+    {
+      name: 'services',
+      title: 'Servicios',
+      key: '5',
+      path: '/dashboard/services',
+    },
+    {
+      name: 'log_out',
+      title: 'Log Out',
+      key: '6',
+      path: '/',
+    },
   ];
   const navigate = useNavigate();
   return (
-    <div className="fixed left-0 h-screen w-60 bg-neutral-900 pt-8">
+    <div className="flex h-screen flex-col bg-neutral-900 px-2 pt-8">
       <img
         src="https://res.cloudinary.com/duilsmrmx/image/upload/v1676288009/x1hvcivkowplk4kmfyxn.png"
-        alt="logo"
-        className="mb-4"
+        alt="appointment_logo"
+        className="mb-4 w-64"
       />
-      <h1></h1>
-      {options.map((opt) => {
+      {navButtons.map((button) => {
         return (
-          <button
+          <Button
+            id={`button-${button.name}`}
+            key={button.key}
+            buttonType={'main'}
             onClick={() => {
-              navigate(`/dashboard/${opt.name}`);
+              navigate(button.path);
             }}
-            key={opt.key}
-            className="m-2 h-12 w-56 rounded-md bg-neutral-800 text-purple-400"
           >
-            {opt.title}
-          </button>
+            {button.title}
+          </Button>
         );
       })}
-      <Button
-        buttonType={"main"}
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Log Out
-      </Button>
     </div>
   );
 };
