@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Button from '../../CustomComponents/Button/Button.component';
 import { useGetOrganizationByIdQuery } from '../../redux/modular/api/organizations.slice';
-import { Link } from 'react-router-dom';
+import OrganizationsDetail from './OrganizationsDetail';
 
 const OrganizationsPanel = () => {
   const organizationId = localStorage.getItem('organizationId');
@@ -10,16 +10,21 @@ const OrganizationsPanel = () => {
     data: org = {},
     isLoading,
     isSuccess,
+    isError,
   } = useGetOrganizationByIdQuery(organizationId);
-
-  const handleFindOrganization = (e) => {
-    e.preventDefault();
-  };
 
   console.log('OrganizationId: ', organizationId);
   console.log('Organization: ', org);
 
-  return <div className=""></div>;
+  if (isSuccess) {
+    return (
+      <div>
+        {console.log('Organization: ', org)}
+        <h1 className="text-white">Organization Name: {org.business_name}</h1>
+        <OrganizationsDetail data={org} />
+      </div>
+    );
+  }
 };
 
 export default OrganizationsPanel;
