@@ -37,6 +37,7 @@ const App = () => {
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
         <Route path="/dashboard" element={<Dashboard />}>
+          {/*Organizations*/}
           <Route
             path="/dashboard/organizations"
             element={<OrganizationsDashboard />}
@@ -49,6 +50,7 @@ const App = () => {
             path="/dashboard/organizations/delete/:id"
             element={<OrganizationsDashboard />}
           />
+          {/*Branches*/}
           <Route path="/dashboard/branches" element={<BranchPanel />} />
           <Route path="/dashboard/branch/create" element={<BranchForm />} />
           <Route
@@ -60,6 +62,7 @@ const App = () => {
             path="/dashboard/branch/delete/:id"
             element={<BranchDelete />}
           />
+          {/*Stylists*/}
           <Route path="/dashboard/stylists" element={<StylistTable />} />
           <Route path="/dashboard/stylist/create" element={<StylistTable />} />
           <Route
@@ -71,7 +74,7 @@ const App = () => {
             path="/dashboard/stylist/delete/:id"
             element={<StylistTable />}
           />
-
+          {/*Services*/}
           <Route path="/dashboard/services" element={<ServicesForm />} />
           <Route path="/dashboard/services/create" element={<ServicesForm />} />
           <Route
