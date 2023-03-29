@@ -1,23 +1,23 @@
-import { City, Country, State } from 'country-state-city'
-import { useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { City, Country, State } from 'country-state-city';
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   useGetBranchByIdQuery,
   useUpdateBranchMutation,
-} from '../../redux/modular/api/orgSlice'
-import { branchValidation } from '../../schemas/branch.schema'
-import CreationNav from '../CreationNav/CreationNav'
+} from '../../redux/modular/api/orgSlice';
+import { branchValidation } from '../../schemas/branch.schema';
+import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchUpdate = () => {
-  const [countries, setCountries] = useState(null)
-  const [states, setStates] = useState(null)
-  const [selectedCountry, selectedCountrySet] = useState(null)
-  const navigate = useNavigate()
-  const { id } = useParams()
-  const allCountries = Country.getAllCountries()
+  const [countries, setCountries] = useState(null);
+  const [states, setStates] = useState(null);
+  const [selectedCountry, selectedCountrySet] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const allCountries = Country.getAllCountries();
 
-  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id)
+  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id);
   const [
     UpdateBranch,
     {
@@ -25,7 +25,7 @@ export const BranchUpdate = () => {
       isError: isErrorUpdate,
       isSuccess: isSuccessUpdate,
     },
-  ] = useUpdateBranchMutation()
+  ] = useUpdateBranchMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -46,54 +46,54 @@ export const BranchUpdate = () => {
       updated_by: bra?.updated_by,
     },
     onSubmit: async (values) => {
-      let body = values
+      let body = values;
       let countryName = countries.find(
         (country) => country.isoCode === body.country
-      )
-      let stateName = states.find((state) => state.isoCode === body.state)
-      body.country = countryName.name
-      body.state = stateName.name
+      );
+      let stateName = states.find((state) => state.isoCode === body.state);
+      body.country = countryName.name;
+      body.state = stateName.name;
       const request = {
         id: id,
         info: body,
-      }
+      };
 
-      UpdateBranch(request)
+      UpdateBranch(request);
     },
     validate: (values) => {
-      const result = branchValidation.safeParse(values)
-      if (result.success) return
+      const result = branchValidation.safeParse(values);
+      if (result.success) return;
       if (result.error.issues) {
-        const errors = {}
+        const errors = {};
         result.error.issues.map((err) => {
-          errors[err.path[0]] = err.message
-        })
-        return errors
+          errors[err.path[0]] = err.message;
+        });
+        return errors;
       }
     },
-  })
+  });
 
   useEffect(() => {
     if (!countries) {
-      setCountries(allCountries)
+      setCountries(allCountries);
     }
     if (formik.values.country !== null) {
       setTimeout(() => {
-        selectedCountrySet(formik.values.country)
-      }, 500)
-      let countryStates = State.getStatesOfCountry(selectedCountry)
-      setStates(countryStates)
+        selectedCountrySet(formik.values.country);
+      }, 500);
+      let countryStates = State.getStatesOfCountry(selectedCountry);
+      setStates(countryStates);
     }
     if (isSuccessUpdate) {
       setTimeout(() => {
-        navigate('/dashboard/branches')
-      }, 1000)
+        navigate('/dashboard/branches');
+      }, 1000);
     }
-  }, [formik.values.country, selectedCountry, isSuccess])
+  }, [formik.values.country, selectedCountry, isSuccess]);
   return (
     <div className=" flex h-screen w-full bg-neutral-800 px-12">
       <CreationNav />
-      <div className="ml-56  w-full py-8">
+      <div className=" w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
           className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
@@ -326,7 +326,7 @@ export const BranchUpdate = () => {
             <button
               className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600 disabled:bg-slate-600"
               onClick={() => {
-                navigate(-1)
+                navigate(-1);
               }}
             >
               Regresar
@@ -347,5 +347,5 @@ export const BranchUpdate = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

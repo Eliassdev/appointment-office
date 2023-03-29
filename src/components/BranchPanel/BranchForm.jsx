@@ -81,7 +81,7 @@ const BranchForm = () => {
 
   return (
     <div className=" flex h-screen w-full bg-neutral-800 px-12">
-      <div className="ml-56  w-full py-8">
+      <div className="  w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
           className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"

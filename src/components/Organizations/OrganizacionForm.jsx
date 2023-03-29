@@ -1,12 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+//Redux
 import { useCreateBranchMutation } from '../../redux/modular/api/orgSlice';
 
 //Formik
 import { useFormik } from 'formik';
+
+//Zod
 import { organizationValidation } from '../../schemas/organization.schema';
+
+//Country State City
 import { City, Country, State } from 'country-state-city';
 import { handleChange } from '../../utils/fomHandlers';
+
+//Components
+import Button from '../../CustomComponents/Button/Button.component';
 
 const OrganizationForm = () => {
   const [countries, setCountries] = useState(null);
@@ -81,7 +90,7 @@ const OrganizationForm = () => {
 
   return (
     <div className=" flex h-screen w-full bg-neutral-800 px-12">
-      <div className="ml-56  w-full py-8">
+      <div className="  w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
           className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
@@ -108,6 +117,29 @@ const OrganizationForm = () => {
                 {formik.touched.short_name && formik.errors.short_name ? (
                   <span className="text-red-600">
                     {formik.errors.short_name}
+                  </span>
+                ) : null}
+              </div>
+              <div className="mb-2 flex flex-col px-4">
+                <label
+                  className="mb-1 text-neutral-100"
+                  htmlFor="business_name"
+                >
+                  Nombre de la Empresa
+                </label>
+                <input
+                  name="business_name"
+                  type="text"
+                  id="business_name"
+                  className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+                  value={formik.values.branch_name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+
+                {formik.touched.business_name && formik.errors.business_name ? (
+                  <span className="text-red-600">
+                    {formik.errors.business_name}
                   </span>
                 ) : null}
               </div>
@@ -303,22 +335,10 @@ const OrganizationForm = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row">
-            <button
-              className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600  disabled:border-neutral-400 disabled:text-neutral-400"
-              disabled={!formik.isValid}
-              type={'submit'}
-            >
-              Enviar
-            </button>
-            <button
-              className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600 disabled:bg-slate-600"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              Regresar
-            </button>
+          <div className="flex flex-row justify-center">
+            <Button buttonType={!formik.isValid ? 'disabled' : 'main'}>
+              Registrar
+            </Button>
           </div>
         </form>
         <div
