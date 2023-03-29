@@ -1,103 +1,64 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const organizationsSlice = createApi({
-  reducerPath: "organizations",
+export const branchesSlice = createApi({
+  reducerPath: 'branches',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
-    mode: "cors",
+    mode: 'cors',
   }),
-  tagTypes: ["branches", "branch"],
-  endpoints: builder => ({
-    fetchOrganizations: builder.query({
-      query(limit = 10) {
-        return "/organizations";
+  tagTypes: ['branches', 'branch'],
+  endpoints: (builder) => ({
+    createBranch: builder.mutation({
+      query(input) {
+        return {
+          url: '/branches/',
+          method: 'POST',
+          body: input,
+        };
       },
-    }),
-    fetchOrganizationById: builder.query({
-      query(id) {
-        return `/organizations/${id}`;
-      },
+      invalidatesTags: ['branches'],
     }),
     getBranches: builder.query({
       query(limit = 10) {
-        return "/branches";
+        return '/branches';
       },
-      providesTags: ["branches"],
+      providesTags: ['branches'],
       keepUnusedDataFor: 0,
     }),
     getBranchById: builder.query({
       query(id) {
         return `/branches/${id}`;
       },
-      providesTags: ["branch"],
+      providesTags: ['branch'],
       keepUnusedDataFor: 0,
     }),
-    createBranch: builder.mutation({
-      query(input) {
-        return {
-          url: "/branches/",
-          method: "POST",
-          body: input,
-        };
-      },
-      invalidatesTags: ["branches"],
-    }),
     updateBranch: builder.mutation({
       query(input) {
         return {
           url: `/branches/${input.id}`,
-          method: "PATCH",
+          method: 'PATCH',
           body: input.info,
         };
       },
-      invalidatesTags: ["branches", "branch"],
+      invalidatesTags: ['branches', 'branch'],
     }),
     deleteBranch: builder.mutation({
       query(input) {
         return {
           url: `/branches/${input.id}`,
-          method: "DELETE",
+          method: 'DELETE',
         };
       },
-      invalidatesTags: ["branches"],
-    }),
-    createBranch: builder.mutation({
-      query(input) {
-        return {
-          url: "/branches/",
-          method: "POST",
-          body: input,
-        };
-      },
-      invalidatesTags: ["branches"],
-    }),
-    updateBranch: builder.mutation({
-      query(input) {
-        return {
-          url: `/branches/${input.id}`,
-          method: "PATCH",
-          body: input.info,
-        };
-      },
-      invalidatesTags: ["branches"],
-    }),
-    deleteBranch: builder.mutation({
-      query(input) {
-        return {
-          url: `/branches/${input.id}`,
-          method: "DELETE",
-        };
-      },
-      invalidatesTags: ["branches"],
+      invalidatesTags: ['branches'],
     }),
     fetchStylist: builder.query({
       query(limit = 10) {
-        return "/stylists";
+        return '/stylists';
       },
     }),
     fetchServices: builder.query({
       query(limit = 10) {
-        return "/services";
+        return '/services';
       },
     }),
   }),
@@ -111,4 +72,4 @@ export const {
   useDeleteBranchMutation,
   useGetBranchByIdQuery,
   useUpdateBranchMutation,
-} = organizationsSlice;
+} = branchesSlice;
