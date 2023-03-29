@@ -1,31 +1,31 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 //Local Imports
-import "./index.css";
+import './index.css';
 
 //Pages Imports
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import { Login } from "./pages/Login";
-import { AboutUs } from "./pages/AboutUs";
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import { Login } from './pages/Login';
+import { AboutUs } from './pages/AboutUs';
 
 // Organizations Imports
-import OrganizationsDashboard from "./components/Organizations/OrganizationsDashboard.component";
-import OrganizationForm from "./components/Organizations/OrganizacionForm.component";
+import OrganizationsDashboard from './components/Organizations/OrganizationsDashboar';
+import OrganizationForm from './components/Organizations/OrganizacionForm';
 
 // Branch Imports
-import { BranchDelete } from "./components/BranchPanel/BranchDelete";
-import { BranchDetail } from "./components/BranchPanel/BranchDetail";
-import BranchForm from "./components/BranchPanel/BranchForm";
-import { BranchPanel } from "./components/BranchPanel/BranchPanel";
-import { BranchUpdate } from "./components/BranchPanel/BranchUpdate";
+import { BranchDelete } from './components/BranchPanel/BranchDelete';
+import { BranchDetail } from './components/BranchPanel/BranchDetail';
+import BranchForm from './components/BranchPanel/BranchForm';
+import { BranchPanel } from './components/BranchPanel/BranchPanel';
+import { BranchUpdate } from './components/BranchPanel/BranchUpdate';
 
 // Stylist Imports
-import StylistTable from "./components/StylistsForm/StylistTable";
+import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
-import ServicesForm from "./components/ServicesForm/ServicesForm.component";
+import ServicesForm from './components/ServicesForm/ServicesForm.component';
 
 const App = () => {
   return (
