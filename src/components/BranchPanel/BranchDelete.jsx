@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   useDeleteBranchMutation,
   useGetBranchByIdQuery,
-} from '../../redux/modular/api/orgSlice';
+} from '../../redux/modular/api/branches.slice';
 import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDelete = () => {
@@ -17,7 +17,6 @@ export const BranchDelete = () => {
   console.log(isLoadingDeletion, isSuccessDeletion);
   return (
     <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <CreationNav />
       <div className="  w-full py-8 px-12">
         <p className="mt-6 text-3xl text-purple-500">
           Detalles de la sucursal{' '}

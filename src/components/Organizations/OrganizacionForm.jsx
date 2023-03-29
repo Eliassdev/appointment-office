@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Redux
-import { useCreateBranchMutation } from '../../redux/modular/api/orgSlice';
+import { useCreateBranchMutation } from '../../redux/modular/api/branches.slice';
 
 //Formik
 import { useFormik } from 'formik';

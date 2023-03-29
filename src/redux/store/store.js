@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { organizationsSlice } from '../modular/api/orgSlice';
+import { organizationsSlice } from '../modular/api/branches.slice';
 import organizationsReducer from '../slice/organizationsSlice';
 
 //Store

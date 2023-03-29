@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/LogoTitle.png';
 import NavBar from '../components/NavBar/NavBar';
-import { useFetchOrganizationByIdQuery } from '../redux/modular/api/orgSlice';
+import { useFetchOrganizationByIdQuery } from '../redux/modular/api/branches.slice';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -22,18 +22,18 @@ export const Login = () => {
     },
   });
   return (
-    <div className="w-full h-screen flex bg-slate-700 place-items-center justify-center">
-      <div className="container flex flex-col w-5/12 h-96 bg-gray-800 py-4 items-center rounded-md">
+    <div className="flex h-screen w-full place-items-center justify-center bg-slate-700">
+      <div className="container flex h-96 w-5/12 flex-col items-center rounded-md bg-gray-800 py-4">
         <img className="w-72 " src={Logo} />
         <form onSubmit={formik.handleSubmit}>
-          <div className="flex flex-col items-center mt-8">
+          <div className="mt-8 flex flex-col items-center">
             <label className="text-pink-500">Usuario/Mail</label>
             <input
               id="username"
               values={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="mt-2 mb-5 w-64 bg-gray-700 border-transparent text-white outline-transparent ring-transparent rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              className="mt-2 mb-5 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               type="text"
             />
             <label className="text-pink-500">Contraseña</label>
@@ -42,13 +42,13 @@ export const Login = () => {
               values={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="mt-2 mb-5 w-64 bg-gray-700 border-transparent text-white outline-transparent ring-transparent rounded p-2 ring-2 outline-2 focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              className="mt-2 mb-5 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               type="password"
             />
           </div>
-          <div className="flex flex-row w-80 justify-evenly mt-4">
+          <div className="mt-4 flex w-80 flex-row justify-evenly">
             <button
-              className="border-2 border-purple-500 text-purple-500 rounded-full w-28 px-4 py-2 "
+              className="w-28 rounded-full border-2 border-purple-500 px-4 py-2 text-purple-500 "
               onClick={() => {
                 handleBack();
               }}
@@ -57,7 +57,7 @@ export const Login = () => {
             </button>
             <button
               type="submit"
-              className="border-2 border-purple-500 text-purple-500 rounded-full w-28 px-4 py-2 "
+              className="w-28 rounded-full border-2 border-purple-500 px-4 py-2 text-purple-500 "
             >
               Ingresar
             </button>

@@ -3,7 +3,7 @@ import { City, Country, State } from 'country-state-city';
 import { useFormik } from 'formik';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCreateBranchMutation } from '../../redux/modular/api/orgSlice';
+import { useCreateBranchMutation } from '../../redux/modular/api/branches.slice';
 import { branchValidation } from '../../schemas/branch.schema';
 import { handleChange } from '../../utils/fomHandlers';
 import regionData from '../../utils/listOfCountries_States_Cities.json';

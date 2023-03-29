@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetBranchByIdQuery } from '../../redux/modular/api/orgSlice';
+import { useGetBranchByIdQuery } from '../../redux/modular/api/branches.slice';
 import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDetail = () => {
@@ -9,7 +9,6 @@ export const BranchDetail = () => {
   const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id);
   return (
     <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <CreationNav />
       <div className="  w-full py-8 px-12">
         <p className="mt-6 text-3xl text-purple-500">
           Detalles de la sucursal{' '}

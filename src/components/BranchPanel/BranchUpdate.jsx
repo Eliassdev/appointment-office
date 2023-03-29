@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   useGetBranchByIdQuery,
   useUpdateBranchMutation,
-} from '../../redux/modular/api/orgSlice';
+} from '../../redux/modular/api/branches.slice';
 import { branchValidation } from '../../schemas/branch.schema';
 import CreationNav from '../CreationNav/CreationNav';
 
@@ -92,7 +92,6 @@ export const BranchUpdate = () => {
   }, [formik.values.country, selectedCountry, isSuccess]);
   return (
     <div className=" flex h-screen w-full bg-neutral-800 px-12">
-      <CreationNav />
       <div className=" w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
