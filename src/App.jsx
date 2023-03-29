@@ -11,8 +11,8 @@ import { Login } from './pages/Login';
 import { AboutUs } from './pages/AboutUs';
 
 // Organizations Imports
-import OrganizationsDashboard from './components/Organizations/OrganizationsDashboar';
-import OrganizationForm from './components/Organizations/OrganizacionForm';
+import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
+import OrganizationForm from './components/Organizations/OrganizacionsForm';
 
 // Branch Imports
 import { BranchDelete } from './components/BranchPanel/BranchDelete';
@@ -40,15 +40,15 @@ const App = () => {
           {/*Organizations*/}
           <Route
             path="/dashboard/organizations"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
           <Route
             path="/dashboard/organizations/update/:id"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
           <Route
             path="/dashboard/organizations/delete/:id"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
           {/*Branches*/}
           <Route path="/dashboard/branches" element={<BranchPanel />} />

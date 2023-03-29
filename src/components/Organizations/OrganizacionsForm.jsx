@@ -70,6 +70,18 @@ const OrganizationForm = () => {
     },
   });
 
+  // Function to extract the number from a string - Basura
+  function getNumberFromString(s) {
+    // Define the regular expression
+    const regex = /(\d+)/;
+
+    // Extract the number from the string
+    const match = s.match(regex);
+
+    // Return the number as a string or null if no match was found
+    return match ? match[0] : null;
+  }
+
   useEffect(() => {
     if (!countries) {
       setCountries(allCountries);
@@ -82,6 +94,10 @@ const OrganizationForm = () => {
       setStates(countryStates);
     }
     if (isSuccess) {
+      let id = getNumberFromString(data.message);
+
+      console.log(data);
+      localStorage.setItem('organizationId', id);
       setTimeout(() => {
         navigate('/dashboard/');
       }, 1000);

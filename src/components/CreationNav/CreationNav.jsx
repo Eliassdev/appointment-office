@@ -49,18 +49,34 @@ const CreationNav = () => {
         className="mb-4 w-64"
       />
       {navButtons.map((button) => {
-        return (
-          <Button
-            id={`button-${button.name}`}
-            key={button.key}
-            buttonType={'main'}
-            onClick={() => {
-              navigate(button.path);
-            }}
-          >
-            {button.title}
-          </Button>
-        );
+        if (button.name === 'log_out') {
+          return (
+            <Button
+              id={`button-${button.name}`}
+              key={button.key}
+              buttonType={'warning'}
+              onClick={() => {
+                localStorage.clear();
+                navigate(button.path);
+              }}
+            >
+              {button.title}
+            </Button>
+          );
+        } else {
+          return (
+            <Button
+              id={`button-${button.name}`}
+              key={button.key}
+              buttonType={'main'}
+              onClick={() => {
+                navigate(button.path);
+              }}
+            >
+              {button.title}
+            </Button>
+          );
+        }
       })}
     </div>
   );
