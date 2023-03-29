@@ -95,9 +95,8 @@ const OrganizationForm = () => {
     }
     if (isSuccess) {
       let id = getNumberFromString(data.message);
-
-      console.log(data);
       localStorage.setItem('organizationId', id);
+      console.log(data);
       setTimeout(() => {
         navigate('/dashboard/');
       }, 1000);
