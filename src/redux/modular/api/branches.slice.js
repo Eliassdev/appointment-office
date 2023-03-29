@@ -51,23 +51,13 @@ export const branchesSlice = createApi({
       },
       invalidatesTags: ['branches'],
     }),
-    fetchStylist: builder.query({
-      query(limit = 10) {
-        return '/stylists';
-      },
-    }),
-    fetchServices: builder.query({
-      query(limit = 10) {
-        return '/services';
-      },
-    }),
   }),
 });
 
 export const {
-  useGetBranchesQuery,
   useCreateBranchMutation,
-  useDeleteBranchMutation,
+  useGetBranchesQuery,
   useGetBranchByIdQuery,
   useUpdateBranchMutation,
+  useDeleteBranchMutation,
 } = branchesSlice;
