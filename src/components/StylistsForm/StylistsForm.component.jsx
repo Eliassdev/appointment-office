@@ -1,8 +1,61 @@
 import React from 'react';
+import { useFormik } from 'formik';
+import {z} from 'zod';
+
+const nameSchema = z.string()
+
+const name = 100
+
+name.nameSchema.parse(name)
+
+const formik = useFormik({
+  initialValues: {
+    branch_name: '',
+    organization_id: 1,
+    country: '',
+    state: '',
+    city: '',
+    street: '',
+    address: '',
+    postal_code: '',
+    address_references: '',
+    business_phone: '',
+    email: '',
+    latitude: 39.0,
+    longitude: -12.0,
+    created_by: 1,
+    updated_by: 1,
+  },
+  onSubmit: async (values) => {
+    let body = values;
+    let countryName = countries.find(
+      (country) => country.isoCode === body.country
+    );
+    let stateName = states.find((state) => state.isoCode === body.state);
+    body.country = countryName.name;
+    body.state = stateName.name;
+    console.log(body);
+    const res = await postBranch(body);
+    console.log(res);
+  },
+  validate: (values) => {
+    const result = branchValidation.safeParse(values);
+    if (result.success) return;
+    if (result.error.issues) {
+      const errors = {};
+      result.error.issues.map((err) => {
+        errors[err.path[0]] = err.message;
+      });
+      return errors;
+    }
+  },
+});
+
 
 function StylistsForm() {
   return (
-    <div className="grid-span-2">
+
+      <div className="grid-span-2">
       <form className="form">
         <fieldset>
           <legend>Stylists Form</legend>
@@ -19,21 +72,21 @@ function StylistsForm() {
               id="stylist_firstname"
               name="stylist_firstname"
               required=""
-            />
+              />
             <label for="stylist_lastname">Apellido</label>
             <input
               type="text"
               id="stylist_lastname"
               name="stylist_lastname"
               required=""
-            />
+              />
             <label for="marital_status">Estado civil</label>
             <select
               name="marital_status"
               id="marital_status"
               required=""
               placeholder="Seleccione una opcion"
-            >
+              >
               <option value="">Seleccione una opcion</option>
               <option value="marital_status">Soltero</option>
               <option value="marital_status">Casado</option>
@@ -44,7 +97,7 @@ function StylistsForm() {
               id="gender"
               required=""
               placeholder="Seleccione una opcion"
-            >
+              >
               <option value="">Seleccione una opcion</option>
               <option value="gender">Masculino</option>
               <option value="gender">Femenino</option>
@@ -97,21 +150,21 @@ function StylistsForm() {
               id="postal_code"
               name="postal_code"
               required=""
-            />
+              />
             <label for="address_references">Otras Referencias</label>
             <input
               type="text"
               id="address_references"
               name="address_references"
               required=""
-            />
+              />
             <label for="business_phone">Teléfono</label>
             <input
               type="tel"
               id="business_phone"
               name="business_phone"
               required=""
-            />{' '}
+              />{' '}
             <br />
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required="" />
@@ -120,7 +173,10 @@ function StylistsForm() {
         </fieldset>
       </form>
     </div>
-  );
-}
+   )}
+  
+    ;
+
+    
 
 export default StylistsForm;

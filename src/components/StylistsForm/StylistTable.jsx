@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useFetchStylistQuery } from '../../redux/modular/api/orgSlice';
 
+
 const StylistTable = () => {
   const { data: stylists = [], isLoading } = useFetchStylistQuery();
   console.log(stylists);
@@ -38,7 +39,7 @@ const StylistTable = () => {
                         <td class="border border-slate-300 text-amber-500">{sti.country} </td>
                         <td class="border border-slate-300 text-amber-500">{sti.gender} </td>
                         <td class="border border-slate-300 text-amber-500">{sti.email} </td>
-                        <button className='text-sky-400 mx-2' type='submit'>Upgrade</button> <button className='text-red-400 mx-2' type='reset'>Delete</button>
+                        <button className='text-sky-400 mx-2' type='submit'>Update</button> <button className='text-red-400 mx-2' type='reset'>Delete</button>
                         
 
                         {/* // <td>{sti} </td>
@@ -55,3 +56,4 @@ const StylistTable = () => {
 };
 
 export default StylistTable;
+
