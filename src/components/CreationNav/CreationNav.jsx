@@ -1,32 +1,82 @@
 import React from 'react';
-const CreationNav = ({ setStep }) => {
-  const options = [
-    { name: 'overview', title: 'Vista General', key: '1' },
-    { name: 'organization', title: 'Empresa', key: '2' },
-    { name: 'branch', title: 'Sucursales', key: '3' },
-    { name: 'stylist', title: 'Estilistas', key: '4' },
-    { name: 'services', title: 'Servicios', key: '5' },
+import Button from '../../CustomComponents/Button/Button.component';
+import { useNavigate } from 'react-router-dom';
+const CreationNav = () => {
+  const navButtons = [
+    {
+      name: 'general',
+      title: 'Vista General',
+      key: '1',
+      path: '/dashboard/',
+    },
+    {
+      name: 'organizations',
+      title: 'Empresa',
+      key: '2',
+      path: '/dashboard/organizations',
+    },
+    {
+      name: 'branches',
+      title: 'Sucursales',
+      key: '3',
+      path: '/dashboard/branches',
+    },
+    {
+      name: 'stylists',
+      title: 'Estilistas',
+      key: '4',
+      path: '/dashboard/stylists',
+    },
+    {
+      name: 'services',
+      title: 'Servicios',
+      key: '5',
+      path: '/dashboard/services',
+    },
+    {
+      name: 'log_out',
+      title: 'Log Out',
+      key: '6',
+      path: '/',
+    },
   ];
+  const navigate = useNavigate();
   return (
-    <div className="bg-neutral-900 w-60 h-screen pt-8">
+    <div className="flex h-screen flex-col bg-neutral-900 px-2 pt-8">
       <img
         src="https://res.cloudinary.com/duilsmrmx/image/upload/v1676288009/x1hvcivkowplk4kmfyxn.png"
-        alt="logo"
-        className="mb-4"
+        alt="appointment_logo"
+        className="mb-4 w-64"
       />
-      <h1></h1>
-      {options.map((opt) => {
-        return (
-          <button
-            onClick={() => {
-              setStep(opt.name);
-            }}
-            key={opt.key}
-            className="bg-neutral-800 w-56 h-12 m-2 text-purple-400 rounded-md"
-          >
-            {opt.title}
-          </button>
-        );
+      {navButtons.map((button) => {
+        if (button.name === 'log_out') {
+          return (
+            <Button
+              id={`button-${button.name}`}
+              key={button.key}
+              buttonType={'warning'}
+              onClick={() => {
+                localStorage.clear();
+                navigate(button.path);
+              }}
+            >
+              {button.title}
+            </Button>
+          );
+        } else {
+          return (
+            <Button
+              id={`button-${button.name}`}
+              key={button.key}
+              buttonType={'main'}
+              onClick={() => {
+                navigate(button.path);
+              }}
+            >
+              {button.title}
+            </Button>
+          );
+        }
       })}
     </div>
   );

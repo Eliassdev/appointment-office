@@ -1,16 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { organizationsSlice } from '../modular/api/orgSlice';
-import organizationsReducer from '../slice/organizationsSlice';
+import { organizationsSlice } from '../modular/api/organizations.slice';
+import { branchesSlice } from '../modular/api/branches.slice';
+import { stylistsSlice } from '../modular/api/stylists.slice';
+import { serviceSlice } from '../modular/api/services.slice';
 
-//Store
 export const store = configureStore({
   reducer: {
-    organizations: organizationsReducer,
     [organizationsSlice.reducerPath]: organizationsSlice.reducer,
+    [branchesSlice.reducerPath]: branchesSlice.reducer,
+    [stylistsSlice.reducerPath]: stylistsSlice.reducer,
+    [serviceSlice.reducerPath]: serviceSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(organizationsSlice.middleware),
+    getDefaultMiddleware().concat(
+      branchesSlice.middleware,
+      organizationsSlice.middleware,
+      stylistsSlice.middleware,
+      serviceSlice.middleware
+    ),
 });
 
 setupListeners(store.dispatch);
