@@ -1,24 +1,23 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   useDeleteBranchMutation,
   useGetBranchByIdQuery,
-} from '../../redux/modular/api/orgSlice'
-import CreationNav from '../CreationNav/CreationNav'
+} from '../../redux/modular/api/branches.slice';
+import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDelete = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id);
   const [
     DeleteBranch,
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
-  ] = useDeleteBranchMutation()
-  console.log(isLoadingDeletion, isSuccessDeletion)
+  ] = useDeleteBranchMutation();
+  console.log(isLoadingDeletion, isSuccessDeletion);
   return (
     <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <CreationNav />
-      <div className="ml-56  w-full py-8 px-12">
+      <div className="  w-full py-8 px-12">
         <p className="mt-6 text-3xl text-purple-500">
           Detalles de la sucursal{' '}
           <span className="text-amber-500 underline underline-offset-8">
@@ -53,11 +52,11 @@ export const BranchDelete = () => {
               onClick={(e) => {
                 const info = {
                   id: e.target.id,
-                }
-                DeleteBranch(info)
+                };
+                DeleteBranch(info);
                 setTimeout(() => {
-                  navigate('/dashboard/branches')
-                }, 1000)
+                  navigate('/dashboard/branches');
+                }, 1000);
               }}
               className="rounded-full border border-green-500 px-4 py-2 text-green-500"
             >
@@ -65,7 +64,7 @@ export const BranchDelete = () => {
             </button>
             <button
               onClick={() => {
-                navigate('/dashboard/branches')
+                navigate('/dashboard/branches');
               }}
               className="rounded-full border border-red-500 px-4 py-2 text-red-500"
             >
@@ -91,5 +90,5 @@ export const BranchDelete = () => {
         </div>
       ) : null}
     </div>
-  )
-}
+  );
+};

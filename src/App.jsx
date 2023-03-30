@@ -1,31 +1,31 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 //Local Imports
-import "./index.css";
+import './index.css';
 
 //Pages Imports
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import { Login } from "./pages/Login";
-import { AboutUs } from "./pages/AboutUs";
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import { Login } from './pages/Login';
+import { AboutUs } from './pages/AboutUs';
 
 // Organizations Imports
-import OrganizationsDashboard from "./components/Organizations/OrganizationsDashboard.component";
-import OrganizationForm from "./components/Organizations/OrganizacionForm.component";
+import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
+import OrganizationForm from './components/Organizations/OrganizacionsForm';
 
 // Branch Imports
-import { BranchDelete } from "./components/BranchPanel/BranchDelete";
-import { BranchDetail } from "./components/BranchPanel/BranchDetail";
-import BranchForm from "./components/BranchPanel/BranchForm";
-import { BranchPanel } from "./components/BranchPanel/BranchPanel";
-import { BranchUpdate } from "./components/BranchPanel/BranchUpdate";
+import { BranchDelete } from './components/BranchPanel/BranchDelete';
+import { BranchDetail } from './components/BranchPanel/BranchDetail';
+import BranchForm from './components/BranchPanel/BranchForm';
+import { BranchPanel } from './components/BranchPanel/BranchPanel';
+import { BranchUpdate } from './components/BranchPanel/BranchUpdate';
 
 // Stylist Imports
-import StylistTable from "./components/StylistsForm/StylistTable";
+import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
-import ServicesForm from "./components/ServicesForm/ServicesForm.component";
+import ServicesForm from './components/ServicesForm/ServicesForm.component';
 
 const App = () => {
   return (
@@ -37,18 +37,20 @@ const App = () => {
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
         <Route path="/dashboard" element={<Dashboard />}>
+          {/*Organizations*/}
           <Route
             path="/dashboard/organizations"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
           <Route
             path="/dashboard/organizations/update/:id"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
           <Route
             path="/dashboard/organizations/delete/:id"
-            element={<OrganizationsDashboard />}
+            element={<OrganizationsPanel />}
           />
+          {/*Branches*/}
           <Route path="/dashboard/branches" element={<BranchPanel />} />
           <Route path="/dashboard/branch/create" element={<BranchForm />} />
           <Route
@@ -60,6 +62,7 @@ const App = () => {
             path="/dashboard/branch/delete/:id"
             element={<BranchDelete />}
           />
+          {/*Stylists*/}
           <Route path="/dashboard/stylists" element={<StylistTable />} />
           <Route path="/dashboard/stylist/create" element={<StylistTable />} />
           <Route
@@ -71,7 +74,7 @@ const App = () => {
             path="/dashboard/stylist/delete/:id"
             element={<StylistTable />}
           />
-
+          {/*Services*/}
           <Route path="/dashboard/services" element={<ServicesForm />} />
           <Route path="/dashboard/services/create" element={<ServicesForm />} />
           <Route

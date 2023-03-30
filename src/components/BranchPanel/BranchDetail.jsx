@@ -1,16 +1,15 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useGetBranchByIdQuery } from '../../redux/modular/api/orgSlice'
-import CreationNav from '../CreationNav/CreationNav'
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetBranchByIdQuery } from '../../redux/modular/api/branches.slice';
+import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDetail = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id);
   return (
     <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <CreationNav />
-      <div className="ml-56  w-full py-8 px-12">
+      <div className="  w-full py-8 px-12">
         <p className="mt-6 text-3xl text-purple-500">
           Detalles de la sucursal{' '}
           <span className="text-amber-500 underline underline-offset-8">
@@ -38,7 +37,7 @@ export const BranchDetail = () => {
         <div className="mt-5 flex flex-row justify-start space-x-5">
           <button
             onClick={() => {
-              navigate(`/dashboard/branch/update/${id}`)
+              navigate(`/dashboard/branch/update/${id}`);
             }}
             className="rounded-full border border-purple-600 px-4 py-2 text-purple-600"
           >
@@ -46,7 +45,7 @@ export const BranchDetail = () => {
           </button>
           <button
             onClick={() => {
-              navigate('/dashboard/branches')
+              navigate('/dashboard/branches');
             }}
             className="rounded-full border border-purple-600 px-4 py-2 text-purple-600"
           >
@@ -55,5 +54,5 @@ export const BranchDetail = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
