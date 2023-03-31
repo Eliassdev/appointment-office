@@ -12,7 +12,7 @@ const useCountryState = () => {
 
   useEffect(() => {
     if (selectedCountry) {
-      setStates(State(selectedCountry));
+      setStates(State.getStatesOfCountry(selectedCountry));
     }
   }, [selectedCountry]);
 
