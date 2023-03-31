@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 //Redux
@@ -15,6 +15,7 @@ import { organizationValidation } from '../../schemas/organization.schema';
 
 //Country State City
 import { City, Country, State } from 'country-state-city';
+import useCountryState from '../../hooks/useCountryState.hook';
 
 //Components
 import Button from '../../CustomComponents/Button/Button.component';
@@ -25,12 +26,13 @@ export const ORGANIZATIONS_FORM_TYPE = {
 };
 
 const OrganizationForm = ({ formType, orgData }) => {
-  const [countries, setCountries] = useState(null);
-  const [states, setStates] = useState(null);
-  const [selectedCountry, selectedCountrySet] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-  const allCountries = Country.getAllCountries();
+  // const allCountries = Country.getAllCountries();
+
+  // Country State
+  const { countries, states, selectedCountry, handleCountryChange } =
+    useCountryState();
 
   // Create Organization Mutation
   const [CreateOrganization, { data, isLoading, isSuccess }] =
@@ -156,15 +158,10 @@ const OrganizationForm = ({ formType, orgData }) => {
   };
 
   useEffect(() => {
-    if (!countries) {
-      setCountries(allCountries);
-    }
-    if (formik.values.country !== null) {
+    if (formik.values.country !== '') {
       setTimeout(() => {
-        selectedCountrySet(formik.values.country);
+        handleCountryChange(formik.values.country);
       }, 500);
-      let countryStates = State.getStatesOfCountry(selectedCountry);
-      setStates(countryStates);
     }
     if (isSuccess) {
       let id = getNumberFromString(data.message);
@@ -174,7 +171,7 @@ const OrganizationForm = ({ formType, orgData }) => {
         navigate('/dashboard/');
       }, 1000);
     }
-  }, [formik.values.country, selectedCountry, isSuccess]);
+  }, [formik.values.country, isSuccess]);
 
   return (
     <div className=" flex h-full w-full bg-neutral-800 px-12">
@@ -250,27 +247,12 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option
-                    defaultValue={
-                      formik.values.country ? formik.values.country : ''
-                    }
-                  >
-                    {formik.values.country
-                      ? countries.find(
-                          (country) => country.isoCode === formik.values.country
-                        ).name
-                      : 'Selecciona una opcion'}
-                  </option>
-                  {countries &&
-                    countries.map((country, index) => (
-                      <option
-                        value={country.isoCode}
-                        id={country.isoCode}
-                        key={`${index}-${country.code}`}
-                      >
-                        {country.name}
-                      </option>
-                    ))}
+                  <option defaultValue="">--Seleccionar Pais--</option>
+                  {countries.map((country) => (
+                    <option key={country.isoCode} value={country.isoCode}>
+                      {country.name}
+                    </option>
+                  ))}
                 </select>
                 {formik.touched.country && formik.errors.country ? (
                   <span className="text-red-600">{formik.errors.country}</span>
@@ -288,26 +270,14 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option
-                    defaultValue={
-                      formik.values.state ? formik.values.state : ''
-                    }
-                  >
-                    {formik.values.state
-                      ? states.find(
-                          (state) => state.isoCode === formik.values.state
-                        ).name
-                      : 'Selecciona una opcion'}
-                  </option>
-                  {states &&
-                    states.map((state, index) => (
-                      <option
-                        value={state.isoCode}
-                        key={`${index}-${state.isoCode}`}
-                      >
-                        {state.name}
-                      </option>
-                    ))}
+                  <option defaultValue="">--Seleccionar Provincia--</option>
+                  {states.length !== 0
+                    ? states.map((state) => (
+                        <option key={state.isoCode} value={state.isoCode}>
+                          {state.name}
+                        </option>
+                      ))
+                    : null}
                 </select>
                 {formik.touched.state && formik.errors.state ? (
                   <span className="text-red-600">{formik.errors.state}</span>
