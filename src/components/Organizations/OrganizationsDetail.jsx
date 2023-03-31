@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDeleteOrganizationMutation } from '../../redux/modular/api/organizations.slice';
 import Button from '../../CustomComponents/Button/Button.component';
 import DetailElement from '../../CustomComponents/Texts/DetailElement.component';
 
-function OrganizationsDetail({ data }) {
+function OrganizationsDetail({ orgData }) {
   const [borrarConfirmation, setBorrarConfirmation] = useState(false);
   const navigate = useNavigate();
   const path = useLocation().pathname;
@@ -21,7 +21,7 @@ function OrganizationsDetail({ data }) {
     address_references,
     business_phone,
     email,
-  } = data;
+  } = orgData;
 
   const organizationsDetailElements = [
     {
@@ -79,8 +79,6 @@ function OrganizationsDetail({ data }) {
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
   ] = useDeleteOrganizationMutation();
 
-  console.log('useLocation: ', useLocation());
-
   // Functionality for /dashboard/organizations/delete/:${id} path
 
   useEffect(() => {
@@ -89,8 +87,12 @@ function OrganizationsDetail({ data }) {
     } else {
       setBorrarConfirmation(false);
     }
-    console.log('--- borrarConfirmation: ', borrarConfirmation);
   }, [path]);
+
+  const handleEditar = () => {
+    const id = organization_id;
+    navigate(`/dashboard/organizations/update/:${id}`);
+  };
 
   const handleBorrarConfirmation = () => {
     const id = organization_id;
@@ -136,7 +138,9 @@ function OrganizationsDetail({ data }) {
           id="organizations_detail_button_container"
           className="flex h-full w-full items-end justify-center"
         >
-          <Button buttonType="main">Editar</Button>
+          <Button buttonType="main" onClick={handleEditar}>
+            Editar
+          </Button>
           <Button buttonType="warning" onClick={handleBorrarConfirmation}>
             Borrar
           </Button>
