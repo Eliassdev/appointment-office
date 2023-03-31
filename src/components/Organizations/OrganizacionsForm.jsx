@@ -163,7 +163,6 @@ const OrganizationForm = ({ formType, orgData }) => {
     return match ? match[0] : null;
   }
 
-  // Handle cancel button
   const handleCancelEdit = () => {
     navigate('/dashboard/organizations');
   };
