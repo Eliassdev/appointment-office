@@ -78,15 +78,10 @@ const OrganizationsPanel = () => {
         id="organization_detail-bg"
         className="flex h-full w-full px-12 py-8"
       >
-        <div
-          id="organization_detail-container"
-          className="h-full w-full bg-neutral-900 px-16 py-6 text-center"
-        >
-          {
-            // Render the component based on the location state
-            renderOption[location]
-          }
-        </div>
+        {
+          // Render the component based on the location state
+          renderOption[location]
+        }
       </div>
     );
   }

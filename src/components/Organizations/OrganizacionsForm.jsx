@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 //Redux
-import { useCreateOrganizationMutation } from '../../redux/modular/api/organizations.slice';
+import {
+  useCreateOrganizationMutation,
+  useUpdateOrganizationMutation,
+} from '../../redux/modular/api/organizations.slice';
 
 //Formik
 import { useFormik } from 'formik';
@@ -26,10 +29,16 @@ const OrganizationForm = ({ formType, orgData }) => {
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
   const navigate = useNavigate();
+  const { id } = useParams();
   const allCountries = Country.getAllCountries();
 
+  // Create Organization Mutation
   const [CreateOrganization, { data, isLoading, isSuccess }] =
     useCreateOrganizationMutation();
+
+  // Update Organization Mutation
+  const [UpdateOrganization, { data: dataUpdate, isLoading: isLoadingUpdate }] =
+    useUpdateOrganizationMutation();
 
   // Formik configuration
 
@@ -79,20 +88,44 @@ const OrganizationForm = ({ formType, orgData }) => {
     }
   };
 
+  // Formik submit function
+  const formikSubmit = () => {
+    switch (formType) {
+      case ORGANIZATIONS_FORM_TYPE.register:
+        return async (values) => {
+          let body = values;
+          let countryName = countries.find(
+            (country) => country.isoCode === body.country
+          );
+          let stateName = states.find((state) => state.isoCode === body.state);
+          body.country = countryName.name;
+          body.state = stateName.name;
+          console.log(body);
+          CreateOrganization(body);
+          console.log(data);
+        };
+
+      case ORGANIZATIONS_FORM_TYPE.edit:
+        return async (values) => {
+          let body = values;
+          let countryName = countries.find(
+            (country) => country.isoCode === body.country
+          );
+          let stateName = states.find((state) => state.isoCode === body.state);
+          body.country = countryName.name;
+          body.state = stateName.name;
+          const request = {
+            id: id,
+            info: body,
+          };
+          UpdateOrganization(request);
+        };
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialFormikValues(),
-    onSubmit: async (values) => {
-      let body = values;
-      let countryName = countries.find(
-        (country) => country.isoCode === body.country
-      );
-      let stateName = states.find((state) => state.isoCode === body.state);
-      body.country = countryName.name;
-      body.state = stateName.name;
-      console.log(body);
-      CreateOrganization(body);
-      console.log(data);
-    },
+    onSubmit: formikSubmit(),
     validate: (values) => {
       const result = organizationValidation.safeParse(values);
       if (result.success) return;
@@ -106,8 +139,6 @@ const OrganizationForm = ({ formType, orgData }) => {
     },
   });
 
-  console.log(formik.values);
-
   // Function to extract the number from a string - Basura
   function getNumberFromString(s) {
     // Define the regular expression
@@ -119,6 +150,10 @@ const OrganizationForm = ({ formType, orgData }) => {
     // Return the number as a string or null if no match was found
     return match ? match[0] : null;
   }
+
+  const handleCancelEdit = () => {
+    navigate('/dashboard/organizations');
+  };
 
   useEffect(() => {
     if (!countries) {
@@ -142,15 +177,22 @@ const OrganizationForm = ({ formType, orgData }) => {
   }, [formik.values.country, selectedCountry, isSuccess]);
 
   return (
-    <div className=" flex h-screen w-full bg-neutral-800 px-12">
+    <div className=" flex h-full w-full bg-neutral-800 px-12">
       <div className="w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
           className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
         >
-          <legend className="pl-4 text-center text-2xl font-bold text-purple-500">
-            Registra tu Empresa
-          </legend>
+          {formType === ORGANIZATIONS_FORM_TYPE.register ? (
+            <legend className="pl-4 text-center text-2xl font-bold text-purple-500">
+              Registra tu Empresa
+            </legend>
+          ) : (
+            <legend className="pl-4 text-center text-2xl font-bold text-purple-500">
+              Editar datos de tu Empresa
+            </legend>
+          )}
+
           <div className=" mt-2 grid grid-cols-2">
             <div>
               <div className="mb-2 flex flex-col px-4">
@@ -208,7 +250,17 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option defaultValue={''}>Selecciona una opcion</option>
+                  <option
+                    defaultValue={
+                      formik.values.country ? formik.values.country : ''
+                    }
+                  >
+                    {formik.values.country
+                      ? countries.find(
+                          (country) => country.isoCode === formik.values.country
+                        ).name
+                      : 'Selecciona una opcion'}
+                  </option>
                   {countries &&
                     countries.map((country, index) => (
                       <option
@@ -236,7 +288,17 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option defaultValue={''}>Selecciona una opcion</option>
+                  <option
+                    defaultValue={
+                      formik.values.state ? formik.values.state : ''
+                    }
+                  >
+                    {formik.values.state
+                      ? states.find(
+                          (state) => state.isoCode === formik.values.state
+                        ).name
+                      : 'Selecciona una opcion'}
+                  </option>
                   {states &&
                     states.map((state, index) => (
                       <option
@@ -397,12 +459,17 @@ const OrganizationForm = ({ formType, orgData }) => {
                 Registrar
               </Button>
             ) : (
-              <Button
-                buttonType={!formik.isValid ? 'disabled' : 'main'}
-                type={'submit'}
-              >
-                Guardar
-              </Button>
+              <div className="flex w-full justify-center">
+                <Button buttonType={'green'} onClick={handleCancelEdit}>
+                  Cancelar
+                </Button>
+                <Button
+                  buttonType={!formik.isValid ? 'disabled' : 'main'}
+                  type={'submit'}
+                >
+                  Guardar
+                </Button>
+              </div>
             )}
           </div>
         </form>
