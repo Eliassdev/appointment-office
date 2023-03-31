@@ -12,12 +12,16 @@ import { organizationValidation } from '../../schemas/organization.schema';
 
 //Country State City
 import { City, Country, State } from 'country-state-city';
-import { handleChange } from '../../utils/fomHandlers';
 
 //Components
 import Button from '../../CustomComponents/Button/Button.component';
 
-const OrganizationForm = () => {
+export const ORGANIZATIONS_FORM_TYPE = {
+  register: 'register',
+  edit: 'edit',
+};
+
+const OrganizationForm = ({ formType, orgData }) => {
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
@@ -27,24 +31,56 @@ const OrganizationForm = () => {
   const [CreateOrganization, { data, isLoading, isSuccess }] =
     useCreateOrganizationMutation();
 
+  // Formik configuration
+
+  // Formik initial values
+  const initialFormikValues = () => {
+    switch (formType) {
+      case ORGANIZATIONS_FORM_TYPE.register:
+        return {
+          short_name: '',
+          business_name: '',
+          country: '',
+          state: '',
+          city: '',
+          street: '',
+          address: '',
+          postal_code: '',
+          address_references: '',
+          business_phone: '',
+          email: '',
+          latitude: 39.0,
+          longitude: -12.0,
+          created_by: 1,
+          updated_by: 1,
+        };
+      case ORGANIZATIONS_FORM_TYPE.edit:
+        return {
+          ...orgData,
+        };
+      default:
+        return {
+          short_name: '',
+          business_name: '',
+          country: '',
+          state: '',
+          city: '',
+          street: '',
+          address: '',
+          postal_code: '',
+          address_references: '',
+          business_phone: '',
+          email: '',
+          latitude: 39.0,
+          longitude: -12.0,
+          created_by: 1,
+          updated_by: 1,
+        };
+    }
+  };
+
   const formik = useFormik({
-    initialValues: {
-      short_name: '',
-      business_name: '',
-      country: '',
-      state: '',
-      city: '',
-      street: '',
-      address: '',
-      postal_code: '',
-      address_references: '',
-      business_phone: '',
-      email: '',
-      latitude: 39.0,
-      longitude: -12.0,
-      created_by: 1,
-      updated_by: 1,
-    },
+    initialValues: initialFormikValues(),
     onSubmit: async (values) => {
       let body = values;
       let countryName = countries.find(
@@ -69,6 +105,8 @@ const OrganizationForm = () => {
       }
     },
   });
+
+  console.log(formik.values);
 
   // Function to extract the number from a string - Basura
   function getNumberFromString(s) {
@@ -105,7 +143,7 @@ const OrganizationForm = () => {
 
   return (
     <div className=" flex h-screen w-full bg-neutral-800 px-12">
-      <div className="  w-full py-8">
+      <div className="w-full py-8">
         <form
           onSubmit={formik.handleSubmit}
           className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
@@ -124,7 +162,7 @@ const OrganizationForm = () => {
                   type="text"
                   id="short_name"
                   className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                  value={formik.values.branch_name}
+                  value={formik.values.short_name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -147,7 +185,7 @@ const OrganizationForm = () => {
                   type="text"
                   id="business_name"
                   className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                  value={formik.values.branch_name}
+                  value={formik.values.business_name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -351,12 +389,21 @@ const OrganizationForm = () => {
             </div>
           </div>
           <div className="flex flex-row justify-center">
-            <Button
-              buttonType={!formik.isValid ? 'disabled' : 'main'}
-              type={'submit'}
-            >
-              Registrar
-            </Button>
+            {formType === ORGANIZATIONS_FORM_TYPE.register ? (
+              <Button
+                buttonType={!formik.isValid ? 'disabled' : 'main'}
+                type={'submit'}
+              >
+                Registrar
+              </Button>
+            ) : (
+              <Button
+                buttonType={!formik.isValid ? 'disabled' : 'main'}
+                type={'submit'}
+              >
+                Guardar
+              </Button>
+            )}
           </div>
         </form>
         <div
@@ -373,163 +420,5 @@ const OrganizationForm = () => {
     </div>
   );
 };
-
-/*import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getOrganizations } from '../../redux/slice/organizationsSlice.js';
-
-const OrganizationForm = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getOrganizations());
-  }, []);
-
-  const { organizations, loading, error } = useSelector(
-    (state) => state.organizations
-  );
-
-  console.log("organizations: ", organizations);
-
-  const formik = useFormik({
-    initialValues: {
-      branch_name: '',
-      organization_id: 1,
-      country: '',
-      state: '',
-      city: '',
-      street: '',
-      address: '',
-      postal_code: '',
-      address_references: '',
-      business_phone: '',
-      email: '',
-      latitude: 39.0,
-      longitude: -12.0,
-      created_by: 1,
-      updated_by: 1,
-    },
-    onSubmit: async (values) => {
-      let body = values;
-      let countryName = countries.find(
-        (country) => country.isoCode === body.country
-      );
-      let stateName = states.find((state) => state.isoCode === body.state);
-      body.country = countryName.name;
-      body.state = stateName.name;
-      console.log(body);
-      const res = await postBranch(body);
-      console.log(res);
-    },
-    validate: (values) => {
-      const result = branchValidation.safeParse(values);
-      if (result.success) return;
-      if (result.error.issues) {
-        const errors = {};
-        result.error.issues.map((err) => {
-          errors[err.path[0]] = err.message;
-        });
-        return errors;
-      }
-    },
-  });
-
-  return (
-    <div className="grid-span-2">
-      <form className="form">
-        <fieldset>
-          <legend>Organizations Formulario</legend>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-            }}
-          >
-            <label htmlFor="organization_id">ID</label>
-            <input
-              type="text"
-              id="organization_id"
-              name="organization_id"
-              required=""
-              disabled
-            />
-            <label htmlFor="short_name">Nombre corto</label>
-            <input type="text" id="short_name" name="short_name" required="" />
-            <label htmlFor="business_name">Nombre completo</label>
-            <input
-              type="text"
-              id="business_name"
-              name="business_name"
-              required=""
-            />
-            <label htmlFor="country">País</label>
-            <select name="country" id="country" required="">
-              <option value="country">Argentina</option>
-            </select>
-            <label htmlFor="state">Provincia</label>
-            <select name="state" id="state" required="">
-              <option value="state">Buenos Aires</option>
-              <option value="state">Catamarca</option>
-              <option value="state">Chaco</option>
-              <option value="state">Chubut</option>
-              <option value="state">Córdoba</option>
-              <option value="state">Corrientes</option>
-              <option value="state">Entre Ríos</option>
-              <option value="state">Formosa</option>
-              <option value="state">Jujuy</option>
-              <option value="state">La Pampa</option>
-              <option value="state">La Rioja</option>
-              <option value="state">Mendoza</option>
-              <option value="state">Misiones</option>
-              <option value="state">Neuquén</option>
-              <option value="state">Río Negro</option>
-              <option value="state">Salta</option>
-              <option value="state">San Juan</option>
-              <option value="state">San Luís</option>
-              <option value="state">Santa Cruz</option>
-              <option value="state">Santa Fe</option>
-              <option value="state">Santiago del Estero</option>
-              <option value="state">Tierra del Fuego</option>
-              <option value="state">Tucumán</option>
-            </select>
-            <label htmlFor="city">Ciudad</label>
-            <input type="text" id="city" name="city" required="" />
-            <label htmlFor="street">Calle</label>
-            <input type="text" id="street" name="street" required="" />
-            <label htmlFor="address">Dirección</label>
-            <input type="text" id="address" name="address" required="" />
-            <label htmlFor="postal_code">CP</label>
-            <input
-              type="text"
-              id="postal_code"
-              name="postal_code"
-              required=""
-            />
-            <label htmlFor="address_references">Otras Referencias</label>
-            <input
-              type="text"
-              id="address_references"
-              name="address_references"
-              required=""
-            />
-            <label htmlFor="business_phone">Teléfono</label>
-            <input
-              type="tel"
-              id="business_phone"
-              name="business_phone"
-              required=""
-            />{" "}
-            <br />
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required="" />
-            <button>Enviar</button>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-  );
-};*/
 
 export default OrganizationForm;
