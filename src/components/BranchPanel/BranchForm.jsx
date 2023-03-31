@@ -69,6 +69,7 @@ const BranchForm = () => {
       setTimeout(() => {
         selectedCountrySet(formik.values.country);
       }, 500);
+      console.log('selectedCountry', selectedCountry);
       let countryStates = State.getStatesOfCountry(selectedCountry);
       setStates(countryStates);
     }
