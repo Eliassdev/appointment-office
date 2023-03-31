@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useDeleteOrganizationMutation } from '../../redux/modular/api/organizations.slice';
 import Button from '../../CustomComponents/Button/Button.component';
 import DetailElement from '../../CustomComponents/Texts/DetailElement.component';
 
 function OrganizationsDetail({ data }) {
-  const [borrar, setBorrar] = useState(false);
+  const [borrarConfirmation, setBorrarConfirmation] = useState(false);
   const navigate = useNavigate();
+  const path = useLocation().pathname;
   const {
     organization_id,
     short_name,
@@ -76,9 +77,30 @@ function OrganizationsDetail({ data }) {
   const [
     DeleteOrganization,
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
-  ] = useDeleteOrganizationMutation(organization_id);
+  ] = useDeleteOrganizationMutation();
 
-  const handleBorrar = () => setBorrar(!borrar);
+  console.log('useLocation: ', useLocation());
+
+  // Functionality for /dashboard/organizations/delete/:${id} path
+
+  useEffect(() => {
+    if (path.includes('/dashboard/organizations/delete/')) {
+      setBorrarConfirmation(true);
+    } else {
+      setBorrarConfirmation(false);
+    }
+    console.log('--- borrarConfirmation: ', borrarConfirmation);
+  }, [path]);
+
+  const handleBorrarConfirmation = () => {
+    const id = organization_id;
+    navigate(`/dashboard/organizations/delete/:${id}`);
+  };
+
+  const handleCancelBorrar = () => {
+    navigate(`/dashboard/organizations`);
+  };
+
   const handleDeleteOrganization = () => {
     const target = { id: organization_id };
     DeleteOrganization(target);
@@ -109,13 +131,13 @@ function OrganizationsDetail({ data }) {
           />
         ))}
       </div>
-      {!borrar ? (
+      {!borrarConfirmation ? (
         <div
           id="organizations_detail_button_container"
           className="flex h-full w-full items-end justify-center"
         >
           <Button buttonType="main">Editar</Button>
-          <Button buttonType="warning" onClick={handleBorrar}>
+          <Button buttonType="warning" onClick={handleBorrarConfirmation}>
             Borrar
           </Button>
         </div>
@@ -128,7 +150,7 @@ function OrganizationsDetail({ data }) {
             id="organizations_detail_button_container"
             className="flex h-full w-full items-end justify-center"
           >
-            <Button buttonType="green" onClick={handleBorrar}>
+            <Button buttonType="green" onClick={handleCancelBorrar}>
               Cancelar
             </Button>
             <Button buttonType="warning" onClick={handleDeleteOrganization}>
