@@ -114,8 +114,8 @@ function OrganizationsDetail({ orgData }) {
   };
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <h1 className="mt-6 text-3xl text-purple-500">
+    <div className="flex h-full w-full flex-col bg-neutral-900 px-10 pt-4 pb-4">
+      <h1 className="flex-1 text-center text-2xl font-bold text-purple-500">
         Detalles de la Empresa -{' '}
         <span className="text-amber-500 underline underline-offset-8">
           {business_name}
@@ -123,7 +123,7 @@ function OrganizationsDetail({ orgData }) {
       </h1>
       <div
         id="organizations_detail_elements_container"
-        className="flex h-3/4 w-full flex-col flex-wrap py-8 text-left"
+        className="flex h-3/4 w-full flex-1 flex-col flex-wrap py-8 text-left"
       >
         {organizationsDetailElements.map((element, index) => (
           <DetailElement
@@ -133,36 +133,38 @@ function OrganizationsDetail({ orgData }) {
           />
         ))}
       </div>
-      {!borrarConfirmation ? (
-        <div
-          id="organizations_detail_button_container"
-          className="flex h-full w-full items-end justify-center"
-        >
-          <Button buttonType="main" onClick={handleEditar}>
-            Editar
-          </Button>
-          <Button buttonType="warning" onClick={handleBorrarConfirmation}>
-            Borrar
-          </Button>
-        </div>
-      ) : (
-        <div className="flex h-full w-full flex-col justify-center">
-          <p className="text-purple-500">
-            ¿Esta seguro que desea eliminar esta empresa?
-          </p>
+      <div className="flex-1">
+        {!borrarConfirmation ? (
           <div
             id="organizations_detail_button_container"
             className="flex h-full w-full items-end justify-center"
           >
-            <Button buttonType="green" onClick={handleCancelBorrar}>
-              Cancelar
+            <Button buttonType="main" onClick={handleEditar}>
+              Editar
             </Button>
-            <Button buttonType="warning" onClick={handleDeleteOrganization}>
+            <Button buttonType="red" onClick={handleBorrarConfirmation}>
               Borrar
             </Button>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="flex h-full w-full flex-col justify-center">
+            <p className="text-purple-500">
+              ¿Esta seguro que desea eliminar esta empresa?
+            </p>
+            <div
+              id="organizations_detail_button_container"
+              className="flex h-full w-full items-end justify-center"
+            >
+              <Button buttonType="green" onClick={handleCancelBorrar}>
+                Cancelar
+              </Button>
+              <Button buttonType="warning" onClick={handleDeleteOrganization}>
+                Borrar
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
