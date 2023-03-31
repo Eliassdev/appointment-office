@@ -44,8 +44,8 @@ const useCountryState = () => {
     }
   }, [selectedCountry]);
 
-  const handleCountryChange = (event) => {
-    setSelectedCountry(event.target.value);
+  const handleCountryChange = (country) => {
+    setSelectedCountry(country);
   };
 
   return {
