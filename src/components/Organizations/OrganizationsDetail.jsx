@@ -5,9 +5,13 @@ import Button from '../../CustomComponents/Button/Button.component';
 import DetailElement from '../../CustomComponents/Texts/DetailElement.component';
 
 function OrganizationsDetail({ orgData }) {
-  const [borrarConfirmation, setBorrarConfirmation] = useState(false);
+  // State for the delete confirmation button
+  const [borrarConfirmationButton, setBorrarConfirmationButton] =
+    useState(false);
   const navigate = useNavigate();
   const path = useLocation().pathname;
+
+  // Destructuring the data to be displayed
   const {
     organization_id,
     short_name,
@@ -23,6 +27,7 @@ function OrganizationsDetail({ orgData }) {
     email,
   } = orgData;
 
+  // Array of objects that contains the data to be displayed
   const organizationsDetailElements = [
     {
       title: 'ID',
@@ -74,15 +79,15 @@ function OrganizationsDetail({ orgData }) {
     },
   ];
 
+  // Functionality for /dashboard/organizations/delete/:${id} path
   const [
     DeleteOrganization,
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
   ] = useDeleteOrganizationMutation();
 
-  // Functionality for /dashboard/organizations/delete/:${id} path
   useEffect(() => {
     if (path.includes('/dashboard/organizations/delete/')) {
-      setBorrarConfirmation(true);
+      setBorrarConfirmationButton(true);
     }
   }, [path]);
 
@@ -132,7 +137,7 @@ function OrganizationsDetail({ orgData }) {
         ))}
       </div>
       <div className="flex-1">
-        {!borrarConfirmation ? (
+        {!borrarConfirmationButton ? (
           <div
             id="organizations_detail_button_container"
             className="flex h-full w-full items-end justify-center"
