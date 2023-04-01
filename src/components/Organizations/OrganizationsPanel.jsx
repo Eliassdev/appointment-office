@@ -12,12 +12,13 @@ import { useLocation } from 'react-router-dom';
 
 const OrganizationsPanel = () => {
   const [location, setLocation] = useState(null);
+  const [Refresh, setRefresh] = useState(true);
 
   // Get organizationId from localStorage
   const organizationId = localStorage.getItem('organizationId');
 
   // Get organization data from API
-  const { data, isLoading, isSuccess, isError } =
+  const { data, isLoading, isSuccess, isError, refetch } =
     useGetOrganizationByIdQuery(organizationId);
 
   const renderOption = {
@@ -30,6 +31,11 @@ const OrganizationsPanel = () => {
   const path = useLocation().pathname;
 
   useEffect(() => {
+    // Refectching data
+    if (Refresh === true) {
+      refetch();
+      setRefresh(false);
+    }
     // Define location based on path
     if (path.includes('/dashboard/organizations/update/')) {
       setLocation('update');
@@ -38,7 +44,7 @@ const OrganizationsPanel = () => {
     } else if (path.includes('/dashboard/organizations')) {
       setLocation('detail');
     }
-  }, [path]);
+  }, [path, Refresh]);
 
   if (isLoading) {
     return (
