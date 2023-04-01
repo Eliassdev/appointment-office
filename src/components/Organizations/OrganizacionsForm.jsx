@@ -128,7 +128,7 @@ const OrganizationForm = ({ formType, orgData }) => {
         return async (values) => {
           let body = values;
           const request = {
-            id: body.organization_id,
+            id: id,
             info: body,
           };
           UpdateOrganization(request);
