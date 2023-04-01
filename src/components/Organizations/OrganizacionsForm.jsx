@@ -128,7 +128,7 @@ const OrganizationForm = ({ formType, orgData }) => {
         return async (values) => {
           let body = values;
           const request = {
-            id: id,
+            id: body.organization_id,
             info: body,
           };
           UpdateOrganization(request);
@@ -163,6 +163,7 @@ const OrganizationForm = ({ formType, orgData }) => {
     return match ? match[0] : null;
   }
 
+  // Handle cancel button
   const handleCancelEdit = () => {
     navigate('/dashboard/organizations');
   };
