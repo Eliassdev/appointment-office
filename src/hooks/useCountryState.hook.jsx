@@ -4,7 +4,7 @@ import { Country, State } from 'country-state-city';
 const useCountryState = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     setCountries(Country.getAllCountries());
@@ -12,18 +12,28 @@ const useCountryState = () => {
 
   useEffect(() => {
     if (selectedCountry) {
-      setStates(State.getStatesOfCountry(selectedCountry));
+      setStates(State.getStatesOfCountry(selectedCountry.isoCode));
     }
   }, [selectedCountry]);
 
   const handleCountryChange = (country) => {
-    setSelectedCountry(country);
+    const countryObj =
+      countries.filter((c) => {
+        if (c.name === country) {
+          return c;
+        }
+      })[0] || null;
+    setSelectedCountry(countryObj);
   };
 
   return {
+    // Get all countries
     countries,
+    // Get all states
     states,
+    // Get selected country
     selectedCountry,
+    // Handle country change
     handleCountryChange,
   };
 };
