@@ -116,7 +116,7 @@ function OrganizationsDetail({ orgData }) {
   return (
     <div className="flex h-full w-full flex-col bg-neutral-900 px-10 pt-4 pb-4">
       <h1 className="flex-1 text-center text-2xl font-bold text-purple-500">
-        Detalles de la Empresa -{' '}
+        Detalle de la Empresa -{' '}
         <span className="text-amber-500 underline underline-offset-8">
           {business_name}
         </span>
@@ -147,8 +147,8 @@ function OrganizationsDetail({ orgData }) {
             </Button>
           </div>
         ) : (
-          <div className="flex h-full w-full flex-col justify-center">
-            <p className="text-purple-500">
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            <p className="mb-4 text-xl text-purple-500">
               ¿Esta seguro que desea eliminar esta empresa?
             </p>
             <div

@@ -35,12 +35,24 @@ const OrganizationForm = ({ formType, orgData }) => {
     useCountryState();
 
   // Create Organization Mutation
-  const [CreateOrganization, { data, isLoading, isSuccess }] =
-    useCreateOrganizationMutation();
+  const [
+    CreateOrganization,
+    {
+      data: dataCreate,
+      isLoading: isLoadingCreate,
+      isSuccess: isSuccessCreate,
+    },
+  ] = useCreateOrganizationMutation();
 
   // Update Organization Mutation
-  const [UpdateOrganization, { data: dataUpdate, isLoading: isLoadingUpdate }] =
-    useUpdateOrganizationMutation();
+  const [
+    UpdateOrganization,
+    {
+      data: dataUpdate,
+      isLoading: isLoadingUpdate,
+      isSuccess: isSuccessUpdate,
+    },
+  ] = useUpdateOrganizationMutation();
 
   // Formik configuration
 
@@ -90,34 +102,20 @@ const OrganizationForm = ({ formType, orgData }) => {
     }
   };
 
-  // Formik submit function
+  // Formik submit function swith for Form Type
   const formikSubmit = () => {
     switch (formType) {
       case ORGANIZATIONS_FORM_TYPE.register:
         return async (values) => {
           let body = values;
-          let countryName = countries.find(
-            (country) => country.isoCode === body.country
-          );
-          let stateName = states.find((state) => state.isoCode === body.state);
-          body.country = countryName.name;
-          body.state = stateName.name;
-          console.log(body);
           CreateOrganization(body);
-          console.log(data);
         };
 
       case ORGANIZATIONS_FORM_TYPE.edit:
         return async (values) => {
           let body = values;
-          let countryName = countries.find(
-            (country) => country.isoCode === body.country
-          );
-          let stateName = states.find((state) => state.isoCode === body.state);
-          body.country = countryName.name;
-          body.state = stateName.name;
           const request = {
-            id: id,
+            id: body.organization_id,
             info: body,
           };
           UpdateOrganization(request);
@@ -125,6 +123,7 @@ const OrganizationForm = ({ formType, orgData }) => {
     }
   };
 
+  // Formik configuration
   const formik = useFormik({
     initialValues: initialFormikValues(),
     onSubmit: formikSubmit(),
@@ -141,37 +140,36 @@ const OrganizationForm = ({ formType, orgData }) => {
     },
   });
 
-  // Function to extract the number from a string - Basura
+  // Function to extract the number from a string - Used to get the organization id from the response message
   function getNumberFromString(s) {
-    // Define the regular expression
     const regex = /(\d+)/;
-
-    // Extract the number from the string
     const match = s.match(regex);
-
-    // Return the number as a string or null if no match was found
     return match ? match[0] : null;
   }
 
+  // Handle cancel button
   const handleCancelEdit = () => {
     navigate('/dashboard/organizations');
   };
 
+  // Get states when country changes
   useEffect(() => {
     if (formik.values.country !== '') {
-      setTimeout(() => {
-        handleCountryChange(formik.values.country);
-      }, 500);
+      handleCountryChange(formik.values.country);
     }
-    if (isSuccess) {
-      let id = getNumberFromString(data.message);
+  }, [formik.values.country]);
+
+  // Redirect to dashboard if create organization is successful
+  useEffect(() => {
+    if (isSuccessCreate) {
+      let id = getNumberFromString(dataCreate.message);
       localStorage.setItem('organizationId', id);
-      console.log(data);
+
       setTimeout(() => {
         navigate('/dashboard/');
       }, 1000);
     }
-  }, [formik.values.country, isSuccess]);
+  }, [isSuccessCreate]);
 
   return (
     <div className=" flex h-full w-full bg-neutral-800 px-12">
@@ -189,7 +187,6 @@ const OrganizationForm = ({ formType, orgData }) => {
               Editar datos de tu Empresa
             </legend>
           )}
-
           <div className=" mt-2 grid grid-cols-2">
             <div>
               <div className="mb-2 flex flex-col px-4">
@@ -247,9 +244,13 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option defaultValue="">--Seleccionar Pais--</option>
+                  <option defaultValue={formik.values.country}>
+                    {formik.values.country === ''
+                      ? '--Seleccionar Pais--'
+                      : formik.values.country}
+                  </option>
                   {countries.map((country) => (
-                    <option key={country.isoCode} value={country.isoCode}>
+                    <option key={country.isoCode} value={country.name}>
                       {country.name}
                     </option>
                   ))}
@@ -270,10 +271,14 @@ const OrganizationForm = ({ formType, orgData }) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
-                  <option defaultValue="">--Seleccionar Provincia--</option>
+                  <option defaultValue={formik.values.state}>
+                    {formik.values.state === ''
+                      ? '--Seleccionar Provincia--'
+                      : formik.values.state}
+                  </option>
                   {states.length !== 0
                     ? states.map((state) => (
-                        <option key={state.isoCode} value={state.isoCode}>
+                        <option key={state.isoCode} value={state.name}>
                           {state.name}
                         </option>
                       ))
@@ -445,11 +450,13 @@ const OrganizationForm = ({ formType, orgData }) => {
         </form>
         <div
           className={`mt-4 flex h-auto w-full flex-col px-10 pt-4 pb-4 ${
-            !isLoading && !isSuccess ? 'transparent' : ' bg-neutral-900'
+            !isLoadingCreate && !isSuccessCreate
+              ? 'transparent'
+              : ' bg-neutral-900'
           }`}
         >
-          {isLoading ? <p className="text-yellow-300">Enviando</p> : null}
-          {isSuccess ? (
+          {isLoadingCreate ? <p className="text-yellow-300">Enviando</p> : null}
+          {isSuccessCreate ? (
             <p className="text-green-500">Creado con exito</p>
           ) : null}
         </div>
