@@ -83,8 +83,6 @@ function OrganizationsDetail({ orgData }) {
   useEffect(() => {
     if (path.includes('/dashboard/organizations/delete/')) {
       setBorrarConfirmation(true);
-    } else {
-      setBorrarConfirmation(false);
     }
   }, [path]);
 
@@ -105,11 +103,12 @@ function OrganizationsDetail({ orgData }) {
   const handleDeleteOrganization = () => {
     const target = { id: organization_id };
     DeleteOrganization(target);
-    isSuccessDeletion &&
-      localStorage.clear() &&
+    if (isSuccessDeletion) {
+      localStorage.clear();
       setTimeout(() => {
         navigate('/');
       }, 1000);
+    }
   };
 
   return (
