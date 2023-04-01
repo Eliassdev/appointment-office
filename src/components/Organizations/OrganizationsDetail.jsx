@@ -80,7 +80,6 @@ function OrganizationsDetail({ orgData }) {
   ] = useDeleteOrganizationMutation();
 
   // Functionality for /dashboard/organizations/delete/:${id} path
-
   useEffect(() => {
     if (path.includes('/dashboard/organizations/delete/')) {
       setBorrarConfirmation(true);

@@ -14,7 +14,6 @@ import { useFormik } from 'formik';
 import { organizationValidation } from '../../schemas/organization.schema';
 
 //Country State City
-import { City, Country, State } from 'country-state-city';
 import useCountryState from '../../hooks/useCountryState.hook';
 
 //Components
@@ -26,8 +25,8 @@ export const ORGANIZATIONS_FORM_TYPE = {
 };
 
 const OrganizationForm = ({ formType, orgData }) => {
+  const id = localStorage.getItem('organizationId') || null;
   const navigate = useNavigate();
-  const { id } = useParams();
   // const allCountries = Country.getAllCountries();
 
   // Country State
@@ -79,7 +78,21 @@ const OrganizationForm = ({ formType, orgData }) => {
         };
       case ORGANIZATIONS_FORM_TYPE.edit:
         return {
-          ...orgData,
+          short_name: orgData?.short_name,
+          business_name: orgData?.business_name,
+          country: orgData?.country,
+          state: orgData?.state,
+          city: orgData?.city,
+          street: orgData?.street,
+          address: orgData?.address,
+          postal_code: orgData?.postal_code,
+          address_references: orgData?.address_references,
+          business_phone: orgData?.business_phone,
+          email: orgData?.email,
+          latitude: 39.0,
+          longitude: -12.0,
+          created_by: 1,
+          updated_by: 1,
         };
       default:
         return {
@@ -115,10 +128,13 @@ const OrganizationForm = ({ formType, orgData }) => {
         return async (values) => {
           let body = values;
           const request = {
-            id: body.organization_id,
+            id: id,
             info: body,
           };
           UpdateOrganization(request);
+          setTimeout(() => {
+            navigate('/dashboard/organizations');
+          }, 1000);
         };
     }
   };
