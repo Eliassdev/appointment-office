@@ -12,8 +12,7 @@ import { AboutUs } from './pages/AboutUs';
 
 // Organizations Imports
 import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
-import OrganizationForm from './components/Organizations/OrganizacionsForm';
-import { ORGANIZATIONS_FORM_TYPE } from './components/Organizations/OrganizacionsForm';
+import OrganizationsRegister from './components/Organizations/OrganizationsRegister';
 
 // Branch Imports
 import { BranchDelete } from './components/BranchPanel/BranchDelete';
@@ -33,12 +32,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route
-            path="/register"
-            element={
-              <OrganizationForm formType={ORGANIZATIONS_FORM_TYPE.register} />
-            }
-          />
+          <Route path="/register" element={<OrganizationsRegister />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
