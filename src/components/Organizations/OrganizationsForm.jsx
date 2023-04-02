@@ -291,7 +291,6 @@ const OrganizationForm = ({ formType, orgData }) => {
                 errors: formik.errors.city,
               }}
             />
-
             <InputElement
               title="Calle"
               name="street"
@@ -305,6 +304,8 @@ const OrganizationForm = ({ formType, orgData }) => {
                 errors: formik.errors.street,
               }}
             />
+          </div>
+          <div>
             <InputElement
               title="Dirección"
               name="address"
@@ -387,28 +388,6 @@ const OrganizationForm = ({ formType, orgData }) => {
             </div>
           </div>
         </div>
-        {/* <div className="flex flex-row justify-center">
-          {formType === ORGANIZATIONS_FORM_TYPE.register ? (
-            <Button
-              buttonType={!formik.isValid ? 'disabled' : 'main'}
-              type={'submit'}
-            >
-              Registrar
-            </Button>
-          ) : (
-            <div className="flex w-full justify-center">
-              <Button buttonType={'green'} onClick={handleCancelEdit}>
-                Cancelar
-              </Button>
-              <Button
-                buttonType={!formik.isValid ? 'disabled' : 'main'}
-                type={'submit'}
-              >
-                Guardar
-              </Button>
-            </div>
-          )}
-        </div> */}
         <OrganizationsFormNav
           formik={{ isValid: formik.isValid }}
           formType={formType}
