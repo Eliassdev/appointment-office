@@ -23,7 +23,6 @@ export const BranchList = () => {
       setRefresh(false);
     }
   }, [Refresh]);
-  console.log(pageData);
 
   return (
     <div className="h-full w-full bg-neutral-900 px-16 pt-2 text-center">

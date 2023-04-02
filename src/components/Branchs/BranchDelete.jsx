@@ -14,7 +14,6 @@ export const BranchDelete = () => {
     DeleteBranch,
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
   ] = useDeleteBranchMutation();
-  console.log(isLoadingDeletion, isSuccessDeletion);
   return (
     <div className="flex h-screen w-full bg-neutral-800 px-12">
       <div className="  w-full py-8 px-12">
