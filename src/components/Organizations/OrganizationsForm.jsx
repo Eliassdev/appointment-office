@@ -9,6 +9,7 @@ import {
 
 //Components
 import OrganizationsFormNav from './OrganizationsFormNav';
+import InputElement from '../../CustomComponents/Inputs/InputElement.component';
 
 //Formik
 import { useFormik } from 'formik';
@@ -195,44 +196,32 @@ const OrganizationForm = ({ formType, orgData }) => {
       >
         <div className=" mt-2 grid grid-cols-2">
           <div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="short_name">
-                Nombre Corto
-              </label>
-              <input
-                name="short_name"
-                type="text"
-                id="short_name"
-                className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.short_name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-
-              {formik.touched.short_name && formik.errors.short_name ? (
-                <span className="text-red-600">{formik.errors.short_name}</span>
-              ) : null}
-            </div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="business_name">
-                Nombre de la Empresa
-              </label>
-              <input
-                name="business_name"
-                type="text"
-                id="business_name"
-                className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.business_name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-
-              {formik.touched.business_name && formik.errors.business_name ? (
-                <span className="text-red-600">
-                  {formik.errors.business_name}
-                </span>
-              ) : null}
-            </div>
+            <InputElement
+              title="Nombre corto"
+              name="short_name"
+              id="short_name"
+              type="text"
+              value={formik.values.short_name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.short_name,
+                errors: formik.errors.short_name,
+              }}
+            />
+            <InputElement
+              title="Nombre de la empresa"
+              name="business_name"
+              id="business_name"
+              type="text"
+              value={formik.values.business_name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.business_name,
+                errors: formik.errors.business_name,
+              }}
+            />
             <div className="mb-2 flex flex-col px-4">
               <label className="mb-1 text-neutral-100" htmlFor="country">
                 Pais
@@ -289,101 +278,74 @@ const OrganizationForm = ({ formType, orgData }) => {
                 <span className="text-red-600">{formik.errors.state}</span>
               ) : null}
             </div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="city">
-                Ciudad
-              </label>
-              <input
-                name="city"
-                id="city"
-                type="text"
-                className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.city}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.city && formik.errors.city ? (
-                <span className="text-red-600">{formik.errors.city}</span>
-              ) : null}
-            </div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="street">
-                Calle
-              </label>
-              <input
-                name="street"
-                type="text"
-                id="street"
-                className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.street}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.street && formik.errors.street ? (
-                <span className="text-red-600">{formik.errors.street}</span>
-              ) : null}
-            </div>
-          </div>
-          <div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="address">
-                Direccion
-              </label>
-              <input
-                name="address"
-                type="text"
-                id="address"
-                className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.address}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.address && formik.errors.address ? (
-                <span className="text-red-600">{formik.errors.address}</span>
-              ) : null}
-            </div>
-            <div className="mb-2 flex flex-col px-4">
-              <label className="mb-1 text-neutral-100" htmlFor="postal_code">
-                CP
-              </label>
-              <input
-                name="postal_code"
-                type="text"
-                id="postal_code"
-                className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.postal_code}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.postal_code && formik.errors.postal_code ? (
-                <span className="text-red-600">
-                  {formik.errors.postal_code}
-                </span>
-              ) : null}
-            </div>
-            <div className="mb-2 flex flex-col px-4">
-              <label
-                className="mb-1 text-neutral-100"
-                htmlFor="address_references"
-              >
-                Otras Referencia
-              </label>
-              <input
-                name="address_references"
-                type="text"
-                id="address_references"
-                className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-                value={formik.values.address_references}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.address_references &&
-              formik.errors.address_references ? (
-                <span className="text-red-600">
-                  {formik.errors.address_references}
-                </span>
-              ) : null}
-            </div>
+            <InputElement
+              title="Ciudad"
+              name="city"
+              id="city"
+              type="text"
+              value={formik.values.city}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.city,
+                errors: formik.errors.city,
+              }}
+            />
+
+            <InputElement
+              title="Calle"
+              name="street"
+              type="text"
+              id="street"
+              value={formik.values.street}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.street,
+                errors: formik.errors.street,
+              }}
+            />
+            <InputElement
+              title="Dirección"
+              name="address"
+              type="text"
+              id="address"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.address,
+                errors: formik.errors.address,
+              }}
+            />
+            <InputElement
+              title="Código Postal"
+              name="postal_code"
+              type="text"
+              id="postal_code"
+              className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              value={formik.values.postal_code}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.postal_code,
+                errors: formik.errors.postal_code,
+              }}
+            />
+            <InputElement
+              title="Referencias"
+              name="address_references"
+              type="text"
+              id="address_references"
+              className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              value={formik.values.address_references}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              formik={{
+                touched: formik.touched.address_references,
+                errors: formik.errors.address_references,
+              }}
+            />
             <div className="mb-2 flex flex-col px-4">
               <label
                 className="mb-1 text-neutral-100"
