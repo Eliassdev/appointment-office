@@ -1,4 +1,13 @@
-export const BUTTON_TYPE_CLASSES = {
+export const BUTTON_TYPES = {
+  main: 'main',
+  inverted: 'inverted',
+  disabled: 'disabled',
+  warning: 'warning',
+  green: 'green',
+  red: 'red',
+};
+
+const BUTTON_TYPE_CLASSES = {
   main: 'bg-neutral-800 text-purple-400 hover:bg-purple-400 hover:text-neutral-800',
   inverted:
     'bg-purple-400 text-neutral-800 hover:bg-neutral-800 hover:text-purple-400',
