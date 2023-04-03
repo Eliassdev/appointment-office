@@ -5,34 +5,37 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 
 //Pages Imports
+import { AboutUs } from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import { Login } from './pages/Login';
-import { AboutUs } from './pages/AboutUs';
 
 // Organizations Imports
 import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
-import OrganizationForm from './components/Organizations/OrganizacionsForm';
+import OrganizationsRegister from './components/Organizations/OrganizationsRegister';
 
 // Branch Imports
-import { BranchDelete } from './components/BranchPanel/BranchDelete';
-import { BranchDetail } from './components/BranchPanel/BranchDetail';
-import BranchForm from './components/BranchPanel/BranchForm';
-import { BranchPanel } from './components/BranchPanel/BranchPanel';
-import { BranchUpdate } from './components/BranchPanel/BranchUpdate';
+import { BranchDelete } from './components/Branchs/BranchDelete';
+import { BranchDetail } from './components/Branchs/BranchDetail';
+import BranchForm from './components/Branchs/BranchForm';
+import { BranchPanel } from './components/Branchs/BranchPanel';
+import { BranchUpdate } from './components/Branchs/BranchUpdate';
 
 // Stylist Imports
 import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
-import ServicesForm from './components/ServicesForm/ServicesForm.component';
+import { ServiceDelete } from './components/Services/ServiceDelete';
+import { ServiceDetail } from './components/Services/ServiceDetail';
+import ServicesForm from './components/Services/ServicesForm.component';
+import { ServicesPanel } from './components/Services/ServicesPanel';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="/register" element={<OrganizationForm />} />
+          <Route path="/register" element={<OrganizationsRegister />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
@@ -75,15 +78,16 @@ const App = () => {
             element={<StylistTable />}
           />
           {/*Services*/}
-          <Route path="/dashboard/services" element={<ServicesForm />} />
-          <Route path="/dashboard/services/create" element={<ServicesForm />} />
+          <Route path="/dashboard/services" element={<ServicesPanel />} />
+          <Route path="/dashboard/service/:id" element={<ServiceDetail />} />
+          <Route path="/dashboard/service/create" element={<ServicesForm />} />
           <Route
-            path="/dashboard/services/update/:id"
+            path="/dashboard/service/update/:id"
             element={<ServicesForm />}
           />
           <Route
-            path="/dashboard/services/delete/:id"
-            element={<ServicesForm />}
+            path="/dashboard/service/delete/:id"
+            element={<ServiceDelete />}
           />
         </Route>
       </Routes>

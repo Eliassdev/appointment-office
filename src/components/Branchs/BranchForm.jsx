@@ -1,49 +1,49 @@
+import axios from 'axios';
 import { City, Country, State } from 'country-state-city';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import {
-  useGetBranchByIdQuery,
-  useUpdateBranchMutation,
-} from '../../redux/modular/api/branches.slice';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateBranchMutation } from '../../redux/modular/api/branches.slice';
 import { branchValidation } from '../../schemas/branch.schema';
-import CreationNav from '../CreationNav/CreationNav';
+import { handleChange } from '../../utils/fomHandlers';
+import regionData from '../../utils/listOfCountries_States_Cities.json';
 
-export const BranchUpdate = () => {
+const BranchForm = () => {
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
+  const [InAnimation, setInAnimation] = useState(true);
+  const [OutAnimation, setOutAnimation] = useState(false);
+
   const navigate = useNavigate();
-  const { id } = useParams();
   const allCountries = Country.getAllCountries();
 
-  const { data: bra, isLoading, isSuccess } = useGetBranchByIdQuery(id);
-  const [
-    UpdateBranch,
-    {
-      isLoading: isLoadingUpdate,
-      isError: isErrorUpdate,
-      isSuccess: isSuccessUpdate,
-    },
-  ] = useUpdateBranchMutation();
+  const [CreateBranch, { isLoading, isError, isSuccess, data }] =
+    useCreateBranchMutation();
 
+  const navigateOut = () => {
+    setOutAnimation(true);
+    setTimeout(() => {
+      navigate('/dashboard/branches');
+    }, 1000);
+  };
   const formik = useFormik({
     initialValues: {
-      branch_name: bra?.branch_name,
-      organization_id: bra?.organization_id,
-      country: bra?.country,
-      state: bra?.state,
-      city: bra?.city,
-      street: bra?.street,
-      address: bra?.address,
-      postal_code: bra?.postal_code,
-      address_references: bra?.address_references,
-      business_phone: bra?.business_phone,
-      email: bra?.email,
-      latitude: bra?.latitude,
-      longitude: bra?.longitude,
-      created_by: bra?.created_by,
-      updated_by: bra?.updated_by,
+      branch_name: '',
+      organization_id: 1,
+      country: '',
+      state: '',
+      city: '',
+      street: '',
+      address: '',
+      postal_code: '',
+      address_references: '',
+      business_phone: '',
+      email: '',
+      latitude: 39.0,
+      longitude: -12.0,
+      created_by: 1,
+      updated_by: 1,
     },
     onSubmit: async (values) => {
       let body = values;
@@ -53,12 +53,9 @@ export const BranchUpdate = () => {
       let stateName = states.find((state) => state.isoCode === body.state);
       body.country = countryName.name;
       body.state = stateName.name;
-      const request = {
-        id: id,
-        info: body,
-      };
-
-      UpdateBranch(request);
+      console.log(body);
+      CreateBranch(body);
+      console.log(data);
     },
     validate: (values) => {
       const result = branchValidation.safeParse(values);
@@ -81,24 +78,36 @@ export const BranchUpdate = () => {
       setTimeout(() => {
         selectedCountrySet(formik.values.country);
       }, 500);
+      console.log('selectedCountry', selectedCountry);
       let countryStates = State.getStatesOfCountry(selectedCountry);
       setStates(countryStates);
     }
-    if (isSuccessUpdate) {
+    if (isSuccess) {
       setTimeout(() => {
-        navigate('/dashboard/branches');
-      }, 1000);
+        navigateOut();
+      }, 500);
     }
   }, [formik.values.country, selectedCountry, isSuccess]);
+
   return (
-    <div className=" flex h-screen w-full bg-neutral-800 px-12">
-      <div className=" w-full py-8">
+    <div
+      className={` ${
+        InAnimation
+          ? 'flex h-5/6 w-full px-12 py-8 animate-in slide-in-from-right duration-1000'
+          : 'hidden'
+      } ${
+        OutAnimation
+          ? 'flex h-full w-full px-12 py-8 animate-out slide-out-to-left duration-1000'
+          : null
+      }`}
+    >
+      <div className="w-full py-8">
         <form
-          onSubmit={formik.handleSubmit}
-          className="flex h-auto w-full flex-col bg-neutral-900 px-10 pt-4 pb-4"
+          onSubmit={InAnimation ? formik.handleSubmit : null}
+          className="flex h-auto w-full flex-col bg-neutral-900 px-10 pb-4 pt-4"
         >
           <legend className="pl-4 text-center text-2xl font-bold text-purple-500">
-            Editar datos de la sucursal
+            Agrega tu sucursal al sistema
           </legend>
           <div className=" mt-2 grid grid-cols-2">
             <div>
@@ -116,8 +125,12 @@ export const BranchUpdate = () => {
                   onBlur={formik.handleBlur}
                 />
 
-                {formik.touched.branch_name && formik.errors.branch_name ? (
-                  <span className="text-red-600">
+                {formik.touched.branch_name &&
+                formik.errors.branch_name &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
                     {formik.errors.branch_name}
                   </span>
                 ) : null}
@@ -146,8 +159,14 @@ export const BranchUpdate = () => {
                       </option>
                     ))}
                 </select>
-                {formik.touched.country && formik.errors.country ? (
-                  <span className="text-red-600">{formik.errors.country}</span>
+                {formik.touched.country &&
+                formik.errors.country &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.country}
+                  </span>
                 ) : null}
               </div>
               <div className="mb-2 flex flex-col px-4">
@@ -173,8 +192,12 @@ export const BranchUpdate = () => {
                       </option>
                     ))}
                 </select>
-                {formik.touched.state && formik.errors.state ? (
-                  <span className="text-red-600">{formik.errors.state}</span>
+                {formik.touched.state && formik.errors.state && InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.state}
+                  </span>
                 ) : null}
               </div>
               <div className="mb-2 flex flex-col px-4">
@@ -190,8 +213,12 @@ export const BranchUpdate = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.city && formik.errors.city ? (
-                  <span className="text-red-600">{formik.errors.city}</span>
+                {formik.touched.city && formik.errors.city && InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.city}
+                  </span>
                 ) : null}
               </div>
               <div className="mb-2 flex flex-col px-4">
@@ -207,8 +234,14 @@ export const BranchUpdate = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.street && formik.errors.street ? (
-                  <span className="text-red-600">{formik.errors.street}</span>
+                {formik.touched.street &&
+                formik.errors.street &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.street}
+                  </span>
                 ) : null}
               </div>
             </div>
@@ -226,8 +259,14 @@ export const BranchUpdate = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.address && formik.errors.address ? (
-                  <span className="text-red-600">{formik.errors.address}</span>
+                {formik.touched.address &&
+                formik.errors.address &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.address}
+                  </span>
                 ) : null}
               </div>
               <div className="mb-2 flex flex-col px-4">
@@ -243,8 +282,12 @@ export const BranchUpdate = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.postal_code && formik.errors.postal_code ? (
-                  <span className="text-red-600">
+                {formik.touched.postal_code &&
+                formik.errors.postal_code &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
                     {formik.errors.postal_code}
                   </span>
                 ) : null}
@@ -266,8 +309,11 @@ export const BranchUpdate = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.address_references &&
-                formik.errors.address_references ? (
-                  <span className="text-red-600">
+                formik.errors.address_references &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
                     {formik.errors.address_references}
                   </span>
                 ) : null}
@@ -289,8 +335,11 @@ export const BranchUpdate = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.business_phone &&
-                formik.errors.business_phone ? (
-                  <span className="text-red-600">
+                formik.errors.business_phone &&
+                InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
                     {formik.errors.business_phone}
                   </span>
                 ) : null}
@@ -308,8 +357,12 @@ export const BranchUpdate = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.email && formik.errors.email ? (
-                  <span className="text-red-600">{formik.errors.email}</span>
+                {formik.touched.email && formik.errors.email && InAnimation ? (
+                  <span
+                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+                  >
+                    {formik.errors.email}
+                  </span>
                 ) : null}
               </div>
             </div>
@@ -325,7 +378,7 @@ export const BranchUpdate = () => {
             <button
               className="text-md ml-4 mt-4 w-32 rounded-full border border-purple-600 px-4 py-2 text-purple-600 disabled:bg-slate-600"
               onClick={() => {
-                navigate(-1);
+                navigateOut();
               }}
             >
               Regresar
@@ -333,14 +386,12 @@ export const BranchUpdate = () => {
           </div>
         </form>
         <div
-          className={`mt-4 flex h-auto w-full flex-col px-10 pt-4 pb-4 ${
-            !isLoadingUpdate && !isSuccessUpdate
-              ? 'transparent'
-              : ' bg-neutral-900'
+          className={`mt-4 flex h-auto w-full flex-col px-10 pb-4 pt-4 ${
+            !isLoading && !isSuccess ? 'transparent' : ' bg-neutral-900'
           }`}
         >
-          {isLoadingUpdate ? <p className="text-yellow-300">Enviando</p> : null}
-          {isSuccessUpdate ? (
+          {isLoading ? <p className="text-yellow-300">Enviando</p> : null}
+          {isSuccess ? (
             <p className="text-green-500">Creado con exito</p>
           ) : null}
         </div>
@@ -348,3 +399,5 @@ export const BranchUpdate = () => {
     </div>
   );
 };
+
+export default BranchForm;

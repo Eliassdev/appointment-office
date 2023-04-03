@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   useDeleteBranchMutation,
@@ -7,17 +7,37 @@ import {
 import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDelete = () => {
+  const [InAnimation, setInAnimation] = useState(true);
+  const [OutAnimation, setOutAnimation] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+
   const { data: bra = {}, isLoading, isSuccess } = useGetBranchByIdQuery(id);
+
+  const navigateOut = (path) => {
+    setOutAnimation(true);
+    setTimeout(() => {
+      navigate(path);
+    }, 1000);
+  };
+
   const [
     DeleteBranch,
     { isSuccess: isSuccessDeletion, isLoading: isLoadingDeletion },
   ] = useDeleteBranchMutation();
-  console.log(isLoadingDeletion, isSuccessDeletion);
   return (
-    <div className="flex h-screen w-full bg-neutral-800 px-12">
-      <div className="  w-full py-8 px-12">
+    <div
+      className={` ${
+        InAnimation
+          ? 'flex h-screen w-full bg-neutral-800 px-12 animate-in slide-in-from-right duration-1000'
+          : 'hidden'
+      } ${
+        OutAnimation
+          ? 'flex h-screen w-full bg-neutral-800 px-12 animate-out slide-out-to-left duration-1000'
+          : null
+      }`}
+    >
+      <div className="  w-full px-12 py-8">
         <p className="mt-6 text-3xl text-purple-500">
           Detalles de la sucursal{' '}
           <span className="text-amber-500 underline underline-offset-8">
@@ -55,8 +75,8 @@ export const BranchDelete = () => {
                 };
                 DeleteBranch(info);
                 setTimeout(() => {
-                  navigate('/dashboard/branches');
-                }, 1000);
+                  navigateOut('/dashboard/branches');
+                }, 500);
               }}
               className="rounded-full border border-green-500 px-4 py-2 text-green-500"
             >
@@ -64,7 +84,7 @@ export const BranchDelete = () => {
             </button>
             <button
               onClick={() => {
-                navigate('/dashboard/branches');
+                navigateOut('/dashboard/branches');
               }}
               className="rounded-full border border-red-500 px-4 py-2 text-red-500"
             >

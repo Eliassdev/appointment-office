@@ -15,7 +15,7 @@ export const Login = () => {
       password: '',
     },
     onSubmit: (values) => {
-      localStorage.setItem('organization_id', values.username);
+      localStorage.setItem('organizationId', values.username);
       navigate('/dashboard');
     },
   });
@@ -31,7 +31,7 @@ export const Login = () => {
               values={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="mt-2 mb-5 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              className="mb-5 mt-2 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               type="text"
             />
             <label className="text-pink-500">Contraseña</label>
@@ -40,7 +40,7 @@ export const Login = () => {
               values={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="mt-2 mb-5 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              className="mb-5 mt-2 w-64 rounded border-transparent bg-gray-700 p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               type="password"
             />
           </div>
