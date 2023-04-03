@@ -38,14 +38,16 @@ function OrganizationsFormNav({
     switch (formType) {
       case ORGANIZATIONS_FORM_TYPE.register:
         return (
-          <Button
-            buttonType={
-              formik.isValid ? BUTTON_TYPES.main : BUTTON_TYPES.disabled
-            }
-            type={'submit'}
-          >
-            Registrar
-          </Button>
+          <div className="flex w-full justify-center">
+            <Button
+              buttonType={
+                formik.isValid ? BUTTON_TYPES.main : BUTTON_TYPES.disabled
+              }
+              type={'submit'}
+            >
+              Registrar
+            </Button>
+          </div>
         );
       case ORGANIZATIONS_FORM_TYPE.edit:
         return (
