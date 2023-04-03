@@ -1,16 +1,18 @@
 import React from 'react';
+import { ORGANIZATIONS_FORM_TYPE } from '../../components/Organizations/OrganizationsForm';
 
-function InputElement({
+const InputElement = ({
   title,
+  name,
+  id,
+  type,
+  formType,
   value,
   onChange,
   onBlur,
-  name,
-  type,
-  id,
   touched,
   errors,
-}) {
+}) => {
   return (
     <div className="mb-2 flex flex-col px-4">
       <label className="mb-1 text-neutral-100" htmlFor="short_name">
@@ -24,12 +26,13 @@ function InputElement({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={formType === ORGANIZATIONS_FORM_TYPE.detail}
       />
       {touched && errors ? (
         <span className="text-red-600">{errors}</span>
       ) : null}
     </div>
   );
-}
+};
 
 export default InputElement;
