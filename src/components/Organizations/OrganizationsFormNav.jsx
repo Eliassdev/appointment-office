@@ -89,14 +89,11 @@ function OrganizationsFormNav({
                 </Button>
               </div>
             ) : (
-              <div className="flex h-full w-full flex-col items-center justify-center">
+              <div className="flex w-full flex-col items-center justify-center">
                 <p className="mb-4 text-xl text-purple-500">
                   ¿Esta seguro que desea eliminar esta empresa?
                 </p>
-                <div
-                  id="organizations_detail_button_container"
-                  className="flex h-full w-full items-end justify-center"
-                >
+                <div className="flex w-full justify-center">
                   <Button
                     buttonType={BUTTON_TYPES.main}
                     onClick={handleCancelBorrar}

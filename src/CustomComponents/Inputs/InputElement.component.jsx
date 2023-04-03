@@ -12,6 +12,7 @@ const InputElement = ({
   onBlur,
   touched,
   errors,
+  required,
 }) => {
   return (
     <div className="mb-2 flex flex-col px-4">

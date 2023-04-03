@@ -22,6 +22,7 @@ import { organizationValidation } from '../../schemas/organization.schema';
 //Country State City
 import useCountryState from '../../hooks/useCountryState.hook';
 
+//Constants
 export const ORGANIZATIONS_FORM_TYPE = {
   register: 'register',
   edit: 'edit',
