@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
+
+// React Router
 import { useNavigate } from 'react-router-dom';
+
+// Redux
 import { useGetServicesQuery } from '../../redux/modular/api/services.slice';
 import { useGetStylistQuery } from '../../redux/modular/api/stylists.slice';
+
+// Components
+import ServicesCreateNav from './ServicesCreateNav';
+import ServicesTable from './ServicesTable';
 
 export const ServicesPanel = () => {
   const navigate = useNavigate();
@@ -27,86 +35,14 @@ export const ServicesPanel = () => {
   }, [Refresh]);
 
   return (
-    <div className="flex h-full w-full px-12 py-8">
-      <div className="pb-25 h-full w-full bg-neutral-900 px-8 pb-20 pt-2 text-center">
-        <h1 className="mb-2 mt-4 font-serif text-3xl uppercase text-purple-600">
+    <div className=" flex h-full w-full bg-neutral-800 px-12">
+      <div className="w-full py-8">
+        <h1 className="mb-8 text-center text-2xl font-bold text-purple-500">
           Servicios
         </h1>
-        <div className="flex h-full w-full flex-col overflow-hidden rounded-t-lg bg-neutral-800">
-          <table className="border-colapse w-full table-auto  bg-neutral-700">
-            <thead className="w-full bg-amber-500 text-left text-white">
-              <tr>
-                <td className=" px-2 py-2 text-lg">Nombre</td>
-                <td className=" px-2 py-2 text-lg">Precio</td>
-                <td className=" px-2 py-2 text-lg">Duracion</td>
-                <td className=" px-2 py-2 text-lg">Estilista</td>
-                <td className=" px-2 py-2 text-lg">Status</td>
-                <td className="text-center">Detalles</td>
-                <td className="text-center">Editar</td>
-                <td className="text-center">Eliminar</td>
-              </tr>
-            </thead>
-            <tbody className="text-left">
-              {services?.map((ser) => {
-                const stylist = stylists?.find(
-                  (sty) => sty.stylist_id === ser.stylist_id
-                );
-                return (
-                  <tr className="border-b border-t border-neutral-500">
-                    <td className="  px-2 py-1 text-white">
-                      {ser.service_name}
-                    </td>
-                    <td className=" px-2 py-1 text-white">
-                      ${ser.service_price}
-                    </td>
-                    <td className=" px-2 py-1 text-white">
-                      {ser.service_duration}"
-                    </td>
-                    <td className=" px-2 py-1 text-white">
-                      <button
-                        className="underline underline-offset-2"
-                        onClick={() => {
-                          navigate(`/dashboard/stylist/${ser.stylist_id}`);
-                        }}
-                      >
-                        {stylist?.stylist_firstname +
-                          ' ' +
-                          stylist?.stylist_lastname}
-                      </button>
-                    </td>
-                    <td className=" px-2 py-1 text-white">Activo</td>
-                    <td className=" px-2 py-1 text-center text-white">
-                      <button
-                        className="rounded-full bg-neutral-800 px-2 py-1"
-                        onClick={() => {
-                          navigate(`/dashboard/service/${ser.service_id}`);
-                        }}
-                      >
-                        Ver detalles
-                      </button>
-                    </td>
-                    <td className=" px-2 py-1 text-center text-white">
-                      <button className="rounded-full bg-purple-600 px-2 py-1">
-                        Editar
-                      </button>
-                    </td>
-                    <td className=" px-2 py-1 text-center text-white">
-                      <button
-                        className="rounded-full bg-red-700 px-2 py-1"
-                        onClick={() => {
-                          navigate(
-                            `/dashboard/service/delete/${ser.service_id}`
-                          );
-                        }}
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8">
+          <ServicesTable services={services} stylists={stylists} />
+          <ServicesCreateNav />
         </div>
       </div>
     </div>
