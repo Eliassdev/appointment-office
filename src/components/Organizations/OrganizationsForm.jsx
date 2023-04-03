@@ -1,4 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
+
+//Router
 import { useNavigate, useLocation } from 'react-router-dom';
 
 //Redux
@@ -145,7 +147,7 @@ const OrganizationForm = ({ formType, orgData }) => {
     }
   };
 
-  // Formik submit function swith for Form Type
+  // Formik submit function switch that returns Form Type
   const formikSubmit = () => {
     switch (formType) {
       case ORGANIZATIONS_FORM_TYPE.register:

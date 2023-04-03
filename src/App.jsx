@@ -1,4 +1,6 @@
 import React from 'react';
+
+//React Router
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 //Local Imports
@@ -17,12 +19,13 @@ import OrganizationsRegister from './components/Organizations/OrganizationsRegis
 // Branch Imports
 import { BranchDelete } from './components/Branchs/BranchDelete';
 import { BranchDetail } from './components/Branchs/BranchDetail';
-import BranchForm from './components/Branchs/BranchForm';
+import {BranchForm} from './components/Branchs/BranchForm';
 import { BranchPanel } from './components/Branchs/BranchPanel';
 import { BranchUpdate } from './components/Branchs/BranchUpdate';
 
 // Stylist Imports
-import StylistTable from './components/StylistsForm/StylistTable';
+// import {StylistCreate} from './components/StylistsForm/StylistCreate';
+import StylistTable from './components/StylistsForm/StylistsTable';
 
 //Services Imports
 import { ServiceDelete } from './components/Services/ServiceDelete';
@@ -58,7 +61,7 @@ const App = () => {
           <Route path="/dashboard/branch/create" element={<BranchForm />} />
           <Route
             path="/dashboard/branch/update/:id"
-            element={<BranchUpdate />}
+            element={<BranchUpdate/>}
           />
           <Route path="/dashboard/branch/:id" element={<BranchDetail />} />
           <Route
@@ -67,7 +70,7 @@ const App = () => {
           />
           {/*Stylists*/}
           <Route path="/dashboard/stylists" element={<StylistTable />} />
-          <Route path="/dashboard/stylist/create" element={<StylistTable />} />
+          {/* <Route path="/dashboard/stylist/create" element={<StylistCreate />} /> */}
           <Route
             path="/dashboard/stylist/update/:id"
             element={<StylistTable />}

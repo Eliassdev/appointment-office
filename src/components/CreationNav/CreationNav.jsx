@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../CustomComponents/Button/Button.component';
 import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
-const CreationNav = () => {
+export const CreationNav = () => {
   const [ButtonAnimation, setButtonAnimation] = useState(false);
   useEffect(() => {
     if (!ButtonAnimation) {
@@ -100,4 +100,3 @@ const CreationNav = () => {
   );
 };
 
-export default CreationNav;

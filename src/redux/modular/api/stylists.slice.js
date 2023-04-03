@@ -8,6 +8,16 @@ export const stylistsSlice = createApi({
   }),
   tagTypes: ['stylists', 'stylist'],
   endpoints: (builder) => ({
+    createStylist: builder.mutation({
+      query(input) {
+        return {
+          url: '/stylists/',
+          method: 'POST',
+          body: input,
+        };
+      },
+      invalidatesTags: ['stylists'],
+    }),
     getStylist: builder.query({
       query(limit = 10) {
         return '/stylists';
@@ -22,7 +32,26 @@ export const stylistsSlice = createApi({
       providesTags: ['stylist'],
       keepUnusedDataFor: 0,
     }),
+    updateStylist: builder.mutation({
+      query(input) {
+        return {
+          url: `/stylists/${input.id}`,
+          method: 'PATCH',
+          body: input.info,
+        };
+      },
+      invalidatesTags: ['stylists', 'stylist'],
+    }),
+    deleteStylist: builder.mutation({
+      query(input) {
+        return {
+          url: `/stylists/${input.id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: ['stylists'],
+    }),
   }),
 });
 
-export const { useGetStylistQuery, useGetStylistByIdQuery } = stylistsSlice;
+export const { useCreateStylistMutation, useGetStylistQuery, useGetStylistByIdQuery, useUpdateStylistMutation, useDeleteStylistMutation } = stylistsSlice;

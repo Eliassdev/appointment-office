@@ -7,7 +7,6 @@ import {
   useUpdateBranchMutation,
 } from '../../redux/modular/api/branches.slice';
 import { branchValidation } from '../../schemas/branch.schema';
-import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchUpdate = () => {
   const [countries, setCountries] = useState(null);

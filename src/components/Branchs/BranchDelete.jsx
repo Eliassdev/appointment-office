@@ -4,7 +4,6 @@ import {
   useDeleteBranchMutation,
   useGetBranchByIdQuery,
 } from '../../redux/modular/api/branches.slice';
-import CreationNav from '../CreationNav/CreationNav';
 
 export const BranchDelete = () => {
   const [InAnimation, setInAnimation] = useState(true);

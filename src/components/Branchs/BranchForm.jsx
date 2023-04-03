@@ -8,7 +8,7 @@ import { branchValidation } from '../../schemas/branch.schema';
 import { handleChange } from '../../utils/fomHandlers';
 import regionData from '../../utils/listOfCountries_States_Cities.json';
 
-const BranchForm = () => {
+export const BranchForm = () => {
   const [countries, setCountries] = useState(null);
   const [states, setStates] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
@@ -400,4 +400,3 @@ const BranchForm = () => {
   );
 };
 
-export default BranchForm;

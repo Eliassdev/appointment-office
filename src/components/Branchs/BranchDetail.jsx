@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetBranchByIdQuery } from '../../redux/modular/api/branches.slice';
-import CreationNav from '../CreationNav/CreationNav';
+
 
 export const BranchDetail = () => {
   const [InAnimation, setInAnimation] = useState(true);

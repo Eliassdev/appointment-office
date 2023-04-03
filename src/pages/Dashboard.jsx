@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import CreationNav from '../components/CreationNav/CreationNav';
+import {CreationNav} from '../components/CreationNav/CreationNav';
 
 const Dashboard = () => {
   return (
