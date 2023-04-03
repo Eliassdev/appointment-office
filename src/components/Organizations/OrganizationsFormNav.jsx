@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 //Components
 import Button from '../../CustomComponents/Button/Button.component';
@@ -6,7 +8,31 @@ import Button from '../../CustomComponents/Button/Button.component';
 //Constants
 import { ORGANIZATIONS_FORM_TYPE } from './OrganizationsForm';
 
-function OrganizationsFormNav({ formik, formType, handleCancelEdit }) {
+function OrganizationsFormNav({
+  formik,
+  formType,
+  handleEditar,
+  handleCancelEdit,
+  handleBorrar,
+  handleCancelBorrar,
+  handleDeleteOrganization,
+}) {
+  // State for the delete confirmation button
+  const [borrarConfirmationButton, setBorrarConfirmationButton] =
+    useState(false);
+
+  // Get the path from the URL
+  const path = useLocation().pathname;
+
+  // Set "Boton Borrar" to true if path includes "/dashboard/organizations/delete/
+  useEffect(() => {
+    setBorrarConfirmationButton(false);
+    if (path.includes('/dashboard/organizations/delete/')) {
+      setBorrarConfirmationButton(true);
+    }
+  }, [path]);
+
+  // Render the correct button depending on the form type
   const NavType = () => {
     switch (formType) {
       case ORGANIZATIONS_FORM_TYPE.register:
@@ -32,9 +58,51 @@ function OrganizationsFormNav({ formik, formType, handleCancelEdit }) {
             </Button>
           </div>
         );
+      case ORGANIZATIONS_FORM_TYPE.detail:
+        return (
+          <div className="flex w-full justify-center">
+            {!borrarConfirmationButton ? (
+              <div
+                id="organizations_detail_button_container"
+                className="flex h-full w-full items-end justify-center"
+              >
+                <Button
+                  buttonType="main"
+                  onClick={handleEditar}
+                  type={'button'}
+                >
+                  Editar
+                </Button>
+                <Button buttonType="red" onClick={handleBorrar} type={'button'}>
+                  Borrar
+                </Button>
+              </div>
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center">
+                <p className="mb-4 text-xl text-purple-500">
+                  ¿Esta seguro que desea eliminar esta empresa?
+                </p>
+                <div
+                  id="organizations_detail_button_container"
+                  className="flex h-full w-full items-end justify-center"
+                >
+                  <Button buttonType="green" onClick={handleCancelBorrar}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    buttonType="warning"
+                    onClick={handleDeleteOrganization}
+                  >
+                    Borrar
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        );
     }
   };
-  return <div className="flex flex-row justify-center">{<NavType />}</div>;
+  return <div className="justify-cente my-4 flex flex-row">{<NavType />}</div>;
 }
 
 export default OrganizationsFormNav;
