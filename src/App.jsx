@@ -11,10 +11,8 @@ import Home from './pages/Home';
 import { Login } from './pages/Login';
 
 // Organizations Imports
-import OrganizationForm, {
-  ORGANIZATIONS_FORM_TYPE,
-} from './components/Organizations/OrganizacionsForm';
 import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
+import OrganizationsRegister from './components/Organizations/OrganizationsRegister';
 
 // Branch Imports
 import { BranchDelete } from './components/Branchs/BranchDelete';
