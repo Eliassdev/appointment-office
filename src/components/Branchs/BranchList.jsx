@@ -4,7 +4,7 @@ import { useGetBranchesQuery } from '../../redux/modular/api/branches.slice';
 import { BranchCard } from './BranchCard';
 import { BranchPagination } from './BranchPagination';
 
-export const BranchList = () => {
+export const BranchList = ({ navigateOut }) => {
   const dispatch = useDispatch();
   const [Refresh, setRefresh] = useState(true);
   const [Page, setPage] = useState(1);
@@ -25,25 +25,19 @@ export const BranchList = () => {
   }, [Refresh]);
 
   return (
-    <div className="h-full w-full bg-neutral-900 px-16 pt-2 text-center">
+    <div className="h-full w-full overflow-x-hidden overflow-y-hidden bg-neutral-900 px-16 pt-2 text-center">
       <h1 className="mt-4 font-serif text-3xl uppercase text-purple-600">
         Sucursales
       </h1>
-      <div className="mt-6 flex h-auto w-full flex-wrap justify-center gap-7">
+      <div className="mt-6 flex h-auto w-full flex-wrap justify-center gap-6">
         {pageData?.map((bra) => {
           console.log(bra);
           return (
-            // <div className="w-3/12 h-60 rounded-lg bg-neutral-700 py-2">
-            //   <h3 className="mb-2 text-xl ">{bra.branch_name}</h3>
-            //   <hr className="border-purple-600"></hr>
-            //   <div className="flex justify-start px-4">
-            //     <p>Ubicacion:</p>
-            //   </div>
-            //   <div className="w-64 ml-1 flex flex-row absolute bg-red-500 bottom-2">
-
-            //   </div>
-            // </div>
-            <BranchCard key={bra.branch_id} bra={bra} />
+            <BranchCard
+              key={bra.branch_id}
+              bra={bra}
+              navigateOut={navigateOut}
+            />
           );
         })}
       </div>

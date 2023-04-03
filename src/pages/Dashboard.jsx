@@ -4,7 +4,7 @@ import CreationNav from '../components/CreationNav/CreationNav';
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen w-full bg-neutral-800">
+    <div className="flex h-screen w-full overflow-hidden bg-neutral-800">
       <CreationNav />
       <Outlet />
     </div>
