@@ -1,16 +1,21 @@
 import React from 'react';
 
-import OrganizationForm from './OrganizacionsForm';
-import { ORGANIZATIONS_FORM_TYPE } from './OrganizacionsForm';
+import OrganizationForm from './OrganizationsForm';
+import { ORGANIZATIONS_FORM_TYPE } from './OrganizationsForm';
 
 function OrganizationsUpdate({ orgData }) {
   return (
-    <>
-      <OrganizationForm
-        formType={ORGANIZATIONS_FORM_TYPE.edit}
-        orgData={orgData}
-      />
-    </>
+    <div className=" flex h-full w-full bg-neutral-800 px-12">
+      <div className="w-full py-8">
+        <h1 className="mb-8 text-center text-2xl font-bold text-purple-500">
+          Datos de tu Empresa
+        </h1>
+        <OrganizationForm
+          formType={ORGANIZATIONS_FORM_TYPE.edit}
+          orgData={orgData}
+        />
+      </div>
+    </div>
   );
 }
 

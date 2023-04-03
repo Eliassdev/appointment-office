@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../CustomComponents/Button/Button.component';
+import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
 import { useNavigate } from 'react-router-dom';
 const CreationNav = () => {
   const navButtons = [
@@ -54,7 +55,7 @@ const CreationNav = () => {
             <Button
               id={`button-${button.name}`}
               key={button.key}
-              buttonType={'warning'}
+              buttonType={BUTTON_TYPES.warning}
               onClick={() => {
                 localStorage.clear();
                 navigate(button.path);
@@ -68,7 +69,7 @@ const CreationNav = () => {
             <Button
               id={`button-${button.name}`}
               key={button.key}
-              buttonType={'main'}
+              buttonType={BUTTON_TYPES.main}
               onClick={() => {
                 navigate(button.path);
               }}
