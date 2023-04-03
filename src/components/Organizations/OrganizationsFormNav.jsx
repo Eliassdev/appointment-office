@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 //Components
 import Button from '../../CustomComponents/Button/Button.component';
+import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
 
 //Constants
 import { ORGANIZATIONS_FORM_TYPE } from './OrganizationsForm';
@@ -38,7 +39,9 @@ function OrganizationsFormNav({
       case ORGANIZATIONS_FORM_TYPE.register:
         return (
           <Button
-            buttonType={formik.isValid ? 'main' : 'disabled'}
+            buttonType={
+              formik.isValid ? BUTTON_TYPES.main : BUTTON_TYPES.disabled
+            }
             type={'submit'}
           >
             Registrar
@@ -47,11 +50,13 @@ function OrganizationsFormNav({
       case ORGANIZATIONS_FORM_TYPE.edit:
         return (
           <div className="flex w-full justify-center">
-            <Button buttonType={'green'} onClick={handleCancelEdit}>
+            <Button buttonType={BUTTON_TYPES.main} onClick={handleCancelEdit}>
               Cancelar
             </Button>
             <Button
-              buttonType={formik.isValid ? 'main' : 'disabled'}
+              buttonType={
+                formik.isValid ? BUTTON_TYPES.green : BUTTON_TYPES.disabled
+              }
               type={'submit'}
             >
               Guardar
@@ -60,20 +65,24 @@ function OrganizationsFormNav({
         );
       case ORGANIZATIONS_FORM_TYPE.detail:
         return (
-          <div className="flex w-full justify-center">
+          <div className="flex h-full w-full items-center justify-center">
             {!borrarConfirmationButton ? (
               <div
                 id="organizations_detail_button_container"
                 className="flex h-full w-full items-end justify-center"
               >
                 <Button
-                  buttonType="main"
+                  buttonType={BUTTON_TYPES.main}
                   onClick={handleEditar}
                   type={'button'}
                 >
                   Editar
                 </Button>
-                <Button buttonType="red" onClick={handleBorrar} type={'button'}>
+                <Button
+                  buttonType={BUTTON_TYPES.red}
+                  onClick={handleBorrar}
+                  type={'button'}
+                >
                   Borrar
                 </Button>
               </div>
@@ -86,11 +95,14 @@ function OrganizationsFormNav({
                   id="organizations_detail_button_container"
                   className="flex h-full w-full items-end justify-center"
                 >
-                  <Button buttonType="green" onClick={handleCancelBorrar}>
+                  <Button
+                    buttonType={BUTTON_TYPES.main}
+                    onClick={handleCancelBorrar}
+                  >
                     Cancelar
                   </Button>
                   <Button
-                    buttonType="warning"
+                    buttonType={BUTTON_TYPES.warning}
                     onClick={handleDeleteOrganization}
                   >
                     Borrar
