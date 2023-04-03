@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //Redux
 import {
@@ -36,8 +36,7 @@ const OrganizationForm = ({ formType, orgData }) => {
   const navigate = useNavigate();
 
   // --- Country State ---
-  const { countries, states, selectedCountry, handleCountryChange } =
-    useCountryState();
+  const { countries, states, handleCountryChange } = useCountryState();
 
   // --- Redux ---
   // Create Organization Mutation

@@ -6,7 +6,7 @@ import OrganizationForm from './OrganizationsForm';
 //Constants
 import { ORGANIZATIONS_FORM_TYPE } from './OrganizationsForm';
 
-function OrganizationsRegister() {
+function OrganizationsCreate() {
   return (
     <div className=" flex h-full w-full bg-neutral-800 px-12">
       <div className="w-full py-8">
@@ -19,4 +19,4 @@ function OrganizationsRegister() {
   );
 }
 
-export default OrganizationsRegister;
+export default OrganizationsCreate;

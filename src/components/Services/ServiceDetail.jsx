@@ -38,7 +38,7 @@ export const ServiceDetail = () => {
         <div className="mt-5 flex flex-row justify-start space-x-5">
           <button
             onClick={() => {
-              navigate(`/dashboard/service/update/${id}`);
+              navigate(`/dashboard/services/update/${id}`);
             }}
             className="rounded-full border border-purple-600 px-4 py-2 text-purple-600"
           >
