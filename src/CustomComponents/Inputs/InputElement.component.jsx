@@ -11,6 +11,7 @@ const InputElement = ({
   onChange,
   onBlur,
   formik,
+  formik,
   required,
 }) => {
   return (

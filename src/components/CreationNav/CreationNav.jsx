@@ -88,7 +88,6 @@ const CreationNav = () => {
                 id={`button-${button.name}`}
                 key={button.key}
                 buttonType={BUTTON_TYPES.warning}
-                selectedButton={selectedButton}
                 onClick={() => {
                   localStorage.clear();
                   navigate(button.path);
@@ -103,6 +102,7 @@ const CreationNav = () => {
                 id={`button-${button.name}`}
                 name={button.name}
                 key={button.key}
+                selectedButton={selectedButton}
                 buttonType={BUTTON_TYPES.main}
                 onClick={() => {
                   handleSelectedButton(button.name);
