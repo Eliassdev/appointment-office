@@ -13,7 +13,7 @@ const BUTTON_TYPE_CLASSES = {
     'bg-purple-400 text-neutral-800 hover:bg-neutral-800 hover:text-purple-400',
   disabled: 'bg-neutral-800 text-purple-400 opacity-50',
   warning:
-    'bg-red-400 text-neutral-800 hover:bg-neutral-800 hover:text-red-400',
+    'bg-red-400 mt-52 text-neutral-800 hover:bg-neutral-800 hover:text-red-400',
   green:
     'hover:bg-green-400 hover:text-neutral-800 bg-neutral-800 text-green-400',
   red: 'hover:bg-red-400 hover:text-neutral-800 bg-neutral-800 text-red-400',
