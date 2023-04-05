@@ -11,8 +11,8 @@ import Home from './pages/Home';
 import { Login } from './pages/Login';
 
 // Organizations Imports
-import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
 import OrganizationsCreate from './components/Organizations/OrganizationsCreate';
+import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
 
 // Branch Imports
 import { BranchDelete } from './components/Branchs/BranchDelete';
@@ -25,11 +25,12 @@ import { BranchUpdate } from './components/Branchs/BranchUpdate';
 import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
-import ServicesCreate from './components/Services/ServicesCreate';
 import { ServiceDelete } from './components/Services/ServiceDelete';
 import { ServiceDetail } from './components/Services/ServiceDetail';
+import ServicesCreate from './components/Services/ServicesCreate';
 import ServicesForm from './components/Services/ServicesForm';
 import { ServicesPanel } from './components/Services/ServicesPanel';
+import { ServiceUpdate } from './components/Services/ServicesUpdate';
 
 const App = () => {
   return (
@@ -87,7 +88,7 @@ const App = () => {
           />
           <Route
             path="/dashboard/services/update/:id"
-            element={<ServicesForm />}
+            element={<ServiceUpdate />}
           />
           <Route
             path="/dashboard/services/delete/:id"
