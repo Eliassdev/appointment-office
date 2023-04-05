@@ -8,7 +8,7 @@ import { useGetServicesQuery } from '../../redux/modular/api/services.slice';
 import { useGetStylistQuery } from '../../redux/modular/api/stylists.slice';
 
 // Components
-import ServicesCreateNav from './ServicesCreateNav';
+import NewServiceNav from './ServicesNewServiceNav';
 import ServicesTable from './ServicesTable';
 
 export const ServicesPanel = () => {
@@ -42,7 +42,7 @@ export const ServicesPanel = () => {
         </h1>
         <div className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8">
           <ServicesTable services={services} stylists={stylists} />
-          <ServicesCreateNav />
+          <NewServiceNav />
         </div>
       </div>
     </div>

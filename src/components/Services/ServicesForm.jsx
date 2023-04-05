@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Redux
 import { useCreateServiceMutation } from '../../redux/modular/api/services.slice';
+import { useUpdateServiceMutation } from '../../redux/modular/api/services.slice';
 
 // Components
 import InputElement from '../../CustomComponents/Inputs/InputElement.component';
@@ -16,11 +17,18 @@ import { useFormik } from 'formik';
 //Zod
 import { serviceValidation } from '../../schemas/services.schema';
 
-const ServicesForm = () => {
+//Constants
+export const SERVICES_FORM_TYPE = {
+  create: 'create',
+  update: 'update',
+};
+
+const ServicesForm = ({ formType, ServiceData }) => {
   // --- React Router ---
   const navigate = useNavigate();
 
   // --- Redux ---
+  // Create Service Mutation
   const [
     createService,
     {
@@ -30,22 +38,64 @@ const ServicesForm = () => {
     },
   ] = useCreateServiceMutation();
 
+  // Update Service Mutation
+  const [
+    updateService,
+    {
+      isLoading: isLoadindUpdate,
+      isSuccess: isSuccessUpdate,
+      isError: isErrorUpdate,
+    },
+  ] = useUpdateServiceMutation();
+
+  const initialFormikValues = () => {
+    switch (formType) {
+      case SERVICES_FORM_TYPE.create:
+        return {
+          service_name: '',
+          service_price: '',
+          service_duration: '',
+        };
+      case SERVICES_FORM_TYPE.update:
+        return {
+          service_name: ServiceData.service_name,
+          service_price: ServiceData.service_price,
+          service_duration: ServiceData.service_duration,
+        };
+    }
+  };
+
+  // Formik submit function swith for Form Type
+  const formikSubmit = () => {
+    switch (formType) {
+      case SERVICES_FORM_TYPE.create:
+        return async (values) => {
+          console.log('onSubmit ejecuted');
+          let body = values;
+          createService(body);
+        };
+      case SERVICES_FORM_TYPE.update:
+        return async (values) => {
+          let body = values;
+          const request = {
+            id: id,
+            info: body,
+          };
+          updateService(request);
+          setTimeout(() => {
+            navigate('/dashboard/services/');
+          }, 1000);
+        };
+    }
+  };
+
   // --- Formik configuration ---
   const formik = useFormik({
-    initialValues: {
-      service_name: '',
-      service_price: '',
-      service_duration: '',
-    },
-    onSubmit: async (values) => {
-      console.log('onSubmit ejecuted');
-      let body = values;
-      createService(body);
-    },
+    initialValues: initialFormikValues(),
+    onSubmit: formikSubmit(),
     validate: (values) => {
       const result = serviceValidation.safeParse(values);
       if (result.success) {
-        console.log('success');
         return;
       }
       if (result.error.issues) {
@@ -118,6 +168,7 @@ const ServicesForm = () => {
         />
         <ServicesFormNav
           handleCancel={handleCancel}
+          formType={formType}
           formik={{ isValid: formik.isValid }}
         />
       </div>
