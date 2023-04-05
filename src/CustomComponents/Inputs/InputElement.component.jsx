@@ -10,8 +10,7 @@ const InputElement = ({
   value,
   onChange,
   onBlur,
-  touched,
-  errors,
+  formik,
   required,
 }) => {
   return (
@@ -29,8 +28,8 @@ const InputElement = ({
         onBlur={onBlur}
         disabled={formType === ORGANIZATIONS_FORM_TYPE.read}
       />
-      {touched && errors ? (
-        <span className="text-red-600">{errors}</span>
+      {formik.touched && formik.errors ? (
+        <span className="text-red-600">{formik.errors}</span>
       ) : null}
     </div>
   );

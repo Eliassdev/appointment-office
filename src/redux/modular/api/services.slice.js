@@ -8,6 +8,16 @@ export const serviceSlice = createApi({
   }),
   tagTypes: ['services', 'service'],
   endpoints: (builder) => ({
+    createService: builder.mutation({
+      query(input) {
+        return {
+          url: '/services/',
+          method: 'POST',
+          body: input,
+        };
+      },
+      invalidatesTags: ['services'],
+    }),
     getServices: builder.query({
       query(limit = 10) {
         return '/services';
@@ -22,6 +32,17 @@ export const serviceSlice = createApi({
       providesTags: ['service'],
       keepUnusedDataFor: 0,
     }),
+
+    updateService: builder.mutation({
+      query(input) {
+        return {
+          url: `/services/${input.id}`,
+          method: 'PATCH',
+          body: input.info,
+        };
+      },
+      invalidatesTags: ['services', 'service'],
+    }),
     deleteService: builder.mutation({
       query(input) {
         return {
@@ -35,7 +56,9 @@ export const serviceSlice = createApi({
 });
 
 export const {
+  useCreateServiceMutation,
   useGetServicesQuery,
   useGetServiceByIdQuery,
+  useUpdateServiceMutation,
   useDeleteServiceMutation,
 } = serviceSlice;
