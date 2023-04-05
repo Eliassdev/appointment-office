@@ -27,7 +27,7 @@ const InputElement = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        disabled={formType === ORGANIZATIONS_FORM_TYPE.detail}
+        disabled={formType === ORGANIZATIONS_FORM_TYPE.read}
       />
       {touched && errors ? (
         <span className="text-red-600">{errors}</span>

@@ -14,7 +14,7 @@ function OrganizationsDetail({ orgData }) {
           Datos de tu Empresa
         </h1>
         <OrganizationForm
-          formType={ORGANIZATIONS_FORM_TYPE.detail}
+          formType={ORGANIZATIONS_FORM_TYPE.read}
           orgData={orgData}
         />
       </div>
