@@ -1,12 +1,18 @@
 import React from 'react';
 
-// Components
-import Button from '../../CustomComponents/Button/Button.component';
-import InputElement from '../../CustomComponents/Inputs/InputElement.component';
+import { useNavigate } from 'react-router-dom';
 
-import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
+// Components
+import InputElement from '../../CustomComponents/Inputs/InputElement.component';
+import ServicesFormNav from './ServicesFormNav';
 
 const ServicesForm = () => {
+  const navigate = useNavigate();
+
+  // --- Handle functions ---
+  // Handle cancel button
+  const handleCancel = () => navigate('/dashboard/services');
+
   return (
     <form className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8">
       <div className=" mt-2 grid grid-cols-1">
@@ -28,11 +34,7 @@ const ServicesForm = () => {
           id={'service_duration'}
           type={'time'}
         />
-        <div className="justify-cente my-4 flex flex-row">
-          <div className="flex w-full justify-center">
-            <Button buttonType={BUTTON_TYPES.green}>Enviar</Button>
-          </div>
-        </div>
+        <ServicesFormNav handleCancel={handleCancel} />
       </div>
     </form>
   );
