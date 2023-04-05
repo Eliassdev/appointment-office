@@ -65,6 +65,7 @@ const BranchForm = () => {
         result.error.issues.map((err) => {
           errors[err.path[0]] = err.message;
         });
+        console.log('errors', errors);
         return errors;
       }
     },

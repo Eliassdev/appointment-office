@@ -18,7 +18,7 @@ const SelectElement = ({
 }) => {
   const SelectType = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
+      case ORGANIZATIONS_FORM_TYPE.create:
       case ORGANIZATIONS_FORM_TYPE.update:
         return (
           <div className="mb-2 flex flex-col px-4">

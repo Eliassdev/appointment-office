@@ -17,11 +17,7 @@ function ServicesCreateNav() {
   };
   return (
     <div className="flex w-full justify-center">
-      <Button
-        buttonType={BUTTON_TYPES.green}
-        type={'submit'}
-        onClick={handleCreateStervice}
-      >
+      <Button buttonType={BUTTON_TYPES.green} onClick={handleCreateStervice}>
         Nuevo Servicio
       </Button>
     </div>

@@ -13,7 +13,7 @@ function OrganizationsCreate() {
         <h1 className="mb-8 text-center text-2xl font-bold text-purple-500">
           Registra tu Empresa
         </h1>
-        <OrganizationForm formType={ORGANIZATIONS_FORM_TYPE.register} />
+        <OrganizationForm formType={ORGANIZATIONS_FORM_TYPE.create} />
       </div>
     </div>
   );

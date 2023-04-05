@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+
+// Router
 import { useNavigate } from 'react-router-dom';
 
 //Redux
@@ -152,7 +154,7 @@ const OrganizationForm = ({ formType, orgData }) => {
   // Formik submit function swith for Form Type
   const formikSubmit = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
+      case ORGANIZATIONS_FORM_TYPE.create:
         return async (values) => {
           let body = values;
           CreateOrganization(body);
@@ -170,7 +172,7 @@ const OrganizationForm = ({ formType, orgData }) => {
             navigate('/dashboard/organizations');
           }, 1000);
         };
-      case ORGANIZATIONS_FORM_TYPE.create:
+      case ORGANIZATIONS_FORM_TYPE.read:
         return async () => {
           const request = {
             id: id,
@@ -198,6 +200,8 @@ const OrganizationForm = ({ formType, orgData }) => {
         result.error.issues.map((err) => {
           errors[err.path[0]] = err.message;
         });
+        console.log('result', result);
+        console.log('errors', errors);
         return errors;
       }
     },
