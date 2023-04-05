@@ -11,7 +11,7 @@ function OrganizationsUpdate({ orgData }) {
           Datos de tu Empresa
         </h1>
         <OrganizationForm
-          formType={ORGANIZATIONS_FORM_TYPE.edit}
+          formType={ORGANIZATIONS_FORM_TYPE.update}
           orgData={orgData}
         />
       </div>
