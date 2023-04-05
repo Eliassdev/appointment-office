@@ -1,5 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+// Router
+import { useNavigate } from 'react-router-dom';
 
 //Redux
 import {
@@ -24,20 +26,24 @@ import useCountryState from '../../hooks/useCountryState.hook';
 
 //Constants
 export const ORGANIZATIONS_FORM_TYPE = {
-  register: 'register',
-  edit: 'edit',
-  detail: 'detail',
+  create: 'create',
+  read: 'read',
+  update: 'update',
 };
 
 const OrganizationForm = ({ formType, orgData }) => {
+  // --- Local State ---
+  // Delayed States to populate form
+  const [delayedStates, setDelayedStates] = useState([]);
+
+  // --- Local Storage ---
   const id = localStorage.getItem('organizationId') || null;
 
   // --- React Router ---
   const navigate = useNavigate();
 
   // --- Country State ---
-  const { countries, states, selectedCountry, handleCountryChange } =
-    useCountryState();
+  const { countries, states, handleCountryChange } = useCountryState();
 
   // --- Redux ---
   // Create Organization Mutation
@@ -70,7 +76,7 @@ const OrganizationForm = ({ formType, orgData }) => {
   // Formik initial values
   const initialFormikValues = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
+      case ORGANIZATIONS_FORM_TYPE.create:
         return {
           short_name: '',
           business_name: '',
@@ -88,7 +94,7 @@ const OrganizationForm = ({ formType, orgData }) => {
           created_by: 1,
           updated_by: 1,
         };
-      case ORGANIZATIONS_FORM_TYPE.edit:
+      case ORGANIZATIONS_FORM_TYPE.update:
         return {
           short_name: orgData?.short_name,
           business_name: orgData?.business_name,
@@ -106,7 +112,7 @@ const OrganizationForm = ({ formType, orgData }) => {
           created_by: 1,
           updated_by: 1,
         };
-      case ORGANIZATIONS_FORM_TYPE.detail:
+      case ORGANIZATIONS_FORM_TYPE.read:
         return {
           short_name: orgData?.short_name,
           business_name: orgData?.business_name,
@@ -148,13 +154,13 @@ const OrganizationForm = ({ formType, orgData }) => {
   // Formik submit function swith for Form Type
   const formikSubmit = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
+      case ORGANIZATIONS_FORM_TYPE.create:
         return async (values) => {
           let body = values;
           CreateOrganization(body);
         };
 
-      case ORGANIZATIONS_FORM_TYPE.edit:
+      case ORGANIZATIONS_FORM_TYPE.update:
         return async (values) => {
           let body = values;
           const request = {
@@ -166,7 +172,7 @@ const OrganizationForm = ({ formType, orgData }) => {
             navigate('/dashboard/organizations');
           }, 1000);
         };
-      case ORGANIZATIONS_FORM_TYPE.detail:
+      case ORGANIZATIONS_FORM_TYPE.read:
         return async () => {
           const request = {
             id: id,
@@ -194,6 +200,8 @@ const OrganizationForm = ({ formType, orgData }) => {
         result.error.issues.map((err) => {
           errors[err.path[0]] = err.message;
         });
+        console.log('result', result);
+        console.log('errors', errors);
         return errors;
       }
     },
@@ -243,8 +251,12 @@ const OrganizationForm = ({ formType, orgData }) => {
   useEffect(() => {
     if (formik.values.country !== '') {
       handleCountryChange(formik.values.country);
+
+      setTimeout(() => {
+        setDelayedStates(states);
+      }, 300);
     }
-  }, [formik.values.country]);
+  }, [formik.values.country, states, delayedStates]);
 
   // Redirect to dashboard if create organization is successful
   useEffect(() => {
@@ -314,7 +326,7 @@ const OrganizationForm = ({ formType, orgData }) => {
               formType={formType}
               value={formik.values.state}
               defaultValue={formik.values.state}
-              states={states}
+              states={delayedStates}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched.state}
