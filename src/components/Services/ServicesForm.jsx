@@ -23,7 +23,7 @@ export const SERVICES_FORM_TYPE = {
   update: 'update',
 };
 
-const ServicesForm = ({ formType, ServiceData }) => {
+const ServicesForm = ({ formType, serviceData }) => {
   // --- React Router ---
   const navigate = useNavigate();
 
@@ -52,15 +52,21 @@ const ServicesForm = ({ formType, ServiceData }) => {
     switch (formType) {
       case SERVICES_FORM_TYPE.create:
         return {
+          stylist_id: '',
           service_name: '',
           service_price: '',
           service_duration: '',
+          created_by: 1,
+          updated_by: 1,
         };
       case SERVICES_FORM_TYPE.update:
         return {
-          service_name: ServiceData.service_name,
-          service_price: ServiceData.service_price,
-          service_duration: ServiceData.service_duration,
+          stylist_id: serviceData.stylist_id,
+          service_name: serviceData.service_name,
+          service_price: serviceData.service_price,
+          service_duration: serviceData.service_duration,
+          created_by: 1,
+          updated_by: 1,
         };
     }
   };
@@ -70,6 +76,7 @@ const ServicesForm = ({ formType, ServiceData }) => {
     switch (formType) {
       case SERVICES_FORM_TYPE.create:
         return async (values) => {
+          console.log('values: ', values);
           console.log('onSubmit ejecuted');
           let body = values;
           createService(body);
@@ -127,6 +134,19 @@ const ServicesForm = ({ formType, ServiceData }) => {
       className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8"
     >
       <div className=" mt-2 grid grid-cols-1">
+        <InputElement
+          title={'Estilista Nro'}
+          name={'stylist_id'}
+          id={'stylist_id'}
+          type={'text'}
+          value={formik.values.stylist_id}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          formik={{
+            touched: formik.touched.stylist_id,
+            errors: formik.errors.stylist_id,
+          }}
+        />
         <InputElement
           title={'Nombre del Servicio'}
           name={'service_name'}
