@@ -28,7 +28,7 @@ const InputElement = ({
         onBlur={onBlur}
         disabled={formType === ORGANIZATIONS_FORM_TYPE.read}
       />
-      {formik.touched && formik.errors ? (
+      {formik?.touched && formik?.errors ? (
         <span className="text-red-600">{formik.errors}</span>
       ) : null}
     </div>

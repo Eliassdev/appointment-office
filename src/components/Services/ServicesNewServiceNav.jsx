@@ -9,7 +9,7 @@ import Button from '../../CustomComponents/Button/Button.component';
 //Button Styles
 import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
 
-function ServicesCreateNav() {
+function NewServiceNav() {
   const navigate = useNavigate();
 
   const handleCreateStervice = () => {
@@ -24,4 +24,4 @@ function ServicesCreateNav() {
   );
 }
 
-export default ServicesCreateNav;
+export default NewServiceNav;
