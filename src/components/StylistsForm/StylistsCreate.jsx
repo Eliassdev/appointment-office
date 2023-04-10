@@ -16,21 +16,22 @@ import { stylistValidation } from '../../schemas/stylist.shema';
 
 
 export const StylistsCreate = () => {
-  const [OrgBranches, setOrgBranches] = useState(null)
-
+  const [OrgBranches, setOrgBranches] = useState([])
+  
   const [countries, setCountries] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
   const [states, setStates] = useState(null);
   const [InAnimation, setInAnimation] = useState(true);
   const [OutAnimation, setOutAnimation] = useState(false);
   const id = localStorage.getItem('organizationId');
+  const navigate = useNavigate();
   
   const allCountries = Country.getAllCountries();
 
   const navigateOut = () => {
     setOutAnimation(true);
     setTimeout(() => {
-      navigate('/dashboard/styli');
+      navigate('/dashboard/stylists');
     }, 1000);}
 
   // --- Redux ---
@@ -44,10 +45,9 @@ export const StylistsCreate = () => {
   ] = useCreateStylistMutation();
 
   // Create Stylists Mutation
-  const {data: branches = [], isLoading : isLoadingBra, isError : isErrorBra} = useGetBranchesQuery()
+  const {data: branches = [], isLoading : isLoadingBra, isError : isErrorBra, isSuccess : isSuccessBra} = useGetBranchesQuery()
   
 // --- React Router ---
-const navigate = useNavigate();
 
   const formik = useFormik({initialValues: {
     stylist_firstname: '',
@@ -72,13 +72,10 @@ const navigate = useNavigate();
   onSubmit: async (values) => {
     // React query - Stylists Create
     let body = values;
+
+    console.log(body);
     CreateStylist(body);
-    // Navigate - 
-    if(isSuccessCreate){
-      setTimeout(() => {
-         navigate('/dashboard/stylists')
-      }, 1000);
-    }
+
   },
   validate: (values) => {
     const result = stylistValidation.safeParse(values);
@@ -109,28 +106,31 @@ useEffect(() => {
   }
   if (isSuccessCreate) {
     setTimeout(() => {
+      console.log("me ejecute")
       navigateOut();
     }, 500);
   }
 }, [formik.values.country, selectedCountry, isSuccessCreate]);
 
 useEffect(() => {
-  if (OrgBranches === null) {
-    setTimeout(()=> {
-      setOrgBranches(branches?.filter((bra)=> bra.organization_id === Number(id)))
-      console.log(branches)
+  if (isSuccessBra) {
     
-    }, 500);
+    setOrgBranches(branches?.filter((bra)=> bra.organization_id === Number(id)))
+      
+      
+    
   } 
   
+  
+}, [isSuccessBra])
 
-}, [])
+
 
 
   return (
     <div className="grid-span-2">
-      <form className="form">
-        <fieldset>
+      <form onSubmit={formik.handleSubmit} className="form">
+ 
           <legend>Stylists Form</legend>
           <div
             style={{
@@ -247,36 +247,31 @@ useEffect(() => {
                   value={formik.values.country}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-            >
-                          {formik.touched.country &&
-                formik.errors.country &&
-                InAnimation ? (
-                  <span
-                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
                   >
-                    {formik.errors.country}
-                  </span>
-                ) : null}
 
-            <option value="country">Argentina</option>
+            <option value="argentina">Argentina</option>
+            <option value="brasil">brasil</option>
+
             </select>
+                
+              {formik.touched.country &&
+              formik.errors.country &&
+              InAnimation ? (
+              <span
+              className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+              >
+              {formik.errors.country}
+              </span>
+              ) : null}
             <label for="state">Provincia</label>
+
             <select name="state" id="state" 
 
-              className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-              value={formik.values.state}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            >
-                {formik.touched.state &&
-                formik.errors.state &&
-                InAnimation ? (
-                  <span
-                    className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
-                  >
-                    {formik.errors.state}
-                  </span>
-                ) : null}
+className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+value={formik.values.state}
+onChange={formik.handleChange}
+onBlur={formik.handleBlur}
+>
 
 
               <option value="state">Buenos Aires</option>
@@ -303,6 +298,17 @@ useEffect(() => {
               <option value="state">Tierra del Fuego</option>
               <option value="state">Tucumán</option>
             </select>
+
+            {formik.touched.state &&
+            formik.errors.state &&
+            InAnimation ? (
+              <span
+                className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
+              >
+                {formik.errors.state}
+              </span>
+            ) : null}
+
             <label for="city">Ciudad</label>
             <input type="text" id="city" name="city" 
               className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
@@ -316,7 +322,7 @@ useEffect(() => {
                 InAnimation ? (
                   <span
                     className={`${OutAnimation ? 'hidden' : 'text-red-600'}`}
-                  >
+                    >
                     {formik.errors.city}
                   </span>
                 ) : null}
@@ -440,9 +446,8 @@ useEffect(() => {
                     {formik.errors.email}
                   </span>
                 ) : null}
-            <button>Enviar</button>
+            <button type="submit" >Enviar</button>
           </div>
-        </fieldset>
       </form>
     </div>
   );
