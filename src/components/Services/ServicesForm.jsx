@@ -21,13 +21,14 @@ import { serviceValidation } from '../../schemas/services.schema';
 
 //Constants
 export const SERVICES_FORM_TYPE = {
-  create: 'create',
-  update: 'update',
+  create: 'create_service',
+  update: 'update_service',
 };
 
 const ServicesForm = ({ formType }) => {
-  const [Branch, setBranch] = useState(null);
+  const [Branch, setBranch] = useState('');
   const [Stylists, setStylists] = useState([]);
+  console.log('Branch:', Branch);
 
   // --- React Router ---
   const navigate = useNavigate();
@@ -37,9 +38,9 @@ const ServicesForm = ({ formType }) => {
   const [
     createService,
     {
-      isLoading: isLoadindUpdate,
-      isSuccess: isSuccessUpdate,
-      isError: isErrorUpdate,
+      isLoading: isLoadindCreateService,
+      isSuccess: isSuccessCreateService,
+      isError: isErrorCreateService,
     },
   ] = useCreateServiceMutation();
 
@@ -131,12 +132,12 @@ const ServicesForm = ({ formType }) => {
 
   // Redirect to dashboard if create organization is successful
   useEffect(() => {
-    if (isSuccessUpdate) {
+    if (isSuccessCreateService) {
       setTimeout(() => {
         navigate('/dashboard/services');
       }, 1000);
     }
-  }, [isSuccessUpdate]);
+  }, [isSuccessCreateService]);
 
   useEffect(() => {
     if (Branch !== null) {
@@ -152,51 +153,34 @@ const ServicesForm = ({ formType }) => {
       className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8"
     >
       <div className=" mt-2 grid grid-cols-1">
-        <div className="mb-2 flex flex-col px-4">
-          <label className="mb-1 text-neutral-100" htmlFor="country">
-            Sucursal
-          </label>
-          <select
-            className="h-8 w-full rounded border-transparent bg-neutral-700  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-            onChange={(e) => {
-              setBranch(e.target.value);
-            }}
-          >
-            <option>Seleccione un estilista</option>
-            {branches?.map((bra, index) => {
-              return (
-                <option key={`${bra}-${index}`} value={bra.branch_id}>
-                  {bra.branch_name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-
-        <div className="mb-2 flex flex-col px-4">
-          <label className="mb-1 text-neutral-100" htmlFor="country">
-            Estilista
-          </label>
-          <select
-            name={'stylist_id'}
-            id={'stylist_id'}
-            className="h-8 w-full rounded border-transparent bg-neutral-700  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-            type={'update'}
-            value={formik.values.stylist_id}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          >
-            <option>Seleccione un estilista</option>
-            {Stylists?.map((sty, index) => {
-              console.log(sty);
-              return (
-                <option key={`${sty}-${index}`} value={sty.stylist_id}>
-                  {sty.stylist_firstname + ' ' + sty.stylist_lastname}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+        <SelectElement
+          title={'Sucursal'}
+          name={Branch}
+          id={Branch}
+          formType={formType}
+          value={Branch}
+          options={branches}
+          defaultValue={Branch}
+          onChange={(e) => {
+            setBranch(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+          touched={formik.touched.stylist_id}
+          errors={formik.errors.stylist_id}
+        />
+        <SelectElement
+          title={'Estilista'}
+          name={'stylist_id'}
+          id={'stylist_id'}
+          formType={formType}
+          defaultValue={formik.values.stylist_id}
+          value={formik.values.stylist_id}
+          options={Stylists}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          touched={formik.touched.stylist_id}
+          errors={formik.errors.stylist_id}
+        />
         <InputElement
           title={'Nombre del Servicio'}
           name={'service_name'}

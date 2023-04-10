@@ -26,9 +26,9 @@ import useCountryState from '../../hooks/useCountryState.hook';
 
 //Constants
 export const ORGANIZATIONS_FORM_TYPE = {
-  create: 'create',
-  read: 'read',
-  update: 'update',
+  create: 'create_orgnization',
+  read: 'read_orgnization',
+  update: 'update_orgnization',
 };
 
 const OrganizationForm = ({ formType, orgData }) => {

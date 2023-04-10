@@ -8,6 +8,7 @@ const ServicesTable = ({
   handleUpdateService,
 }) => {
   const navigate = useNavigate();
+
   return (
     <table className="border-colapse w-full table-auto rounded-md bg-neutral-700">
       <thead className="w-full rounded-md bg-amber-500 text-left text-white">
