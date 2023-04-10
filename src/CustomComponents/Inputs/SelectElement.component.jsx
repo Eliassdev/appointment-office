@@ -1,5 +1,3 @@
-import React from 'react';
-
 import InputElement from './InputElement.component';
 
 import { ORGANIZATIONS_FORM_TYPE } from '../../components/Organizations/OrganizationsForm';
@@ -20,8 +18,8 @@ const SelectElement = ({
 }) => {
   const SelectType = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
-      case ORGANIZATIONS_FORM_TYPE.edit:
+      case ORGANIZATIONS_FORM_TYPE.create:
+      case ORGANIZATIONS_FORM_TYPE.update:
         return (
           <div className="mb-2 flex flex-col px-4">
             <label className="mb-1 text-neutral-100" htmlFor="country">
@@ -30,7 +28,7 @@ const SelectElement = ({
             <select
               name={name}
               id={id}
-              className="h-8 w-full rounded border-transparent bg-neutral-700  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
+              className="h-8 w-full rounded border-transparent bg-neutral-700 p-2  text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               value={value}
               onChange={onChange}
               onBlur={onBlur}
@@ -66,7 +64,7 @@ const SelectElement = ({
             ) : null}
           </div>
         );
-      case ORGANIZATIONS_FORM_TYPE.detail:
+      case ORGANIZATIONS_FORM_TYPE.read:
         return (
           <InputElement
             title={title}

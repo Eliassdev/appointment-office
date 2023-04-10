@@ -1,8 +1,19 @@
-import React from 'react';
+import { useState } from 'react';
+
+// Router Dom
 import { useNavigate } from 'react-router-dom';
+
+// Assets
 import Logo from '../../assets/Logo.png';
 
+// Components
+import Button from '../../CustomComponents/Button/Button.component';
+
+// Button Styles
+import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
+
 const NavBar = () => {
+  const [selectedButton, setSelectedButton] = useState({});
   const navigate = useNavigate();
   const handleNavigate = (e) => {
     if (e.target.id === 'home') {
@@ -13,9 +24,9 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="w-full h-24 flex bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-900  pb-1">
-      <div className="w-full h-full flex px-24 bg-gray-800 justify-between">
-        <div className="container py-6 space-x-5">
+    <nav className="flex h-24 w-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-900  pb-1">
+      <div className="flex h-full w-full justify-between bg-gray-800 px-24">
+        <div className="container space-x-5 py-6">
           <button
             id="home"
             className="px-4 py-2 text-purple-500 hover:text-purple-400"
@@ -53,7 +64,7 @@ const NavBar = () => {
             Sobre Nosotros
           </button>
         </div>
-        <img className="h-16 mt-4" alt="logo" src={Logo} />
+        <img className="mt-4 h-16" alt="logo" src={Logo} />
       </div>
     </nav>
   );

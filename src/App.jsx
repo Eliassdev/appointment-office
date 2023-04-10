@@ -13,8 +13,8 @@ import Home from './pages/Home';
 import { Login } from './pages/Login';
 
 // Organizations Imports
+import OrganizationsCreate from './components/Organizations/OrganizationsCreate';
 import OrganizationsPanel from './components/Organizations/OrganizationsPanel';
-import OrganizationsRegister from './components/Organizations/OrganizationsRegister';
 
 // Branch Imports
 import { BranchDelete } from './components/Branchs/BranchDelete';
@@ -30,15 +30,17 @@ import StylistTable from './components/StylistsForm/StylistsTable';
 //Services Imports
 import { ServiceDelete } from './components/Services/ServiceDelete';
 import { ServiceDetail } from './components/Services/ServiceDetail';
-import ServicesForm from './components/Services/ServicesForm.component';
+import ServicesCreate from './components/Services/ServicesCreate';
+import ServicesForm from './components/Services/ServicesForm';
 import { ServicesPanel } from './components/Services/ServicesPanel';
+import { ServiceUpdate } from './components/Services/ServicesUpdate';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route path="/register" element={<OrganizationsRegister />} />
+          <Route path="/register" element={<OrganizationsCreate />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Route>
@@ -82,14 +84,17 @@ const App = () => {
           />
           {/*Services*/}
           <Route path="/dashboard/services" element={<ServicesPanel />} />
-          <Route path="/dashboard/service/:id" element={<ServiceDetail />} />
-          <Route path="/dashboard/service/create" element={<ServicesForm />} />
+          <Route path="/dashboard/services/:id" element={<ServiceDetail />} />
           <Route
-            path="/dashboard/service/update/:id"
-            element={<ServicesForm />}
+            path="/dashboard/services/create"
+            element={<ServicesCreate />}
           />
           <Route
-            path="/dashboard/service/delete/:id"
+            path="/dashboard/services/update/:id"
+            element={<ServiceUpdate />}
+          />
+          <Route
+            path="/dashboard/services/delete/:id"
             element={<ServiceDelete />}
           />
         </Route>

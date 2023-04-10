@@ -36,7 +36,7 @@ function OrganizationsFormNav({
   // Render the correct button depending on the form type
   const NavType = () => {
     switch (formType) {
-      case ORGANIZATIONS_FORM_TYPE.register:
+      case ORGANIZATIONS_FORM_TYPE.create:
         return (
           <div className="flex w-full justify-center">
             <Button
@@ -49,7 +49,7 @@ function OrganizationsFormNav({
             </Button>
           </div>
         );
-      case ORGANIZATIONS_FORM_TYPE.edit:
+      case ORGANIZATIONS_FORM_TYPE.update:
         return (
           <div className="flex w-full justify-center">
             <Button buttonType={BUTTON_TYPES.main} onClick={handleCancelEdit}>
@@ -65,7 +65,7 @@ function OrganizationsFormNav({
             </Button>
           </div>
         );
-      case ORGANIZATIONS_FORM_TYPE.detail:
+      case ORGANIZATIONS_FORM_TYPE.read:
         return (
           <div className="flex h-full w-full items-center justify-center">
             {!borrarConfirmationButton ? (
