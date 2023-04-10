@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ServicesTable = ({
   services,
@@ -6,6 +7,7 @@ const ServicesTable = ({
   handleDeleteService,
   handleUpdateService,
 }) => {
+  const navigate = useNavigate();
   return (
     <table className="border-colapse w-full table-auto rounded-md bg-neutral-700">
       <thead className="w-full rounded-md bg-amber-500 text-left text-white">
@@ -52,7 +54,12 @@ const ServicesTable = ({
                 </button>
               </td>
               <td className=" px-2 py-1 text-center text-white">
-                <button className="rounded-full bg-purple-600 px-2 py-1">
+                <button
+                  className="rounded-full bg-purple-600 px-2 py-1"
+                  onClick={() => {
+                    navigate(`/dashboard/services/update/${ser.service_id}`);
+                  }}
+                >
                   Editar
                 </button>
               </td>

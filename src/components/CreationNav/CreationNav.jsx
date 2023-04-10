@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
+
+// Router Dom
 import { useNavigate } from 'react-router-dom';
+
+// Custom Components
 import Button from '../../CustomComponents/Button/Button.component';
 import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
+
 const CreationNav = () => {
+  const [selectedButton, setSelectedButton] = useState('');
   const [ButtonAnimation, setButtonAnimation] = useState(false);
+
+  // Router Dom
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!ButtonAnimation) {
       setTimeout(() => {
@@ -12,6 +22,7 @@ const CreationNav = () => {
     }
   }, [ButtonAnimation]);
 
+  // Navigation Buttons content and path
   const navButtons = [
     {
       name: 'general',
@@ -50,7 +61,12 @@ const CreationNav = () => {
       path: '/',
     },
   ];
-  const navigate = useNavigate();
+
+  // Set rig style to selected button
+  const handleSelectedButton = (buttonName) => {
+    setSelectedButton(buttonName);
+  };
+
   return (
     <div className="z-10 flex h-screen flex-col bg-neutral-900 px-2 pt-8 animate-in slide-in-from-left duration-1000">
       <img
@@ -84,9 +100,12 @@ const CreationNav = () => {
             return (
               <Button
                 id={`button-${button.name}`}
+                name={button.name}
                 key={button.key}
+                selectedButton={selectedButton}
                 buttonType={BUTTON_TYPES.main}
                 onClick={() => {
+                  handleSelectedButton(button.name);
                   navigate(button.path);
                 }}
               >

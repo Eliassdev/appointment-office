@@ -11,7 +11,7 @@ export const serviceSlice = createApi({
     createService: builder.mutation({
       query(input) {
         return {
-          url: '/services/',
+          url: '/services',
           method: 'POST',
           body: input,
         };
