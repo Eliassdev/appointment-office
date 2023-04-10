@@ -6,20 +6,26 @@ import { useNavigate } from 'react-router-dom';
 // Redux
 import { useCreateServiceMutation } from '../../redux/modular/api/services.slice';
 import { useGetStylistQuery } from '../../redux/modular/api/stylists.slice';
+import { useGetBranchesQuery } from '../../redux/modular/api/branches.slice';
 
 // Components
 import InputElement from '../../CustomComponents/Inputs/InputElement.component';
+import SelectElement from '../../CustomComponents/Inputs/SelectElement.component';
 import ServicesFormNav from './ServicesFormNav';
 
 //Formik
 import { useFormik } from 'formik';
 
 //Zod
-import SelectElement from '../../CustomComponents/Inputs/SelectElement.component';
-import { useGetBranchesQuery } from '../../redux/modular/api/branches.slice';
 import { serviceValidation } from '../../schemas/services.schema';
 
-const ServicesForm = () => {
+//Constants
+export const SERVICES_FORM_TYPE = {
+  create: 'create',
+  update: 'update',
+};
+
+const ServicesForm = ({ formType }) => {
   const [Branch, setBranch] = useState(null);
   const [Stylists, setStylists] = useState([]);
   // --- React Router ---
@@ -117,8 +123,12 @@ const ServicesForm = () => {
             }}
           >
             <option>Seleccione un estilista</option>
-            {branches?.map((bra) => {
-              return <option value={bra.branch_id}>{bra.branch_name}</option>;
+            {branches?.map((bra, index) => {
+              return (
+                <option key={`${bra}-${index}`} value={bra.branch_id}>
+                  {bra.branch_name}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -136,10 +146,10 @@ const ServicesForm = () => {
             onBlur={formik.handleBlur}
           >
             <option>Seleccione un estilista</option>
-            {Stylists?.map((sty) => {
+            {Stylists?.map((sty, index) => {
               console.log(sty);
               return (
-                <option value={sty.stylist_id}>
+                <option key={`${sty}-${index}`} value={sty.stylist_id}>
                   {sty.stylist_firstname + ' ' + sty.stylist_lastname}
                 </option>
               );
