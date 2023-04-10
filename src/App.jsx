@@ -23,8 +23,8 @@ import {BranchForm} from './components/Branchs/BranchForm';
 import { BranchPanel } from './components/Branchs/BranchPanel';
 import { BranchUpdate } from './components/Branchs/BranchUpdate';
 
-// Stylist Imports
-// import {StylistCreate} from './components/StylistsForm/StylistCreate';
+// Stylist Import
+import { StylistsCreate } from './components/StylistsForm/StylistsCreate';
 import StylistTable from './components/StylistsForm/StylistsTable';
 
 //Services Imports
@@ -70,7 +70,7 @@ const App = () => {
           />
           {/*Stylists*/}
           <Route path="/dashboard/stylists" element={<StylistTable />} />
-          {/* <Route path="/dashboard/stylist/create" element={<StylistCreate />} /> */}
+          <Route path="/dashboard/stylist/create" element={<StylistsCreate />} />
           <Route
             path="/dashboard/stylist/update/:id"
             element={<StylistTable />}

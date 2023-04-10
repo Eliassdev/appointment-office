@@ -9,21 +9,20 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
 import { useCreateStylistMutation } from '../../redux/modular/api/stylists.slice';
-import { useGetBranchesQuery } from '../../redux/modular/api/branches.slice';
+import { useGetBranchesQuery, useUpdateBranchMutation } from '../../redux/modular/api/branches.slice';
 //Zod
 import { stylistValidation } from '../../schemas/stylist.shema';
 
 
 
 export const StylistsCreate = () => {
-  const [OrgBranches, setOrgBranches] = useState(null)
-
+  
   const [countries, setCountries] = useState(null);
   const [selectedCountry, selectedCountrySet] = useState(null);
   const [states, setStates] = useState(null);
   const [InAnimation, setInAnimation] = useState(true);
   const [OutAnimation, setOutAnimation] = useState(false);
-  const id = localStorage.getItem('organizationId');
+
   
   const allCountries = Country.getAllCountries();
 
@@ -103,7 +102,7 @@ useEffect(() => {
       selectedCountrySet(formik.values.country);
     }, 500);
   
-
+    
     let countryStates = State.getStatesOfCountry(selectedCountry);
     setStates(countryStates);
   }
@@ -114,22 +113,11 @@ useEffect(() => {
   }
 }, [formik.values.country, selectedCountry, isSuccessCreate]);
 
-useEffect(() => {
-  if (OrgBranches === null) {
-    setTimeout(()=> {
-      setOrgBranches(branches?.filter((bra)=> bra.organization_id === Number(id)))
-      console.log(branches)
-    
-    }, 500);
-  } 
-  
-
-}, [])
-
 
   return (
     <div className="grid-span-2">
-      <form className="form">
+      <form  onSubmit={formik.handleSubmit}
+          className="flex h-auto w-full flex-col bg-neutral-900 px-10 pb-4 pt-4">
         <fieldset>
           <legend>Stylists Form</legend>
           <div
@@ -145,7 +133,7 @@ useEffect(() => {
               id="stylist_firstname"
               name="stylist_firstname"
               className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-              value={formik.values.branch_name}
+              value={formik.values.stylist_firstname}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -165,7 +153,7 @@ useEffect(() => {
               id="stylist_lastname"
               name="stylist_lastname"
               className=" h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
-              value={formik.values.branch_name}
+              value={formik.values.stylist_lastname}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -234,7 +222,7 @@ useEffect(() => {
             <label htmlFor="branch_id">Sucursal</label>
             <select name="branch_id" id="branch_id" required="">
               <option value="">Seleccione una opcion</option>
-              {OrgBranches?.map((bra)=>{
+              {branches?.map((bra)=>{
                 return (
                   <option value={bra.branch_id}>{bra.branch_name}</option>
                 )

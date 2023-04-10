@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetStylistQuery } from '../../redux/modular/api/stylists.slice.js';
 
 
 const StylistTable = () => {
+  const navigate = useNavigate()
   const { data: stylists = [], isLoading } = useGetStylistQuery();
   console.log(stylists);
 
@@ -73,7 +75,7 @@ const StylistTable = () => {
                         navigate(`/dashboard/stylist/update/${sti.stylist_id}`);
                       }}>
                         Editar
-                      </button>
+                      </button> 
                     </td>
                     <td className=" px-2 py-1 text-center text-white">
                       <button
@@ -97,6 +99,14 @@ const StylistTable = () => {
             </tbody>
           </table>
         </div>
+        <button
+          onClick={() => {
+            navigate('/dashboard/stylist/create');
+          }}
+          className="absolute bottom-12 right-32 rounded-full border-2 border-purple-600 bg-neutral-900 px-4 py-2 text-purple-600"
+        >
+          Crear Estilista
+        </button>
       </div>
     </div>
   );
