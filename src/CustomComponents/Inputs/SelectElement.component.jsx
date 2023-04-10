@@ -1,6 +1,7 @@
 import InputElement from './InputElement.component';
 
 import { ORGANIZATIONS_FORM_TYPE } from '../../components/Organizations/OrganizationsForm';
+import { SERVICES_FORM_TYPE } from '../../components/Services/ServicesForm';
 
 const SelectElement = ({
   title,

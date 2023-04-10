@@ -28,6 +28,7 @@ export const SERVICES_FORM_TYPE = {
 const ServicesForm = ({ formType }) => {
   const [Branch, setBranch] = useState(null);
   const [Stylists, setStylists] = useState([]);
+
   // --- React Router ---
   const navigate = useNavigate();
 
@@ -41,36 +42,74 @@ const ServicesForm = ({ formType }) => {
       isError: isErrorUpdate,
     },
   ] = useCreateServiceMutation();
+
+  // Get Stylists Query
   const {
     data: stylists = [],
     isSuccess: isSuccessSty,
     isLoading: isLoadingSty,
   } = useGetStylistQuery();
+
+  // Get Branches Query
   const {
     data: branches = [],
-    isSuccess: isSuccessBra,
-    isLoading: isLoadingBra,
+    isSuccess: isSuccessGetBranches,
+    isLoading: isLoadingGetBranches,
   } = useGetBranchesQuery();
 
-  // --- Formik configuration ---
-  const formik = useFormik({
-    initialValues: {
-      stylist_id: 0,
-      service_name: '',
-      service_price: 500,
-      service_duration: 20,
-      created_by: 1,
-      updated_by: 1,
-    },
-    onSubmit: async (values) => {
-      console.log('onSubmit ejecuted');
-      console.log(values);
+  // --- Formik ---
 
-      let body = values;
-      body.stylist_id = Number(values.stylist_id);
-      console.log(body.stylist_id);
-      createService(body);
-    },
+  // Initial Values
+  const initialFormikValues = () => {
+    switch (formType) {
+      case SERVICES_FORM_TYPE.create:
+        return {
+          stylist_id: 0,
+          service_name: '',
+          service_price: 500,
+          service_duration: 20,
+          created_by: 1,
+          updated_by: 1,
+        };
+      case SERVICES_FORM_TYPE.update:
+        return {
+          stylist_id: serviceData.stylist_id,
+          service_name: serviceData.service_name,
+          service_price: serviceData.service_price,
+          service_duration: serviceData.service_duration,
+          created_by: 1,
+          updated_by: 1,
+        };
+    }
+  };
+
+  // Formik submit function swith for Form Type
+  const formikSubmit = () => {
+    switch (formType) {
+      case SERVICES_FORM_TYPE.create:
+        return async (values) => {
+          console.log('onSubmit ejecuted');
+          let body = values;
+          body.stylist_id = Number(values.stylist_id);
+          console.log(body.stylist_id);
+          createService(body);
+        };
+      case SERVICES_FORM_TYPE.update:
+        return async (values) => {
+          let body = values;
+          const request = {
+            id: id,
+            info: body,
+          };
+          updateService(request);
+        };
+    }
+  };
+
+  // Formik config
+  const formik = useFormik({
+    initialValues: initialFormikValues(),
+    onSubmit: formikSubmit(),
     validate: (values) => {
       const result = serviceValidation.safeParse(values);
       if (result.success) {
@@ -98,6 +137,7 @@ const ServicesForm = ({ formType }) => {
       }, 1000);
     }
   }, [isSuccessUpdate]);
+
   useEffect(() => {
     if (Branch !== null) {
       // setStylists(stylists?.filter((sty) => sty.stylist_firstname === 'Jack'));
@@ -132,6 +172,7 @@ const ServicesForm = ({ formType }) => {
             })}
           </select>
         </div>
+
         <div className="mb-2 flex flex-col px-4">
           <label className="mb-1 text-neutral-100" htmlFor="country">
             Estilista
