@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteBranchMutation } from '../../redux/modular/api/branches.slice';
 
-export const BranchCard = ({ bra }) => {
+export const BranchCard = ({ bra, navigateOut }) => {
   const navigate = useNavigate();
 
   return (
@@ -30,17 +30,17 @@ export const BranchCard = ({ bra }) => {
       </div>
       <div className="space-x-3 px-6 pb-2">
         <button
-          className="w-28 rounded-full border-2 border-purple-600 bg-neutral-800 py-2 px-4 text-purple-600"
+          className="w-28 rounded-full border-2 border-purple-600 bg-neutral-800 px-4 py-2 text-purple-600"
           onClick={() => {
-            navigate(`/dashboard/branch/${bra.branch_id}`);
+            navigateOut(`/dashboard/branch/${bra.branch_id}`);
           }}
         >
           Detalles
         </button>
         <button
-          className="w-28 rounded-full border-2 border-amber-500 bg-neutral-800 py-2 px-4 text-amber-500"
+          className="w-28 rounded-full border-2 border-amber-500 bg-neutral-800 px-4 py-2 text-amber-500"
           onClick={() => {
-            navigate(`/dashboard/branch/update/${bra.branch_id}`);
+            navigateOut(`/dashboard/branch/update/${bra.branch_id}`);
           }}
         >
           Editar
@@ -48,9 +48,9 @@ export const BranchCard = ({ bra }) => {
         <button
           id={bra.branch_id}
           onClick={(e) => {
-            navigate(`/dashboard/branch/delete/${bra.branch_id}`);
+            navigateOut(`/dashboard/branch/delete/${bra.branch_id}`);
           }}
-          className="w-28 rounded-full border-2 border-red-600 bg-neutral-800 py-2 px-4 text-red-600"
+          className="w-28 rounded-full border-2 border-red-600 bg-neutral-800 px-4 py-2 text-red-600"
         >
           Eliminar
         </button>

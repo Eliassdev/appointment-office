@@ -1,12 +1,9 @@
 import React from 'react';
 
-// Components
 import OrganizationForm from './OrganizationsForm';
-
-// Constants
 import { ORGANIZATIONS_FORM_TYPE } from './OrganizationsForm';
 
-function OrganizationsDetail({ orgData }) {
+function OrganizationsUpdate({ orgData }) {
   return (
     <div className=" flex h-full w-full bg-neutral-800 px-12">
       <div className="w-full py-8">
@@ -14,7 +11,7 @@ function OrganizationsDetail({ orgData }) {
           Datos de tu Empresa
         </h1>
         <OrganizationForm
-          formType={ORGANIZATIONS_FORM_TYPE.read}
+          formType={ORGANIZATIONS_FORM_TYPE.update}
           orgData={orgData}
         />
       </div>
@@ -22,4 +19,4 @@ function OrganizationsDetail({ orgData }) {
   );
 }
 
-export default OrganizationsDetail;
+export default OrganizationsUpdate;
