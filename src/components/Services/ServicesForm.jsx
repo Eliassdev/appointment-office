@@ -89,6 +89,7 @@ const ServicesForm = ({ formType }) => {
     switch (formType) {
       case SERVICES_FORM_TYPE.create:
         return async (values) => {
+          console.log('values: ', values);
           console.log('onSubmit ejecuted');
           let body = values;
           body.stylist_id = Number(values.stylist_id);
