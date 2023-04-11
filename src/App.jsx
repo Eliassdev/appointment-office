@@ -28,8 +28,6 @@ import StylistTable from './components/StylistsForm/StylistTable';
 import ServicesCreate from './components/Services/ServicesCreate';
 import { ServiceDelete } from './components/Services/ServiceDelete';
 import { ServiceDetail } from './components/Services/ServiceDetail';
-import ServicesCreate from './components/Services/ServicesCreate';
-import ServicesForm from './components/Services/ServicesForm';
 import { ServicesPanel } from './components/Services/ServicesPanel';
 import { ServiceUpdate } from './components/Services/ServicesUpdate';
 
