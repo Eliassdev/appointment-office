@@ -38,7 +38,7 @@ const Button = ({
       className={`${BUTTON_BASE_CLASS} ${
         buttonType ? BUTTON_TYPE_CLASSES[buttonType] : BUTTON_TYPE_CLASSES.main
       } ${
-        selectedButton === name
+        selectedButton && selectedButton === name
           ? BUTTON_TYPE_CLASSES[`${buttonType}_selected`]
           : ''
       }`}
