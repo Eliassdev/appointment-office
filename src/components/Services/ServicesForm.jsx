@@ -155,13 +155,14 @@ const ServicesForm = ({ formType }) => {
       <div className=" mt-2 grid grid-cols-1">
         <SelectElement
           title={'Sucursal'}
-          name={Branch}
-          id={Branch}
+          name={'branch_id'}
+          id={'branch_id'}
           formType={formType}
           value={Branch}
           options={branches}
           defaultValue={Branch}
           onChange={(e) => {
+            console.log(e.target.value);
             setBranch(e.target.value);
           }}
           onBlur={formik.handleBlur}

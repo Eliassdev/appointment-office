@@ -7,21 +7,21 @@ const StylistTable = () => {
   console.log(stylists);
 
   return (
-    <div class="text-center">
-      <h1 class="mx-5 my-5 font-serif text-2xl text-fuchsia-400">
+    <div className="text-center">
+      <h1 className="mx-5 my-5 font-serif text-2xl text-fuchsia-400">
         StylistTable
       </h1>
-      <table class="mx-6">
+      <table className="mx-6">
         <thead>
           <tr>
-            <th class="border border-slate-300 text-neutral-50">Name</th>
-            <th class="border border-slate-300 text-neutral-50">Address</th>
-            <th class="border border-slate-300 text-neutral-50">City</th>
-            <th class="border border-slate-300 text-neutral-50">State</th>
-            <th class="border border-slate-300 text-neutral-50">Country</th>
-            <th class="border border-slate-300 text-neutral-50">Gender</th>
-            <th class="border border-slate-300 text-neutral-50">Email</th>
-            <th class="border border-slate-300 text-neutral-50">Edit</th>
+            <th className="border border-slate-300 text-neutral-50">Name</th>
+            <th className="border border-slate-300 text-neutral-50">Address</th>
+            <th className="border border-slate-300 text-neutral-50">City</th>
+            <th className="border border-slate-300 text-neutral-50">State</th>
+            <th className="border border-slate-300 text-neutral-50">Country</th>
+            <th className="border border-slate-300 text-neutral-50">Gender</th>
+            <th className="border border-slate-300 text-neutral-50">Email</th>
+            <th className="border border-slate-300 text-neutral-50">Edit</th>
           </tr>
         </thead>
 
@@ -29,26 +29,26 @@ const StylistTable = () => {
           {stylists?.map((sti) => {
             console.log(sti);
             return (
-              <tr class="... border border-slate-300">
-                <td class="border border-slate-300 text-amber-500">
+              <tr className="... border border-slate-300">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.stylist_firstname}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.address}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.city}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.state}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.country}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.gender}{' '}
                 </td>
-                <td class="border border-slate-300 text-amber-500">
+                <td className="border border-slate-300 text-amber-500">
                   {sti.email}{' '}
                 </td>
                 <button className="mx-2 text-sky-400" type="submit">
