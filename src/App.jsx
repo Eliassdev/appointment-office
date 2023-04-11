@@ -25,6 +25,7 @@ import { BranchUpdate } from './components/Branchs/BranchUpdate';
 import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
+import ServicesCreate from './components/Services/ServicesCreate';
 import { ServiceDelete } from './components/Services/ServiceDelete';
 import { ServiceDetail } from './components/Services/ServiceDetail';
 import ServicesCreate from './components/Services/ServicesCreate';
