@@ -17,6 +17,7 @@ const SelectElement = ({
   onBlur,
   touched,
   errors,
+  className,
 }) => {
   const SelectType = () => {
     switch (formType) {
@@ -81,7 +82,7 @@ const SelectElement = ({
       case SERVICES_FORM_TYPE.update:
       default:
         return (
-          <div className="mb-2 flex flex-col px-4">
+          <div className={`mb-2 flex flex-col px-4 ${className}`}>
             <label className="mb-1 text-neutral-100" htmlFor="country">
               {title}
             </label>
@@ -93,18 +94,37 @@ const SelectElement = ({
               onChange={onChange}
               onBlur={onBlur}
             >
-              {
+              {name === 'branch_id' ? (
                 <>
-                  <option defaultValue={defaultValue}>
-                    {value === '' ? '--Seleccione una opcion--' : value}
+                  <option>
+                    {!value ? '--Seleccione una opcion--' : value}
                   </option>
                   {options?.map((option, index) => (
-                    <option key={`${option}-${index}`} value={option.branch_id}>
+                    <option
+                      key={`${option}-${index}`}
+                      id={option.branch_id}
+                      value={option.branch_name}
+                    >
                       {option.branch_name}
                     </option>
                   ))}
                 </>
-              }
+              ) : (
+                <>
+                  <option>
+                    {value === '' ? '--Seleccione una opcion--' : value}
+                  </option>
+                  {options?.map((option, index) => (
+                    <option
+                      key={`${option}-${index}`}
+                      id={option.stylist_id}
+                      value={option.stylist_firstname}
+                    >
+                      {option.stylist_firstname}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
             {touched && errors ? (
               <span className="text-red-600">{errors}</span>

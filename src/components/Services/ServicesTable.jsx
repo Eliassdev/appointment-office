@@ -24,12 +24,15 @@ const ServicesTable = ({
         </tr>
       </thead>
       <tbody className="text-left">
-        {services?.map((ser) => {
+        {services?.map((ser, index) => {
           const stylist = stylists?.find(
             (sty) => sty.stylist_id === ser.stylist_id
           );
           return (
-            <tr className="border-b border-t border-neutral-500">
+            <tr
+              className="border-b border-t border-neutral-500"
+              key={`${ser.service_name}-${index}`}
+            >
               <td className="  px-2 py-1 text-white">{ser.service_name}</td>
               <td className=" px-2 py-1 text-white">${ser.service_price}</td>
               <td className=" px-2 py-1 text-white">{ser.service_duration}"</td>

@@ -382,7 +382,6 @@ const OrganizationForm = ({ formType, orgData }) => {
               type="text"
               formType={formType}
               id="postal_code"
-              className="h-8 w-full rounded border-transparent bg-neutral-700  p-2 text-white outline-2 outline-transparent ring-2 ring-transparent focus:border-purple-500 focus:outline-purple-500 focus:ring-purple-500"
               value={formik.values.postal_code}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

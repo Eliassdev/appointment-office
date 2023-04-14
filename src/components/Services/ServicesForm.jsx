@@ -23,12 +23,13 @@ import { serviceValidation } from '../../schemas/services.schema';
 export const SERVICES_FORM_TYPE = {
   create: 'create_service',
   update: 'update_service',
+  read: 'read_service',
 };
 
 const ServicesForm = ({ formType }) => {
-  const [Branch, setBranch] = useState('');
-  const [Stylists, setStylists] = useState([]);
-  console.log('Branch:', Branch);
+  const [SelectedBranch, setSelectedBranch] = useState(null);
+  const [stylistsOnSelectedBranch, setStylistsOnSelectedBranch] = useState([]);
+  const [selectedStylist, setSelectedStylist] = useState({});
 
   // --- React Router ---
   const navigate = useNavigate();
@@ -47,8 +48,8 @@ const ServicesForm = ({ formType }) => {
   // Get Stylists Query
   const {
     data: stylists = [],
-    isSuccess: isSuccessSty,
-    isLoading: isLoadingSty,
+    isSuccess: isSuccessStylists,
+    isLoading: isLoadingStylists,
   } = useGetStylistQuery();
 
   // Get Branches Query
@@ -65,7 +66,8 @@ const ServicesForm = ({ formType }) => {
     switch (formType) {
       case SERVICES_FORM_TYPE.create:
         return {
-          stylist_id: 0,
+          stylist_id: '',
+          stylist_firstname: '',
           service_name: '',
           service_price: 500,
           service_duration: 20,
@@ -89,9 +91,14 @@ const ServicesForm = ({ formType }) => {
     switch (formType) {
       case SERVICES_FORM_TYPE.create:
         return async (values) => {
-          let body = values;
-          body.stylist_id = Number(values.stylist_id);
-          console.log(body.stylist_id);
+          let body = {
+            stylist_id: selectedStylist.stylist_id,
+            service_name: values.service_name,
+            service_price: values.service_price,
+            service_duration: values.service_duration,
+            created_by: values.created_by,
+            updated_by: values.updated_by,
+          };
           createService(body);
         };
       case SERVICES_FORM_TYPE.update:
@@ -129,6 +136,14 @@ const ServicesForm = ({ formType }) => {
   // Handle cancel button
   const handleCancel = () => navigate('/dashboard/services');
 
+  // Handle Branch Select
+  const handleBranchSelect = (e) => {
+    const branchOnSelect = branches.filter(
+      (branch) => branch.branch_name === e.target.value
+    );
+    setSelectedBranch(branchOnSelect[0]);
+  };
+
   // Redirect to dashboard if create organization is successful
   useEffect(() => {
     if (isSuccessCreateService) {
@@ -139,12 +154,13 @@ const ServicesForm = ({ formType }) => {
   }, [isSuccessCreateService]);
 
   useEffect(() => {
-    if (Branch !== null) {
-      // setStylists(stylists?.filter((sty) => sty.stylist_firstname === 'Jack'));
-      setStylists(stylists?.filter((sty) => sty.branch_id === Number(Branch)));
-      console.log(Stylists);
+    if (SelectedBranch !== null) {
+      const stylistsOnBranch = stylists.filter(
+        (stylist) => stylist.branch_id === SelectedBranch.branch_id
+      );
+      setStylistsOnSelectedBranch(stylistsOnBranch);
     }
-  }, [Branch]);
+  }, [SelectedBranch]);
 
   return (
     <form
@@ -157,30 +173,48 @@ const ServicesForm = ({ formType }) => {
           name={'branch_id'}
           id={'branch_id'}
           formType={formType}
-          value={Branch}
+          value={SelectedBranch?.branch_name}
           options={branches}
-          defaultValue={Branch}
           onChange={(e) => {
-            console.log(e.target.value);
-            setBranch(e.target.value);
+            formik.handleChange(e);
+            handleBranchSelect(e);
           }}
           onBlur={formik.handleBlur}
           touched={formik.touched.stylist_id}
           errors={formik.errors.stylist_id}
         />
-        <SelectElement
-          title={'Estilista'}
-          name={'stylist_id'}
-          id={'stylist_id'}
-          formType={formType}
-          defaultValue={formik.values.stylist_id}
-          value={formik.values.stylist_id}
-          options={Stylists}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          touched={formik.touched.stylist_id}
-          errors={formik.errors.stylist_id}
-        />
+        <div className="flex flex-row">
+          <SelectElement
+            title={'Estilista'}
+            name={'stylist_firstname'}
+            id={'stylist_firstname'}
+            formType={formType}
+            defaultValue={formik.values.stylist_firstname}
+            value={formik.values.stylist_firstname}
+            options={stylistsOnSelectedBranch}
+            onChange={(e) => {
+              formik.handleChange(e);
+              // Get the stylist object from the array and set it to the state
+              const stylistOnSelect = stylistsOnSelectedBranch.filter(
+                (stylist) => stylist.stylist_firstname === e.target.value
+              )[0];
+              setSelectedStylist(stylistOnSelect);
+            }}
+            onBlur={formik.handleBlur}
+            touched={formik.touched.stylist_firstname}
+            errors={formik.errors.stylist_firstname}
+            className={'w-1/2'}
+          />
+          <InputElement
+            title={'ID'}
+            name={'stylist_id'}
+            id={'stylist_id'}
+            type={'text'}
+            value={selectedStylist?.stylist_id || ''}
+            formType={SERVICES_FORM_TYPE.read}
+            className={'w-1/2'}
+          />
+        </div>
         <InputElement
           title={'Nombre del Servicio'}
           name={'service_name'}
