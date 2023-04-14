@@ -1,3 +1,4 @@
+// Router Dom
 import { useState } from 'react';
 
 // Router Dom
@@ -6,14 +7,7 @@ import { useNavigate } from 'react-router-dom';
 // Assets
 import Logo from '../../assets/Logo.png';
 
-// Components
-import Button from '../../CustomComponents/Button/Button.component';
-
-// Button Styles
-import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
-
 const NavBar = () => {
-  const [selectedButton, setSelectedButton] = useState({});
   const navigate = useNavigate();
   const handleNavigate = (e) => {
     if (e.target.id === 'home') {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ORGANIZATIONS_FORM_TYPE } from '../../components/Organizations/OrganizationsForm';
+import { SERVICES_FORM_TYPE } from '../../components/Services/ServicesForm';
 
 const InputElement = ({
   title,
@@ -12,9 +13,10 @@ const InputElement = ({
   onBlur,
   formik,
   required,
+  className,
 }) => {
   return (
-    <div className="mb-2 flex flex-col px-4">
+    <div className={`mb-2 flex flex-col px-4 ${className}`}>
       <label className="mb-1 text-neutral-100" htmlFor="short_name">
         {title}
       </label>
@@ -26,7 +28,10 @@ const InputElement = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        disabled={formType === ORGANIZATIONS_FORM_TYPE.read}
+        disabled={
+          formType === ORGANIZATIONS_FORM_TYPE.read ||
+          formType === SERVICES_FORM_TYPE.read
+        }
       />
       {formik?.touched && formik?.errors ? (
         <span className="text-red-600">{formik.errors}</span>

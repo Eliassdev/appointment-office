@@ -33,7 +33,7 @@ function OrganizationsFormNav({
     }
   }, [path]);
 
-  // Render the correct button depending on the form type
+  // Render the correct buttons depending on the form type
   const NavType = () => {
     switch (formType) {
       case ORGANIZATIONS_FORM_TYPE.create:

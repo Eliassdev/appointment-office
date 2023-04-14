@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 export const serviceValidation = z.object({
-  // stylist_id: z.number({
-  //   required_error: 'Selecciona al estilista que presta este servicio',
-  // }),
+  stylist_id: z.string({
+    required_error: 'Selecciona al estilista que presta este servicio',
+  }),
   service_name: z
     .string()
     .min(5, { message: 'Ingresa por lo menos 5 caracteres' })
