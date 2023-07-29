@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../CustomComponents/Button/Button.component';
 import { BUTTON_TYPES } from '../../CustomComponents/Button/Button.component';
 
-const CreationNav = () => {
+export const CreationNav = () => {
   const [selectedButton, setSelectedButton] = useState('');
   const [ButtonAnimation, setButtonAnimation] = useState(false);
 
