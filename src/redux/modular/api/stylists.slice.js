@@ -54,4 +54,10 @@ export const stylistsSlice = createApi({
   }),
 });
 
-export const { useCreateStylistMutation, useGetStylistQuery, useGetStylistByIdQuery, useUpdateStylistMutation, useDeleteStylistMutation } = stylistsSlice;
+export const {
+  useCreateStylistMutation,
+  useGetStylistQuery,
+  useGetStylistByIdQuery,
+  useUpdateStylistMutation,
+  useDeleteStylistMutation,
+} = stylistsSlice;
