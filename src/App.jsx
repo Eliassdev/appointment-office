@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 
 //Pages Imports
-import { AboutUs } from './pages/AboutUs';
+import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
-import { Login } from './pages/Login';
+import Login from './pages/Login';
 
 // Organizations Imports
 import OrganizationsCreate from './components/Organizations/OrganizationsCreate';
@@ -25,10 +25,9 @@ import { BranchUpdate } from './components/Branchs/BranchUpdate';
 import StylistTable from './components/StylistsForm/StylistTable';
 
 //Services Imports
+import ServicesCreate from './components/Services/ServicesCreate';
 import { ServiceDelete } from './components/Services/ServiceDelete';
 import { ServiceDetail } from './components/Services/ServiceDetail';
-import ServicesCreate from './components/Services/ServicesCreate';
-import ServicesForm from './components/Services/ServicesForm';
 import { ServicesPanel } from './components/Services/ServicesPanel';
 import { ServiceUpdate } from './components/Services/ServicesUpdate';
 

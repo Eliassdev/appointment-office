@@ -1,10 +1,9 @@
 import React from 'react';
 
-// React Router Dom
-import { useNavigate } from 'react-router-dom';
-
 //Components
 import ServicesForm from './ServicesForm';
+
+import { SERVICES_FORM_TYPE } from './ServicesForm';
 
 const ServicesCreate = () => {
   return (
@@ -13,7 +12,7 @@ const ServicesCreate = () => {
         <h1 className="mb-8 text-center text-2xl font-bold text-purple-500">
           Crear Servicio
         </h1>
-        <ServicesForm />
+        <ServicesForm formType={SERVICES_FORM_TYPE.create} />
       </div>
     </div>
   );
