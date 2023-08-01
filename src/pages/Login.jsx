@@ -1,9 +1,11 @@
+// Formik
 import { useFormik } from 'formik';
-import React from 'react';
+// React Router
 import { useNavigate } from 'react-router-dom';
+// Logo
 import Logo from '../assets/LogoTitle.png';
 
-export const Login = () => {
+const Login = () => {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
@@ -65,3 +67,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

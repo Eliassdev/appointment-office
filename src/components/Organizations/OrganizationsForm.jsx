@@ -94,25 +94,7 @@ const OrganizationForm = ({ formType, orgData }) => {
           created_by: 1,
           updated_by: 1,
         };
-      case ORGANIZATIONS_FORM_TYPE.update:
-        return {
-          short_name: orgData?.short_name,
-          business_name: orgData?.business_name,
-          country: orgData?.country,
-          state: orgData?.state,
-          city: orgData?.city,
-          street: orgData?.street,
-          address: orgData?.address,
-          postal_code: orgData?.postal_code,
-          address_references: orgData?.address_references,
-          business_phone: orgData?.business_phone,
-          email: orgData?.email,
-          latitude: 39.0,
-          longitude: -12.0,
-          created_by: 1,
-          updated_by: 1,
-        };
-      case ORGANIZATIONS_FORM_TYPE.read:
+      case ORGANIZATIONS_FORM_TYPE.update || ORGANIZATIONS_FORM_TYPE.read:
         return {
           short_name: orgData?.short_name,
           business_name: orgData?.business_name,
@@ -274,7 +256,7 @@ const OrganizationForm = ({ formType, orgData }) => {
     <>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex h-auto w-full flex-col rounded-md bg-neutral-900 px-10 py-8"
+        className="flex h-auto flex-col rounded-md bg-neutral-900 px-10 py-8 lg:w-3/5"
       >
         <div className=" mt-2 grid grid-cols-2">
           <div>

@@ -1,5 +1,3 @@
-import React from 'react';
-import Logo from '../assets/Logo.png';
 import { Outlet } from 'react-router';
 import NavBar from '../components/NavBar/NavBar';
 

@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 
 //Pages Imports
-import { AboutUs } from './pages/AboutUs';
+import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
-import { Login } from './pages/Login';
+import Login from './pages/Login';
 
 // Organizations Imports
 import OrganizationsCreate from './components/Organizations/OrganizationsCreate';
